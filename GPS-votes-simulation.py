@@ -137,21 +137,18 @@ elif chart_type == "Ethnics":
     col1, col2, col3, col4 = st.columns([1, 2, 2, 1])
     with col1:
         st.markdown("#### Ethnic")
-        st.markdown(f"# ")
+        st.markdown(f"### ")
+        st.markdown(f"### ")
         for i, column_name in enumerate(renamed_columns.values()):
             st.markdown(f"### ")
             st.markdown(f"##### {column_name}")
-            st.markdown(f"### ")
-            st.markdown(f"### ")
-            st.markdown(f"##### ")
-            st.markdown(f"##### ")
+            st.markdown(f"# ")
     with col2:
         st.markdown("#### Turnout forecast")
         st.markdown(f"# ")
         slider_values1 = {}
         for i, column_name in enumerate(renamed_columns.values()):
             slider_values1[column_name] = st.slider("", 0, 100, 72, key=column_name, format='%d%%')
-            st.markdown(f"# ")
     with col3:
         st.markdown("#### GPS support forecast")
         st.markdown(f"# ")
@@ -159,19 +156,18 @@ elif chart_type == "Ethnics":
         for i, column_name in enumerate(renamed_columns.values()):
             key = f"slider_col2_{column_name}"
             slider_values[column_name] = st.slider("", 0, 100, 70, key=key, format='%d%%')
-            st.markdown(f"# ")
     with col4:
         GPSvote = 0
         st.markdown("#### Vote count forecast")
-        st.markdown(f"# ")
+        st.markdown(f"###### ")
+        st.markdown(f"###### ")
+        st.markdown(f"###### ")
         for i, column_name in enumerate(renamed_columns.values()):
             value = int((dfnew[list(renamed_columns.values())]).values[0][i] * slider_values1[column_name]/100 * slider_values[column_name]/100)
             st.markdown(f"##### &emsp;&emsp;&emsp;&emsp;{value}")
-            st.markdown(f"### ")
-            st.markdown(f"### ")
-            st.markdown(f"### ")
-            st.markdown(f"##### ")
-            st.markdown(f"##### ")
+            st.markdown(f"## ")
+            st.markdown(f"###### ")
+            st.markdown(f"###### ")
             GPSvote += value
     nonGPSvote = total.values - GPSvote
     GPSwin = int((total.values)[0]/2 + 1)
