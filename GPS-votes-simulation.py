@@ -100,14 +100,14 @@ if chart_type == "Age":
             st.markdown(f"###### ")
             GPSvote += value
     nonGPSvote = total.values - GPSvote
-    GPSwin = int((total.values)[0]/2 + 1)
-    st.markdown(f"### In order for GPS to earn a simple majority, it needs {GPSwin} supporter")
-    st.markdown(f"### Currently, it expected to garner {GPSvote} supporter")
+    remGPSvote = abs(GPSvote - GPSwin)
+    st.markdown(f"### In order for GPS to earn a simple majority, it needs {GPSwin} support")
+    st.markdown(f"### Currently, it expected to garner {GPSvote} support")
     if GPSvote > nonGPSvote:
-        st.markdown("<h2 style='color: green; animation: flash 3s infinite'>GPS is Winning</h2>",
+        st.markdown("<h2 style='color: green; animation: pulse 3s infinite'>GPS is Winning</h2>",
                     unsafe_allow_html=True)
     else:
-        st.markdown("<h2 style='color: red; animation: pulse 3s infinite'>GPS is Losing</h2>",
+        st.markdown("<h2 style='color: red; animation: pulse 3s infinite'>GPS is Losing - it needs {} to win</h2>".format(remGPSvote),
                     unsafe_allow_html=True)
 
 elif chart_type == "Ethnics":
@@ -170,12 +170,12 @@ elif chart_type == "Ethnics":
             st.markdown(f"###### ")
             GPSvote += value
     nonGPSvote = total.values - GPSvote
-    GPSwin = int((total.values)[0]/2 + 1)
-    st.markdown(f"### In order for GPS to earn a simple majority, it needs {GPSwin} supporter")
-    st.markdown(f"### Currently, it expected to garner {GPSvote} supporter")
+    remGPSvote = abs(GPSvote - GPSwin)
+    st.markdown(f"### In order for GPS to earn a simple majority, it needs {GPSwin} support")
+    st.markdown(f"### Currently, it expected to garner {GPSvote} support")
     if GPSvote > nonGPSvote:
-        st.markdown("<h2 style='color: green; animation: flash 3s infinite'>GPS is Winning</h2>",
+        st.markdown("<h2 style='color: green; animation: pulse 3s infinite'>GPS is Winning</h2>",
                     unsafe_allow_html=True)
     else:
-        st.markdown("<h2 style='color: red; animation: pulse 3s infinite'>GPS is Losing</h2>",
+        st.markdown("<h2 style='color: red; animation: pulse 3s infinite'>GPS is Losing - it needs {} to win</h2>".format(remGPSvote),
                     unsafe_allow_html=True)
