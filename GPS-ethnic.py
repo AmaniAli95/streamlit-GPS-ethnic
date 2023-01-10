@@ -63,7 +63,7 @@ with col1:
         st.markdown(f"##### ")
 
 with col2:
-    st.markdown("#### &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Turnout forecast")
+    st.markdown("#### Turnout forecast")
     st.markdown(f"# ")
     slider_values1 = {}
     for i, column_name in enumerate(renamed_columns.values()):
@@ -73,7 +73,7 @@ with col2:
         st.markdown(f"# ")
 
 with col3:
-    st.markdown("#### &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; GPS support forecast")
+    st.markdown("#### GPS support forecast")
     st.markdown(f"# ")
     slider_values = {}
     for i, column_name in enumerate(renamed_columns.values()):
