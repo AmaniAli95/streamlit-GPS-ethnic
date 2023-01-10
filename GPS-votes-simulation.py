@@ -101,7 +101,7 @@ if chart_type == "Age":
             GPSvote += value
     nonGPSvote = total.values - GPSvote
     GPSwin = int((total.values)[0]/2 + 1)
-    st.markdown(f"### In order for GPS to earn a simple majority, it needs of {GPSwin} supporter")
+    st.markdown(f"### In order for GPS to earn a simple majority, it needs {GPSwin} supporter")
     st.markdown(f"### Currently, it expected to garner {GPSvote} supporter")
     if GPSvote > nonGPSvote:
         st.markdown("<h2 style='color: green; animation: flash 3s infinite'>GPS is Winning</h2>",
@@ -171,7 +171,7 @@ elif chart_type == "Ethnics":
             GPSvote += value
     nonGPSvote = total.values - GPSvote
     GPSwin = int((total.values)[0]/2 + 1)
-    st.markdown(f"### In order for GPS to earn a simple majority, it needs of {GPSwin} supporter")
+    st.markdown(f"### In order for GPS to earn a simple majority, it needs {GPSwin} supporter")
     st.markdown(f"### Currently, it expected to garner {GPSvote} supporter")
     if GPSvote > nonGPSvote:
         st.markdown("<h2 style='color: green; animation: flash 3s infinite'>GPS is Winning</h2>",
