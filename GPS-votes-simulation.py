@@ -100,6 +100,7 @@ if chart_type == "Age":
             st.markdown(f"###### ")
             GPSvote += value
     nonGPSvote = total.values - GPSvote
+    GPSwin = int((total.values)[0]/2 + 1)
     remGPSvote = abs(GPSvote - GPSwin)
     st.markdown(f"### In order for GPS to earn a simple majority, it needs {GPSwin} support")
     st.markdown(f"### Currently, it expected to garner {GPSvote} support")
@@ -170,6 +171,7 @@ elif chart_type == "Ethnics":
             st.markdown(f"###### ")
             GPSvote += value
     nonGPSvote = total.values - GPSvote
+    GPSwin = int((total.values)[0]/2 + 1)
     remGPSvote = abs(GPSvote - GPSwin)
     st.markdown(f"### In order for GPS to earn a simple majority, it needs {GPSwin} support")
     st.markdown(f"### Currently, it expected to garner {GPSvote} support")
