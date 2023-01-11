@@ -14,7 +14,7 @@ for col in age_columns:
 st.title("GPS Votes Simulation")
 
 # Create a sidebar
-st.sidebar.title("Forecast Category")
+#st.sidebar.title("Forecast Category")
 #chart_type = st.sidebar.button("", ["Ethnics", "Age"])
 chart_type = st.sidebar.radio('Select Category',('Ethnics', 'Age'))
 
