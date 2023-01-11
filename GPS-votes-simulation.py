@@ -14,9 +14,9 @@ for col in age_columns:
 st.title("GPS Votes Simulation")
 
 # Create a sidebar
-st.sidebar.title("Category")
+st.sidebar.title("Forecast Category")
 #chart_type = st.sidebar.button("", ["Ethnics", "Age"])
-chart_type = st.sidebar.selectbox('Select Category',('Ethnics', 'Age'))
+chart_type = st.sidebar.radio('Select Category',('Ethnics', 'Age'))
 
 
 # Dropdown
@@ -101,10 +101,15 @@ if chart_type == "Age":
             GPSvote += value
     nonGPSvote = total.values - GPSvote
     GPSwin = int((total.values)[0]/2 + 1)
+    GPSwin23 = int((total.values)[0]/3 + GPSwin)
+    st.markdown(GPSwin23)
     remGPSvote = abs(GPSvote - GPSwin)
     st.markdown(f"### In order for GPS to earn a simple majority, it needs {GPSwin} support")
     st.markdown(f"### Currently, it expected to garner {GPSvote} support")
-    if GPSvote > nonGPSvote:
+    if GPSvote >= GPSwin23:
+        st.markdown("<h2 style='color: green; animation: pulse 3s infinite'>GPS is Winning. It forecast to win 2/3 votes</h2>",
+                    unsafe_allow_html=True)
+    elif GPSvote > nonGPSvote:
         st.markdown("<h2 style='color: green; animation: pulse 3s infinite'>GPS is Winning</h2>",
                     unsafe_allow_html=True)
     else:
@@ -172,10 +177,15 @@ elif chart_type == "Ethnics":
             GPSvote += value
     nonGPSvote = total.values - GPSvote
     GPSwin = int((total.values)[0]/2 + 1)
+    GPSwin23 = int((total.values)[0]/3 + GPSwin)
+    st.markdown(GPSwin23)
     remGPSvote = abs(GPSvote - GPSwin)
     st.markdown(f"### In order for GPS to earn a simple majority, it needs {GPSwin} support")
     st.markdown(f"### Currently, it expected to garner {GPSvote} support")
-    if GPSvote > nonGPSvote:
+    if GPSvote >= GPSwin23:
+        st.markdown("<h2 style='color: green; animation: pulse 3s infinite'>GPS is Winning. It forecast to win 2/3 votes</h2>",
+                    unsafe_allow_html=True)
+    elif GPSvote > nonGPSvote:
         st.markdown("<h2 style='color: green; animation: pulse 3s infinite'>GPS is Winning</h2>",
                     unsafe_allow_html=True)
     else:
