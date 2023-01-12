@@ -1,6 +1,8 @@
 import streamlit as st
 import pandas as pd
 import requests
+from google.oauth2 import service_account
+from gsheetsdb import connect
 st.set_page_config(layout="wide")
 
 url = "https://github.com/AmaniAli95/streamlit-GPS-ethnic/raw/main/demographic.csv"
@@ -78,15 +80,20 @@ if chart_type == "Age":
         st.markdown(f"# ")
         slider_values1 = {}
         for i, column_name in enumerate(renamed_columns.values()):
-            slider_values1[column_name] = st.slider("", 0, 100, 72, key=column_name, format='%d%%')
+            if column_name not in st.session_state:
+                st.session_state[column_name] = 72
+            slider_values1[column_name] = st.slider("", 0, 100, st.session_state[column_name], key=column_name, format='%d%%')
     with col3:
         st.markdown("#### GPS support forecast")
         st.markdown(f"# ")
         slider_values = {}
         for i, column_name in enumerate(renamed_columns.values()):
-            key = f"slider_col2_{column_name}"
-            slider_values[column_name] = st.slider("", 0, 100, 70, key=key, format='%d%%')
+            key = f"slider_col3_{column_name}"
+            if key not in st.session_state:
+                st.session_state[key] = 70
+            slider_values[column_name] = st.slider("", 0, 100, st.session_state[key], key=key, format='%d%%')
     with col4:
+        all_data = {}
         GPSvote = 0
         st.markdown("#### Vote count forecast")
         st.markdown(f"###### ")
@@ -98,6 +105,9 @@ if chart_type == "Age":
             st.markdown(f"## ")
             st.markdown(f"###### ")
             st.markdown(f"###### ")
+            all_data[f"{column_name} | Pct Turnout Forecast"] = slider_values1[column_name]
+            all_data[f"{column_name} | Pct GPS Support_Forecast"] = slider_values[column_name]
+            all_data[f"{column_name} | Vote Count Forecast"] = value
             GPSvote += value
     nonGPSvote = total.values - GPSvote
     GPSwin = int((total.values)[0]/2 + 1)
@@ -153,15 +163,20 @@ elif chart_type == "Ethnics":
         st.markdown(f"# ")
         slider_values1 = {}
         for i, column_name in enumerate(renamed_columns.values()):
-            slider_values1[column_name] = st.slider("", 0, 100, 72, key=column_name, format='%d%%')
+            if column_name not in st.session_state:
+                st.session_state[column_name] = 72
+            slider_values1[column_name] = st.slider("", 0, 100, st.session_state[column_name], key=column_name, format='%d%%')
     with col3:
         st.markdown("#### GPS support forecast")
         st.markdown(f"# ")
         slider_values = {}
         for i, column_name in enumerate(renamed_columns.values()):
-            key = f"slider_col2_{column_name}"
-            slider_values[column_name] = st.slider("", 0, 100, 70, key=key, format='%d%%')
+            key = f"slider_col3_{column_name}"
+            if key not in st.session_state:
+                st.session_state[key] = 70
+            slider_values[column_name] = st.slider("", 0, 100, st.session_state[key], key=key, format='%d%%')
     with col4:
+        all_data = {}
         GPSvote = 0
         st.markdown("#### Vote count forecast")
         st.markdown(f"###### ")
@@ -173,6 +188,9 @@ elif chart_type == "Ethnics":
             st.markdown(f"## ")
             st.markdown(f"###### ")
             st.markdown(f"###### ")
+            all_data[f"{column_name} | Pct Turnout Forecast"] = slider_values1[column_name]
+            all_data[f"{column_name} | Pct GPS Support_Forecast"] = slider_values[column_name]
+            all_data[f"{column_name} | Vote Count Forecast"] = value
             GPSvote += value
     nonGPSvote = total.values - GPSvote
     GPSwin = int((total.values)[0]/2 + 1)
@@ -189,3 +207,38 @@ elif chart_type == "Ethnics":
     else:
         st.markdown("<h2 style='color: red; animation: pulse 3s infinite'>GPS is Losing - it needs {} support to win</h2>".format(remGPSvote),
                     unsafe_allow_html=True)
+        
+def _update_slider():
+    for i, column_name in enumerate(renamed_columns.values()):
+        if column_name not in st.session_state:
+           st.session_state[column_name] = 72
+        st.session_state[column_name] = 72
+    for i, column_name in enumerate(renamed_columns.values()):
+        key = f"slider_col3_{column_name}"
+        if key not in st.session_state:
+           st.session_state[key] = 70
+        st.session_state[key] = 70    
+    #st.experimental_rerun()   
+st.button("Reset",on_click=_update_slider)
+
+# Create a connection object.
+credentials = service_account.Credentials.from_service_account_info(
+    st.secrets["gcp_service_account"],
+    scopes=[
+        "https://www.googleapis.com/auth/spreadsheets",
+    ],
+)
+# Perform SQL query on the Google Sheet.
+# Uses st.cache to only rerun when the query changes or after 10 min.
+@st.cache(ttl=600)
+def run_query(query):
+    rows = conn.execute(query, headers=1)
+    rows = rows.fetchall()
+    return rows
+
+sheet_url = st.secrets["https://docs.google.com/spreadsheets/d/1k9eyfNur1N2Bs_tNek88cGh9UWUfBcE2LeWaMMmBP5o/edit#gid=0"]
+rows = run_query(f'SELECT * FROM "{sheet_url}"')
+
+# Print results.
+for row in rows:
+    st.write(f"{row.name} has a :{row.pet}:")
