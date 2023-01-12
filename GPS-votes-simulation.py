@@ -38,11 +38,11 @@ if chart_type == "Age":
     selected_rows = df[df['D'] == d_name]
     age_columns = [col for col in df.columns if col.startswith('age_group|')]
     renamed_columns = {col: col.replace('age_group|', '').replace('_', ' ').
-                       replace('o90', 'Over 90 year olds ').replace('b20', 'Below 20 year olds').
-                       replace('20s', '20 - 29 year olds').replace('30s', '30 - 39 year olds').
-                       replace('40s', '40 - 49 year olds').replace('50s', '50 - year olds').
-                       replace('60s', '60 - 69 year olds').replace('70s', '70 - 79 year olds').
-                       replace('80s', '80 - 89 year olds').title() for col in age_columns}
+                       replace('o90', 'Over 90 y/o').replace('b20', 'Below 20 y/o').
+                       replace('20s', '20 - y/o').replace('30s', '30 - 39 y/o').
+                       replace('40s', '40 - 49 y/o').replace('50s', '50 - y/o').
+                       replace('60s', '60 - 69 y/os').replace('70s', '70 - 79 y/o').
+                       replace('80s', '80 - 89 y/o').title() for col in age_columns}
     selected_rows.rename(columns=renamed_columns, inplace=True)
     selected_rows[list(renamed_columns.values())] = selected_rows[list(renamed_columns.values())].apply(pd.to_numeric, errors='coerce')
     selected_rows[list(renamed_columns.values())].fillna(0, inplace=True)
