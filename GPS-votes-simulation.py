@@ -42,7 +42,7 @@ if chart_type == "Age":
                        replace('20s', '20 - y/o').replace('30s', '30 - 39 y/o').
                        replace('40s', '40 - 49 y/o').replace('50s', '50 - y/o').
                        replace('60s', '60 - 69 y/os').replace('70s', '70 - 79 y/o').
-                       replace('80s', '80 - 89 y/o').title() for col in age_columns}
+                       replace('80s', '80 - 89 y/o') for col in age_columns}
     selected_rows.rename(columns=renamed_columns, inplace=True)
     selected_rows[list(renamed_columns.values())] = selected_rows[list(renamed_columns.values())].apply(pd.to_numeric, errors='coerce')
     selected_rows[list(renamed_columns.values())].fillna(0, inplace=True)
