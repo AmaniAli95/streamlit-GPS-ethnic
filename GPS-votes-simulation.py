@@ -3,6 +3,7 @@ import pandas as pd
 import requests
 from google.oauth2 import service_account
 from gsheetsdb import connect
+from bs4 import BeautifulSoup
 st.set_page_config(layout="wide")
 
 url = "https://github.com/AmaniAli95/streamlit-GPS-ethnic/raw/main/demographic.csv"
@@ -205,6 +206,8 @@ elif chart_type == "Ethnics":
     else:
         result = "<h2 style='color: red; animation: pulse 3s infinite'>GPS is Losing - it needs {} support to win</h2>".format(remGPSvote)
     st.markdown(result, unsafe_allow_html=True)
+    soup = BeautifulSoup(result, 'html.parser')
+    text_result = soup.h2.text
         
 def _update_slider():
     for i, column_name in enumerate(renamed_columns.values()):
@@ -237,7 +240,7 @@ if st.button('Submit'):
     dfall["Total Voter"] = total.values
     dfall["Simple Majority Votes"] = GPSwin
     dfall["Two Third Winning"] = GPSwin23
-    dfall["Result"] = result
+    dfall["Result"] = text_result
     dfall.insert(0, "Save Name", "")
     dfall.insert(1, "Description", "")
     dfall.insert(2, "Parliament", level, True)
