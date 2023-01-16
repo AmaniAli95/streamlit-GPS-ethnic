@@ -203,7 +203,7 @@ elif chart_type == "Ethnics":
     elif GPSvote > nonGPSvote:
         result = "<h2 style='color: green; animation: pulse 3s infinite'>GPS is Winning</h2>"
     else:
-        result = "<h2 style='color: red; animation: pulse 3s infinite'>GPS is Losing - it needs {} support to win</h2>"
+        result = "<h2 style='color: red; animation: pulse 3s infinite'>GPS is Losing - it needs {} support to win</h2>".format(remGPSvote)
     st.markdown(result, unsafe_allow_html=True)
         
 def _update_slider():
