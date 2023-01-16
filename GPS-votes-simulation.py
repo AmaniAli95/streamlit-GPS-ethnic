@@ -280,11 +280,14 @@ def _update_slider():
     level = selected_row["Parliament"].values[0]
     index = df['P'].dropna().unique().tolist().index(level)
     st.session_state['level_index'] = index
-    
-    d_name = selected_row["District"].values[0]
+    level_selectbox.index = index
+    st.write(level_selectbox)
     filtered_df = filter_data(level)
+    d_name = selected_row["District"].values[0]
     index = filtered_df['D'].dropna().unique().tolist().index(d_name)
     st.session_state['dname_index'] = index
+    dname_selectbox.index = index
+    st.write(dname_selectbox)
 
     for i, column_name in enumerate(renamed_columns.values()):
         st.session_state[column_name] = int(selected_row[f"{column_name} | Pct Turnout Forecast"].values[0])
