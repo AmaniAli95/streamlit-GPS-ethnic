@@ -5,7 +5,7 @@ from google.oauth2 import service_account
 from gsheetsdb import connect
 from bs4 import BeautifulSoup
 import gspread
-from oauth2client.service_account import ServiceAccountCredential
+from oauth2client.service_account import ServiceAccountCredentials
 st.set_page_config(layout="wide")
 
 url = "https://github.com/AmaniAli95/streamlit-GPS-ethnic/raw/main/demographic.csv"
