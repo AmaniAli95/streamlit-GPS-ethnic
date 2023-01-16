@@ -237,10 +237,8 @@ if st.button('Submit'):
     dfall["Simple Majority Votes"] = GPSwin
     dfall["Two Third Winning"] = GPSwin23
     dfall["Result"] = text_result
-    dfall.insert(0, "Save Name", "")
-    dfall.insert(1, "Description", "")
-    dfall.insert(2, "Parliament", level, True)
-    dfall.insert(3, "District", d_name, True)
+    dfall.insert(1, "Parliament", level, True)
+    dfall.insert(2, "District", d_name, True)
     dfall["Datetime"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     dfall["Description Save File"] = description
 
