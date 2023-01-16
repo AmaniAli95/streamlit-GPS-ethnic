@@ -16,9 +16,9 @@ for col in age_columns:
     df[col] = df[col].astype(str)
     df[col] = df[col].apply(lambda x: x.replace(',', ''))
     df[col] = df[col].astype(int)
-
 st.title("GPS Votes Simulation")
 
+#sidebar
 chart_type = st.sidebar.radio('Select Category',('Ethnic', 'Age'))
 
 # Dropdown
@@ -35,6 +35,7 @@ d_name = st.selectbox('Select District:', filtered_df['D'].dropna().unique().tol
 def to_percentage(val):
     return '{:.2f}%'.format(val)
 
+#age
 if chart_type == "Age":
     st.markdown("### Number of Registered Voters")
     selected_rows = df[df['D'] == d_name]
@@ -124,7 +125,8 @@ if chart_type == "Age":
     st.markdown(result, unsafe_allow_html=True)
     soup = BeautifulSoup(result, 'html.parser')
     text_result = soup.h2.text
-
+    
+#ethnic
 elif chart_type == "Ethnic":
     st.markdown("### Number of Registered Voters")
     selected_rows = df[df['D'] == d_name]
@@ -207,12 +209,16 @@ elif chart_type == "Ethnic":
     st.markdown(result, unsafe_allow_html=True)
     soup = BeautifulSoup(result, 'html.parser')
     text_result = soup.h2.text
-
 description = st.text_input("Enter a description for the save file:")
+
+#Gsheet db
+scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+credentials = ServiceAccountCredentials.from_json_keyfile_dict(st.secrets["gcp_service_account"], scope)
+client = gspread.authorize(credentials)
+sheet = client.open_by_url(st.secrets["private_gsheets_url"])
+
+#submit btn
 if st.button("Submit"):
-    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-    credentials = ServiceAccountCredentials.from_json_keyfile_dict(st.secrets["gcp_service_account"], scope)
-    client = gspread.authorize(credentials)
     dfall = pd.DataFrame(all_data, index=[0])
     dfall["Total Vote Count Forecast"] = GPSvote
     dfall["Not Vote GPS"] = nonGPSvote
@@ -224,14 +230,14 @@ if st.button("Submit"):
     dfall.insert(1, "Parliament", level, True)
     dfall.insert(2, "District", d_name, True)
     dfall["Datetime"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    sheet = client.open_by_url(st.secrets["private_gsheets_url"])
     if chart_type == "Ethnic":
         worksheet = sheet.get_worksheet(0)
         worksheet.append_rows(dfall.values.tolist())
     else:
         worksheet = sheet.get_worksheet(1)
         worksheet.append_rows(dfall.values.tolist())
-
+        
+#reset btn
 def _update_slider():
     for i, column_name in enumerate(renamed_columns.values()):
         if column_name not in st.session_state:
