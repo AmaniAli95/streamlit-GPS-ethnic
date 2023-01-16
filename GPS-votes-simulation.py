@@ -23,7 +23,7 @@ st.title("GPS Votes Simulation")
 #st.sidebar.title("Forecast Category")
 #chart_type = st.sidebar.button("", ["Ethnics", "Age"])
 chart_type = st.sidebar.radio('Select Category',('Ethnic', 'Age'))
-st.reset()
+resetValue()
 
 # Dropdown
 def filter_data(level):
@@ -34,7 +34,7 @@ df['D'] = df.apply(lambda row: row['D_code'] + ' ' + row['D_name'], axis=1)
 level = st.selectbox('Select Parliament:', df['P'].dropna().unique().tolist())
 filtered_df = filter_data(level)
 d_name = st.selectbox('Select District:', filtered_df['D'].dropna().unique().tolist())
-st.reset()
+resetValue()
 
 #Number of Registered Voters
 def to_percentage(val):
@@ -212,23 +212,8 @@ elif chart_type == "Ethnic":
     st.markdown(result, unsafe_allow_html=True)
     soup = BeautifulSoup(result, 'html.parser')
     text_result = soup.h2.text
-        
-def _update_slider():
-    description
-    for i, column_name in enumerate(renamed_columns.values()):
-        if column_name not in st.session_state:
-           st.session_state[column_name] = 72
-        st.session_state[column_name] = 72
-    for i, column_name in enumerate(renamed_columns.values()):
-        key = f"slider_col3_{column_name}"
-        if key not in st.session_state:
-           st.session_state[key] = 70
-        st.session_state[key] = 70   
-    #st.experimental_rerun()   
-st.button("Reset",on_click=_update_slider)
 
 description = st.text_input("Enter a description for the save file:")
-
 if st.button("Submit"):
     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
     credentials = ServiceAccountCredentials.from_json_keyfile_dict(st.secrets["gcp_service_account"], scope)
@@ -251,3 +236,17 @@ if st.button("Submit"):
     else:
         worksheet = sheet.get_worksheet(1)
         worksheet.append_rows(dfall.values.tolist())
+
+                
+def resetValue():
+    for i, column_name in enumerate(renamed_columns.values()):
+        if column_name not in st.session_state:
+           st.session_state[column_name] = 72
+        st.session_state[column_name] = 72
+    for i, column_name in enumerate(renamed_columns.values()):
+        key = f"slider_col3_{column_name}"
+        if key not in st.session_state:
+           st.session_state[key] = 70
+        st.session_state[key] = 70   
+    description = st.text_input("Enter a description for the save file:")
+st.button("Reset",on_click=resetValue)
