@@ -31,7 +31,7 @@ def create_level_selectbox():
     return level
 def create_dname_selectbox():
     dname_index = st.session_state.get("dname_index", 0)
-    d_name = st.selectbox("Select Parliament:", df['P'].dropna().unique().tolist(), index=dname_index)
+    d_name = st.selectbox("Select District:", filtered_df['D'].dropna().unique().tolist(), index=dname_index)
     st.session_state["dname_index"] = filtered_df['D'].dropna().unique().tolist().index(d_name)
     return level
 
