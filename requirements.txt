@@ -6,3 +6,5 @@ protobuf==3.19
 gsheetsdb==0.1.13.1
 pyparsing==2.4.7
 beautifulsoup4
+gspread
+oauth2client
