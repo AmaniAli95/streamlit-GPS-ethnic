@@ -222,21 +222,15 @@ def _update_slider():
 st.button("Reset",on_click=_update_slider)
 
 # Create a connection object.
-credentials = service_account.Credentials.from_service_account_info(
-    st.secrets["gcp_service_account"],
-    scopes=[
-        "https://www.googleapis.com/auth/spreadsheets",
-    ],
-)
-# Perform SQL query on the Google Sheet.
-# Uses st.cache to only rerun when the query changes or after 10 min.
+conn = connect()
+
 @st.cache(ttl=600)
 def run_query(query):
     rows = conn.execute(query, headers=1)
     rows = rows.fetchall()
     return rows
 
-sheet_url = st.secrets["https://docs.google.com/spreadsheets/d/1k9eyfNur1N2Bs_tNek88cGh9UWUfBcE2LeWaMMmBP5o/edit#gid=0"]
+sheet_url = st.secrets["gcp_service_account"]
 rows = run_query(f'SELECT * FROM "{sheet_url}"')
 
 # Print results.
