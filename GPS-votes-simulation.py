@@ -50,15 +50,6 @@ elif chart_type == "Age":
     data = worksheet.get_all_values()
     df2 = pd.DataFrame(data[1:], columns=data[0])
     selected_name = st.sidebar.selectbox('Recent Save Data:', df2["Name Save Data"].dropna().unique().tolist())
-    
-#update btn
-if st.sidebar.button('Update Sliders'):
-    selected_row = df2.loc[df2["Name Save Data"] == selected_name]
-    for i, column_name in enumerate(renamed_columns.values()):
-        st.session_state[column_name] = selected_row[f"{column_name} | Pct Turnout Forecast"]
-    for i, column_name in enumerate(renamed_columns.values()):
-        key = f"slider_col3_{column_name}"
-        st.session_state[key] = selected_row[f"{column_name} | Pct GPS Support Forecast"]
 
 #Number of Registered Voters
 def to_percentage(val):
@@ -275,3 +266,11 @@ def _update_slider():
         st.session_state[key] = 70  
 st.button("Reset",on_click=_update_slider)
 
+#update btn
+if st.sidebar.button('Update Sliders'):
+    selected_row = df2.loc[df2["Name Save Data"] == selected_name]
+    for i, column_name in enumerate(renamed_columns.values()):
+        st.session_state[column_name] = selected_row[f"{column_name} | Pct Turnout Forecast"]
+    for i, column_name in enumerate(renamed_columns.values()):
+        key = f"slider_col3_{column_name}"
+        st.session_state[key] = selected_row[f"{column_name} | Pct GPS Support Forecast"]
