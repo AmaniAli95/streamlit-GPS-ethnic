@@ -27,9 +27,15 @@ def filter_data(level):
 
 df['P'] = df.apply(lambda row: row['P_code'] + ' ' + row['P_name'], axis=1)
 df['D'] = df.apply(lambda row: row['D_code'] + ' ' + row['D_name'], axis=1)
-level = st.selectbox('Select Parliament:', df['P'].dropna().unique().tolist())
+st.session_state['level_index'] = 0
+level_index = st.session_state['level_index']
+level = st.selectbox('Select Parliament:', df['P'].dropna().unique().tolist(), index=level_index)
+#level = st.selectbox('Select Parliament:', df['P'].dropna().unique().tolist())
 filtered_df = filter_data(level)
-d_name = st.selectbox('Select District:', filtered_df['D'].dropna().unique().tolist())
+st.session_state['dname_index'] = 0
+dname_index = st.session_state['dname_index']
+d_name = st.selectbox('Select District:', filtered_df['D'].dropna().unique().tolist(), index=dname_index)
+#d_name = st.selectbox('Select District:', filtered_df['D'].dropna().unique().tolist())
 
 #Gsheet db
 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
@@ -269,9 +275,14 @@ st.button("Reset",on_click=_reset_slider)
 #update btn
 def _update_slider():
     selected_row = df2.loc[df2["Name Save Data"] == selected_name]
-    st.empty()
-    #st.set_selectbox_value("Select Parliament:", selected_row["Parliament"].values[0])
-    #st.set_selectbox_value("Select District:", selected_row["District"].values[0])
+    level = selected_row["Parliament"].values[0]
+    index = df['P'].dropna().unique().tolist().index(level)
+    st.session_state['level_index'] = index
+    filtered_df = filter_data(level)
+    
+    d_name = selected_row["District"].values[0]
+    index = filtered_df['D'].dropna().unique().tolist().index(d_name)
+    st.session_state['dname_index'] = index
 
     for i, column_name in enumerate(renamed_columns.values()):
         st.session_state[column_name] = int(selected_row[f"{column_name} | Pct Turnout Forecast"].values[0])
