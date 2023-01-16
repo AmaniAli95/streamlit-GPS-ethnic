@@ -223,12 +223,15 @@ st.button("Reset",on_click=_update_slider)
 
 # Create a connection object.
 conn = connect()
-
+st.write("1")
 @st.cache(ttl=600)
+st.write("2")
 def run_query(query):
     rows = conn.execute(query, headers=1)
     rows = rows.fetchall()
     return rows
-
+st.write("3")
 sheet_url = st.secrets["private_gsheets_url"]
+st.write("read url")
 rows = run_query(f'SELECT * FROM "{sheet_url}"')
+st.write("read row")
