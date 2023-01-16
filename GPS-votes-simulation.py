@@ -221,19 +221,26 @@ def _update_slider():
     #st.experimental_rerun()   
 st.button("Reset",on_click=_update_slider)
 
-# Create a connection object.
-conn = connect()
-st.write("1")
-@st.cache(ttl=600)
-def run_query(query):
-    rows = conn.execute(query, headers=1)
-    rows = rows.fetchall()
-    return rows
-st.write("3")
-sheet_url = st.secrets["private_gsheets_url"]
-st.write("read url")
-rows = run_query(f'SELECT * FROM "{sheet_url}"')
-st.write("read row")
-# Print results.
-for row in rows:
-    st.write(row)
+
+if st.button('Submit'):
+    # Create a connection object.
+    conn = connect()
+    sheet_url = st.secrets["private_gsheets_url"]
+    st.write("read url")
+    dfall = pd.DataFrame(all_data, index=[0])
+    st.write(dfall)
+    dfall["Total Vote Count Forecast"] = GPSvote
+    dfall["Not Vote GPS"] = nonGPSvote
+    dfall["Total Voter"] = total.values
+    dfall["Simple Majority Votes"] = GPSwin
+    dfall["Two Third Winning"] = GPSwin23
+    dfall.insert(0, "Save Name", "")
+    dfall.insert(1, "Description", "")
+    dfall.insert(2, "Parliament", level, True)
+    dfall.insert(3, "District", d_name, True)
+    st.write(dfall)
+    # insert the dataframe into google sheet
+    conn.execute(f"INSERT INTO {sheet_url} ({', '.join(dfall.columns)}) VALUES {tuple(dfall.values[0])}")
+
+
+
