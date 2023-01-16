@@ -9,6 +9,17 @@ from oauth2client.service_account import ServiceAccountCredentials
 import datetime
 st.set_page_config(layout="wide")
 
+def resetValue():
+    for i, column_name in enumerate(renamed_columns.values()):
+        if column_name not in st.session_state:
+           st.session_state[column_name] = 72
+        st.session_state[column_name] = 72
+    for i, column_name in enumerate(renamed_columns.values()):
+        key = f"slider_col3_{column_name}"
+        if key not in st.session_state:
+           st.session_state[key] = 70
+        st.session_state[key] = 70  
+
 url = "https://github.com/AmaniAli95/streamlit-GPS-ethnic/raw/main/demographic.csv"
 df = pd.read_csv(url)
 age_columns = [col for col in df.columns if col.startswith('age_group|')]
@@ -237,16 +248,4 @@ if st.button("Submit"):
         worksheet = sheet.get_worksheet(1)
         worksheet.append_rows(dfall.values.tolist())
 
-                
-def resetValue():
-    for i, column_name in enumerate(renamed_columns.values()):
-        if column_name not in st.session_state:
-           st.session_state[column_name] = 72
-        st.session_state[column_name] = 72
-    for i, column_name in enumerate(renamed_columns.values()):
-        key = f"slider_col3_{column_name}"
-        if key not in st.session_state:
-           st.session_state[key] = 70
-        st.session_state[key] = 70   
-    description = st.text_input("Enter a description for the save file:")
 st.button("Reset",on_click=resetValue)
