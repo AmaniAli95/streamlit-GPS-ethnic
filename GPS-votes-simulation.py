@@ -38,17 +38,8 @@ def create_dname_selectbox():
 df['P'] = df.apply(lambda row: row['P_code'] + ' ' + row['P_name'], axis=1)
 df['D'] = df.apply(lambda row: row['D_code'] + ' ' + row['D_name'], axis=1)
 level = create_level_selectbox()
-#st.session_state['level_index'] = 0
-#level_index = st.session_state['level_index']
-#level = st.selectbox('Select Parliament:', df['P'].dropna().unique().tolist(), index=level_index)
-#level = st.selectbox('Select Parliament:', df['P'].dropna().unique().tolist())
-
 filtered_df = filter_data(level)
 d_name = create_dname_selectbox()
-#st.session_state['dname_index'] = 0
-#dname_index = st.session_state['dname_index']
-#d_name = st.selectbox('Select District:', filtered_df['D'].dropna().unique().tolist(), index=dname_index)
-#d_name = st.selectbox('Select District:', filtered_df['D'].dropna().unique().tolist())
 
 #Gsheet db
 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
@@ -288,13 +279,9 @@ st.button("Reset",on_click=_reset_slider)
 #update btn
 def _update_slider():
     selected_row = df2.loc[df2["Name Save Data"] == selected_name]
-    
     st.session_state["level_index"] = df['P'].dropna().unique().tolist().index(selected_row["Parliament"].values[0])
-    #level = create_level_selectbox()
     filtered_df = filter_data(selected_row["Parliament"].values[0])
-    
     st.session_state["dname_index"] = filtered_df['D'].dropna().unique().tolist().index(selected_row["District"].values[0])
-    #d_name = create_dname_selectbox()
 
     for i, column_name in enumerate(renamed_columns.values()):
         st.session_state[column_name] = int(selected_row[f"{column_name} | Pct Turnout Forecast"].values[0])
