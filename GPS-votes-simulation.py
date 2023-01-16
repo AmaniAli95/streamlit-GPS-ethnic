@@ -238,11 +238,11 @@ if st.button('Submit'):
         dfall["Simple Majority Votes"] = GPSwin
         dfall["Two Third Winning"] = GPSwin23
         dfall["Result"] = text_result
+        dfall.insert(0, "Description Save File", description)
         dfall.insert(1, "Parliament", level, True)
         dfall.insert(2, "District", d_name, True)
         dfall["Datetime"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        dfall["Description Save File"] = description
-
+        
         sheet = client.open_by_url(st.secrets["private_gsheets_url"])
         worksheet = sheet.get_worksheet(0)
         empty_row = worksheet.find("").row
