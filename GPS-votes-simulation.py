@@ -199,11 +199,11 @@ elif chart_type == "Ethnics":
     st.markdown(f"### In order for GPS to earn a simple majority, it needs {GPSwin} support")
     st.markdown(f"### Currently, it expected to garner {GPSvote} support")
     if GPSvote >= GPSwin23:
-        result = st.markdown("<h2 style='color: green; animation: pulse 3s infinite'>GPS is Winning. It forecast to win 2/3 votes</h2>")
+        result = "<h2 style='color: green; animation: pulse 3s infinite'>GPS is Winning. It forecast to win 2/3 votes</h2>"
     elif GPSvote > nonGPSvote:
-        result = st.markdown("<h2 style='color: green; animation: pulse 3s infinite'>GPS is Winning</h2>")
+        result = "<h2 style='color: green; animation: pulse 3s infinite'>GPS is Winning</h2>"
     else:
-        result = st.markdown("<h2 style='color: red; animation: pulse 3s infinite'>GPS is Losing - it needs {} support to win</h2>")
+        result = "<h2 style='color: red; animation: pulse 3s infinite'>GPS is Losing - it needs {} support to win</h2>"
     st.markdown(result, unsafe_allow_html=True)
         
 def _update_slider():
