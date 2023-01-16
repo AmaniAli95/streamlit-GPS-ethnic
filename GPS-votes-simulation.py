@@ -258,7 +258,7 @@ if chart_type == "Ethnic":
     df2 = pd.DataFrame(data[1:], columns=data[0])
     st.sidebar.selectbox('Recent Save Data:', df2["Description Save File"].dropna().unique().tolist())
 #age
-if chart_type == "Age":
+elif chart_type == "Age":
     worksheet = sheet.get_worksheet(1)
     data = worksheet.get_all_values()
     df2 = pd.DataFrame(data[1:], columns=data[0])
