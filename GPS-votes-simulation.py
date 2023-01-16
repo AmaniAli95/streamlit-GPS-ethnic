@@ -241,7 +241,8 @@ if st.button('Submit'):
     st.write(dfall)
     # insert the dataframe into google sheet
     #conn.execute(f"INSERT INTO {sheet_url} ({', '.join(dfall.columns)}) VALUES {tuple(dfall.values[0])}")
-    conn.insert(dfall, sheet_url, 'A1')
+    #conn.insert(dfall, sheet_url, 'A1')
+    dfall.to_sql("gpstbl",conn,if_exists='append')
 
 
 
