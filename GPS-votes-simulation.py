@@ -33,7 +33,7 @@ def create_dname_selectbox():
     dname_index = st.session_state.get("dname_index", 0)
     d_name = st.selectbox("Select District:", filtered_df['D'].dropna().unique().tolist(), index=dname_index)
     st.session_state["dname_index"] = filtered_df['D'].dropna().unique().tolist().index(d_name)
-    return level
+    return d_name
 
 df['P'] = df.apply(lambda row: row['P_code'] + ' ' + row['P_name'], axis=1)
 df['D'] = df.apply(lambda row: row['D_code'] + ' ' + row['D_name'], axis=1)
