@@ -5,6 +5,7 @@ from google.oauth2 import service_account
 from gsheetsdb import connect
 from bs4 import BeautifulSoup
 import gspread
+from oauth2client.service_account import ServiceAccountCredential
 st.set_page_config(layout="wide")
 
 url = "https://github.com/AmaniAli95/streamlit-GPS-ethnic/raw/main/demographic.csv"
@@ -225,12 +226,9 @@ st.button("Reset",on_click=_update_slider)
 
 if st.button('Submit'):
     # Create a connection object.
-    credentials = service_account.Credentials.from_service_account_info(
-        st.secrets["gcp_service_account"],
-        scopes=[
-            "https://www.googleapis.com/auth/spreadsheets",
-        ],
-    )
+    scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
+    credentials = ServiceAccountCredentials.from_json_keyfile_dict(st.secrets["gcp_service_account"], scope)
+    client = gspread.authorize(credentials)
     conn = connect(credentials=credentials)
     sheet_url = st.secrets["private_gsheets_url"]
     st.write("read url")
@@ -247,11 +245,6 @@ if st.button('Submit'):
     dfall.insert(3, "District", d_name, True)
     st.write(dfall)
 
-    # create a client object
-    client = gspread.Client(auth=credentials)
-
-    # open the worksheet using the url key
-    worksheet = client.open_by_key(sheet_url).worksheet("Sheet1")
-
-    # insert the dataframe into google sheet
+    sheet = client.open_by_url(st.secrets["private_gsheets_url"])
+    worksheet = sheet.get_worksheet(0)
     worksheet.append_rows(dfall.values.tolist(), start='A2')
