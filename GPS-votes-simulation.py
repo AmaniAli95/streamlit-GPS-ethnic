@@ -246,4 +246,5 @@ if st.button('Submit'):
     dfall.insert(3, "District", d_name, True)
     st.write(dfall)
 
-    conn.execute(f"INSERT INTO {sheet_url} ({', '.join(dfall.columns)}) VALUES {tuple(dfall.values[0])}")
+    worksheet = conn.open(sheet_url).worksheet("Sheet1")
+    worksheet.append_rows(dfall.iloc[0].tolist())
