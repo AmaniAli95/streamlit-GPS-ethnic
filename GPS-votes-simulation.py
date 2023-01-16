@@ -55,7 +55,8 @@ elif chart_type == "Age":
 if st.sidebar.button('Update Sliders'):
     column = df2.columns[df2.columns.str.endswith("| Pct Turnout Forecast")]
     st.sidebar.write(column)
-    #selected_row1 = df2.loc[column1  == selected_value]
+    selected_row = df2.loc[column  == selected_value]
+    st.sidebar.write(selected_row)
     #for i, column_name in enumerate(renamed_columns.values()):
     #    st.session_state[column_name] = selected_row1[column_name].values[0]
         
