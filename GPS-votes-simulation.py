@@ -227,7 +227,7 @@ def _update_slider():
 st.button("Reset",on_click=_update_slider)
 
 description = st.text_input("Enter a description for the save file:")
-if st.button('Submit'):
+if st.button('Submit', enabled = bool(description)):
     scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
     credentials = ServiceAccountCredentials.from_json_keyfile_dict(st.secrets["gcp_service_account"], scope)
     client = gspread.authorize(credentials)
@@ -245,5 +245,4 @@ if st.button('Submit'):
     sheet = client.open_by_url(st.secrets["private_gsheets_url"])
     worksheet = sheet.get_worksheet(0)
     worksheet.append_rows(dfall.values.tolist())
-    #worksheet.insert_rows(dfall.values.tolist(), row=2)
 
