@@ -234,7 +234,6 @@ if st.button('Submit'):
     sheet_url = st.secrets["private_gsheets_url"]
     st.write("read url")
     dfall = pd.DataFrame(all_data, index=[0])
-    st.write(dfall)
     dfall["Total Vote Count Forecast"] = GPSvote
     dfall["Not Vote GPS"] = nonGPSvote
     dfall["Total Voter"] = total.values
