@@ -31,6 +31,7 @@ st.session_state['level_index'] = 0
 level_index = st.session_state['level_index']
 level = st.selectbox('Select Parliament:', df['P'].dropna().unique().tolist(), index=level_index)
 #level = st.selectbox('Select Parliament:', df['P'].dropna().unique().tolist())
+
 filtered_df = filter_data(level)
 st.session_state['dname_index'] = 0
 dname_index = st.session_state['dname_index']
@@ -275,18 +276,15 @@ st.button("Reset",on_click=_reset_slider)
 #update btn
 def _update_slider():
     selected_row = df2.loc[df2["Name Save Data"] == selected_name]
-    
+
     level = selected_row["Parliament"].values[0]
     index = df['P'].dropna().unique().tolist().index(level)
     st.session_state['level_index'] = index
-    level = st.selectbox('Select Parliament:', df['P'].dropna().unique().tolist(), index=index)
-    filtered_df = filter_data(level)
-    st.table(filtered_df)
     
     d_name = selected_row["District"].values[0]
+    filtered_df = filter_data(level)
     index = filtered_df['D'].dropna().unique().tolist().index(d_name)
     st.session_state['dname_index'] = index
-    d_name = st.selectbox('Select District:', filtered_df['D'].dropna().unique().tolist(), index=index)
 
     for i, column_name in enumerate(renamed_columns.values()):
         st.session_state[column_name] = int(selected_row[f"{column_name} | Pct Turnout Forecast"].values[0])
