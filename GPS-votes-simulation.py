@@ -127,7 +127,7 @@ if chart_type == "Age":
             st.markdown(f"###### ")
             st.markdown(f"###### ")
             all_data[f"{column_name} | Pct Turnout Forecast"] = slider_values1[column_name]
-            all_data[f"{column_name} | Pct GPS Support_Forecast"] = slider_values[column_name]
+            all_data[f"{column_name} | Pct GPS Support Forecast"] = slider_values[column_name]
             all_data[f"{column_name} | Vote Count Forecast"] = value
             GPSvote += value
     nonGPSvote = total.values - GPSvote
@@ -211,7 +211,7 @@ elif chart_type == "Ethnic":
             st.markdown(f"###### ")
             st.markdown(f"###### ")
             all_data[f"{column_name} | Pct Turnout Forecast"] = slider_values1[column_name]
-            all_data[f"{column_name} | Pct GPS Support_Forecast"] = slider_values[column_name]
+            all_data[f"{column_name} | Pct GPS Support Forecast"] = slider_values[column_name]
             all_data[f"{column_name} | Vote Count Forecast"] = value
             GPSvote += value
     nonGPSvote = total.values - GPSvote
