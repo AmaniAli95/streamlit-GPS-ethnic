@@ -251,11 +251,16 @@ def _update_slider():
 st.button("Reset",on_click=_update_slider)
 
 #retrieve data
+#ethnic
 if chart_type == "Ethnic":
     worksheet = sheet.get_worksheet(0)
     data = worksheet.get_all_values()
     df2 = pd.DataFrame(data[1:], columns=data[0])
-    st.sidebar.selectbox('Select Parliament:', df2["Description Save File"].dropna().unique().tolist())
+    st.sidebar.selectbox('Recent Save Data:', df2["Description Save File"].dropna().unique().tolist())
+#age
+if chart_type == "Age":
+    worksheet = sheet.get_worksheet(1)
+    data = worksheet.get_all_values()
+    df2 = pd.DataFrame(data[1:], columns=data[0])
+    st.sidebar.selectbox('Recent Save Data:', df2["Description Save File"].dropna().unique().tolist())
 
-    #df_latest = df2.query('`Description Save File` != "nan"').tail(1)
-    #st.sidebar.dataframe(df_latest)
