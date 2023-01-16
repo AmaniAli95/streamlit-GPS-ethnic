@@ -255,7 +255,7 @@ if chart_type == "Ethnic":
     worksheet = sheet.get_worksheet(0)
     data = worksheet.get_all_values()
     df2 = pd.DataFrame(data[1:], columns=data[0])
-    st.sidebar.dataframe(df2)
+    st.sidebar.selectbox('Select Parliament:', df2["Description Save File"].dropna().unique().tolist())
 
-    df_latest = df2.query('`Description Save File` != "nan"').tail(1)
-    st.sidebar.dataframe(df_latest)
+    #df_latest = df2.query('`Description Save File` != "nan"').tail(1)
+    #st.sidebar.dataframe(df_latest)
