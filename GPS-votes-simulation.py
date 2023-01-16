@@ -244,7 +244,7 @@ if st.button("Submit"):
     dfall.insert(2, "District", d_name, True)
     dfall["Datetime"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     sheet = client.open_by_url(st.secrets["private_gsheets_url"])
-    if sidebar == "Ethnic"
+    if sidebar == "Ethnic":
         worksheet = sheet.get_worksheet(0)
         worksheet.append_rows(dfall.values.tolist())
     else:
