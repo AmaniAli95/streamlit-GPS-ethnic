@@ -225,7 +225,6 @@ st.button("Reset",on_click=_update_slider)
 conn = connect()
 st.write("1")
 @st.cache(ttl=600)
-st.write("2")
 def run_query(query):
     rows = conn.execute(query, headers=1)
     rows = rows.fetchall()
