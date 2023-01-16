@@ -227,22 +227,11 @@ def _update_slider():
 st.button("Reset",on_click=_update_slider)
 
 description = st.text_input("Enter a description for the save file:")
-if st.button('Submit', enabled = bool(description)):
-    scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
-    credentials = ServiceAccountCredentials.from_json_keyfile_dict(st.secrets["gcp_service_account"], scope)
-    client = gspread.authorize(credentials)
-    dfall = pd.DataFrame(all_data, index=[0])
-    dfall["Total Vote Count Forecast"] = GPSvote
-    dfall["Not Vote GPS"] = nonGPSvote
-    dfall["Total Voter"] = total.values
-    dfall["Simple Majority Votes"] = GPSwin
-    dfall["Two Third Winning"] = GPSwin23
-    dfall["Result"] = text_result
-    dfall.insert(0, "Description Save File", description)
-    dfall.insert(1, "Parliament", level, True)
-    dfall.insert(2, "District", d_name, True)
-    dfall["Datetime"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    sheet = client.open_by_url(st.secrets["private_gsheets_url"])
-    worksheet = sheet.get_worksheet(0)
-    worksheet.append_rows(dfall.values.tolist())
+
+st.button("Submit", key="submit")
+if st.button_is_enabled("submit") and st.button_is_pressed("submit"):
+    st.write("submit button pressed")
+else:
+    st.set_button_enabled("submit", bool(description))
+
 
