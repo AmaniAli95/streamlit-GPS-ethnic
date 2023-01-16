@@ -269,8 +269,9 @@ st.button("Reset",on_click=_reset_slider)
 #update btn
 def _update_slider():
     selected_row = df2.loc[df2["Name Save Data"] == selected_name]
-    st.set_selectbox_value("Select Parliament:", selected_row["Parliament"].values[0])
-    st.set_selectbox_value("Select District:", selected_row["District"].values[0])
+    st.empty()
+    #st.set_selectbox_value("Select Parliament:", selected_row["Parliament"].values[0])
+    #st.set_selectbox_value("Select District:", selected_row["District"].values[0])
 
     for i, column_name in enumerate(renamed_columns.values()):
         st.session_state[column_name] = int(selected_row[f"{column_name} | Pct Turnout Forecast"].values[0])
