@@ -242,7 +242,7 @@ if st.button('Submit'):
         dfall.insert(1, "Parliament", level, True)
         dfall.insert(2, "District", d_name, True)
         dfall["Datetime"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        
+        st.table(dfall)
         sheet = client.open_by_url(st.secrets["private_gsheets_url"])
         worksheet = sheet.get_worksheet(0)
         empty_row = worksheet.find("").row
