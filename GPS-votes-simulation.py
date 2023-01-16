@@ -199,13 +199,13 @@ elif chart_type == "Ethnics":
     st.markdown(f"### In order for GPS to earn a simple majority, it needs {GPSwin} support")
     st.markdown(f"### Currently, it expected to garner {GPSvote} support")
     if GPSvote >= GPSwin23:
-        st.markdown("<h2 style='color: green; animation: pulse 3s infinite'>GPS is Winning. It forecast to win 2/3 votes</h2>",
+        result = st.markdown("<h2 style='color: green; animation: pulse 3s infinite'>GPS is Winning. It forecast to win 2/3 votes</h2>",
                     unsafe_allow_html=True)
     elif GPSvote > nonGPSvote:
-        st.markdown("<h2 style='color: green; animation: pulse 3s infinite'>GPS is Winning</h2>",
+        result = st.markdown("<h2 style='color: green; animation: pulse 3s infinite'>GPS is Winning</h2>",
                     unsafe_allow_html=True)
     else:
-        st.markdown("<h2 style='color: red; animation: pulse 3s infinite'>GPS is Losing - it needs {} support to win</h2>".format(remGPSvote),
+        result = st.markdown("<h2 style='color: red; animation: pulse 3s infinite'>GPS is Losing - it needs {} support to win</h2>".format(remGPSvote),
                     unsafe_allow_html=True)
         
 def _update_slider():
@@ -224,25 +224,30 @@ st.button("Reset",on_click=_update_slider)
 
 if st.button('Submit'):
     # Create a connection object.
-    conn = connect()
+    credentials = service_account.Credentials.from_service_account_info(
+        st.secrets["gcp_service_account"],
+        scopes=[
+            "https://www.googleapis.com/auth/spreadsheets",
+        ],
+    )
+    conn = connect(credentials=credentials)
     sheet_url = st.secrets["private_gsheets_url"]
     st.write("read url")
     dfall = pd.DataFrame(all_data, index=[0])
-    st.write(dfall)
     dfall["Total Vote Count Forecast"] = GPSvote
     dfall["Not Vote GPS"] = nonGPSvote
     dfall["Total Voter"] = total.values
     dfall["Simple Majority Votes"] = GPSwin
     dfall["Two Third Winning"] = GPSwin23
+    dfall["Result"] = result
     dfall.insert(0, "Save Name", "")
     dfall.insert(1, "Description", "")
     dfall.insert(2, "Parliament", level, True)
     dfall.insert(3, "District", d_name, True)
     st.write(dfall)
     # insert the dataframe into google sheet
-    #conn.execute(f"INSERT INTO {sheet_url} ({', '.join(dfall.columns)}) VALUES {tuple(dfall.values[0])}")
+    conn.execute(f"INSERT INTO {sheet_url} ({', '.join(dfall.columns)}) VALUES {tuple(dfall.values[0])}")
     #conn.insert(dfall, sheet_url, 'A1')
-    dfall.to_sql("gpstbl",conn,if_exists='append')
 
 
 
