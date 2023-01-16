@@ -37,6 +37,20 @@ credentials = ServiceAccountCredentials.from_json_keyfile_dict(st.secrets["gcp_s
 client = gspread.authorize(credentials)
 sheet = client.open_by_url(st.secrets["private_gsheets_url"])
 
+#retrieve data
+#ethnic
+if chart_type == "Ethnic":
+    worksheet = sheet.get_worksheet(0)
+    data = worksheet.get_all_values()
+    df2 = pd.DataFrame(data[1:], columns=data[0])
+    st.sidebar.selectbox('Recent Save Data:', df2["Description Save File"].dropna().unique().tolist())
+#age
+elif chart_type == "Age":
+    worksheet = sheet.get_worksheet(1)
+    data = worksheet.get_all_values()
+    df2 = pd.DataFrame(data[1:], columns=data[0])
+    st.sidebar.selectbox('Recent Save Data:', df2["Description Save File"].dropna().unique().tolist())
+
 #Number of Registered Voters
 def to_percentage(val):
     return '{:.2f}%'.format(val)
@@ -249,18 +263,4 @@ def _update_slider():
            st.session_state[key] = 70
         st.session_state[key] = 70  
 st.button("Reset",on_click=_update_slider)
-
-#retrieve data
-#ethnic
-if chart_type == "Ethnic":
-    worksheet = sheet.get_worksheet(0)
-    data = worksheet.get_all_values()
-    df2 = pd.DataFrame(data[1:], columns=data[0])
-    st.sidebar.selectbox('Recent Save Data:', df2["Description Save File"].dropna().unique().tolist())
-#age
-elif chart_type == "Age":
-    worksheet = sheet.get_worksheet(1)
-    data = worksheet.get_all_values()
-    df2 = pd.DataFrame(data[1:], columns=data[0])
-    st.sidebar.selectbox('Recent Save Data:', df2["Description Save File"].dropna().unique().tolist())
 
