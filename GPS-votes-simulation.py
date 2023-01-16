@@ -240,7 +240,8 @@ if st.button('Submit'):
     dfall.insert(3, "District", d_name, True)
     st.write(dfall)
     # insert the dataframe into google sheet
-    conn.execute(f"INSERT INTO {sheet_url} ({', '.join(dfall.columns)}) VALUES {tuple(dfall.values[0])}")
+    #conn.execute(f"INSERT INTO {sheet_url} ({', '.join(dfall.columns)}) VALUES {tuple(dfall.values[0])}")
+    conn.insert(dfall, sheet_url, 'A1')
 
 
 
