@@ -234,3 +234,6 @@ sheet_url = st.secrets["private_gsheets_url"]
 st.write("read url")
 rows = run_query(f'SELECT * FROM "{sheet_url}"')
 st.write("read row")
+# Print results.
+for row in rows:
+    st.write(row)
