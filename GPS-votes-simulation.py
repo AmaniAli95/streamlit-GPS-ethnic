@@ -6,6 +6,7 @@ from gsheetsdb import connect
 from bs4 import BeautifulSoup
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+import datetime
 st.set_page_config(layout="wide")
 
 url = "https://github.com/AmaniAli95/streamlit-GPS-ethnic/raw/main/demographic.csv"
@@ -243,6 +244,7 @@ if st.button('Submit'):
     dfall.insert(1, "Description", "")
     dfall.insert(2, "Parliament", level, True)
     dfall.insert(3, "District", d_name, True)
+    dfall["Datetime"] = datetime.datetime.now()
     st.write(dfall)
 
     sheet = client.open_by_url(st.secrets["private_gsheets_url"])
