@@ -31,6 +31,24 @@ level = st.selectbox('Select Parliament:', df['P'].dropna().unique().tolist())
 filtered_df = filter_data(level)
 d_name = st.selectbox('Select District:', filtered_df['D'].dropna().unique().tolist())
 
+#Gsheet db
+scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+credentials = ServiceAccountCredentials.from_json_keyfile_dict(st.secrets["gcp_service_account"], scope)
+client = gspread.authorize(credentials)
+sheet = client.open_by_url(st.secrets["private_gsheets_url"])
+
+#Retrieve Last Data
+if chart_type == "Ethnic":
+    worksheet = sheet.get_worksheet(0)
+    last_row = worksheet.row_count
+    data = worksheet.row_values(last_row)
+    st.write(data)
+else:
+    worksheet = sheet.get_worksheet(1)
+    last_row = worksheet.row_count
+    data = worksheet.row_values(last_row)
+    st.write(data)
+
 #Number of Registered Voters
 def to_percentage(val):
     return '{:.2f}%'.format(val)
@@ -211,12 +229,6 @@ elif chart_type == "Ethnic":
     text_result = soup.h2.text
 description = st.text_input("Enter a description for the save file:")
 
-#Gsheet db
-scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-credentials = ServiceAccountCredentials.from_json_keyfile_dict(st.secrets["gcp_service_account"], scope)
-client = gspread.authorize(credentials)
-sheet = client.open_by_url(st.secrets["private_gsheets_url"])
-
 #submit btn
 if st.button("Submit"):
     dfall = pd.DataFrame(all_data, index=[0])
@@ -249,15 +261,3 @@ def _update_slider():
            st.session_state[key] = 70
         st.session_state[key] = 70  
 st.button("Reset",on_click=_update_slider)
-
-#Retrieve Last Data
-if chart_type == "Ethnic":
-    worksheet = sheet.get_worksheet(0)
-    last_row = worksheet.row_count
-    data = worksheet.row_values(last_row)
-    st.write(data)
-else:
-    worksheet = sheet.get_worksheet(1)
-    last_row = worksheet.row_count
-    data = worksheet.row_values(last_row)
-    st.write(data)
