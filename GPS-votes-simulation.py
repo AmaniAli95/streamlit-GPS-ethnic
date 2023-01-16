@@ -129,7 +129,7 @@ if chart_type == "Age":
     soup = BeautifulSoup(result, 'html.parser')
     text_result = soup.h2.text
 
-elif chart_type == "Ethnics":
+elif chart_type == "Ethnic":
     st.markdown("### Number of Registered Voters")
     selected_rows = df[df['D'] == d_name]
     ethnic_columns = [col for col in df.columns if col.startswith('ethnic|')]
