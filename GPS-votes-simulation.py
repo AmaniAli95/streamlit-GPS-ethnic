@@ -247,5 +247,7 @@ if st.button('Submit'):
 
     sheet = client.open_by_url(st.secrets["private_gsheets_url"])
     worksheet = sheet.get_worksheet(0)
-    worksheet.insert_rows(dfall.values.tolist(), row=2)
+    empty_row = worksheet.find("").row
+    worksheet.insert_rows(empty_row, values=dfall.values.tolist())
+    #worksheet.insert_rows(dfall.values.tolist(), row=2)
 
