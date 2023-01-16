@@ -244,6 +244,14 @@ def _update_slider():
         st.session_state[key] = 70  
 st.button("Reset",on_click=_update_slider)
 
-last_row = worksheet.row_count
-data = worksheet.row_values(last_row)
-st.write(data)
+#Retrieve Last Data
+if chart_type == "Ethnic":
+    worksheet = sheet.get_worksheet(0)
+    last_row = worksheet.row_count
+    data = worksheet.row_values(last_row)
+    st.write(data)
+else:
+    worksheet = sheet.get_worksheet(1)
+    last_row = worksheet.row_count
+    data = worksheet.row_values(last_row)
+    st.write(data)
