@@ -199,14 +199,12 @@ elif chart_type == "Ethnics":
     st.markdown(f"### In order for GPS to earn a simple majority, it needs {GPSwin} support")
     st.markdown(f"### Currently, it expected to garner {GPSvote} support")
     if GPSvote >= GPSwin23:
-        result = st.markdown("<h2 style='color: green; animation: pulse 3s infinite'>GPS is Winning. It forecast to win 2/3 votes</h2>",
-                    unsafe_allow_html=True)
+        result = st.markdown("<h2 style='color: green; animation: pulse 3s infinite'>GPS is Winning. It forecast to win 2/3 votes</h2>")
     elif GPSvote > nonGPSvote:
-        result = st.markdown("<h2 style='color: green; animation: pulse 3s infinite'>GPS is Winning</h2>",
-                    unsafe_allow_html=True)
+        result = st.markdown("<h2 style='color: green; animation: pulse 3s infinite'>GPS is Winning</h2>")
     else:
-        result = st.markdown("<h2 style='color: red; animation: pulse 3s infinite'>GPS is Losing - it needs {} support to win</h2>".format(remGPSvote),
-                    unsafe_allow_html=True)
+        result = st.markdown("<h2 style='color: red; animation: pulse 3s infinite'>GPS is Losing - it needs {} support to win</h2>")
+    st.markdown(result, unsafe_allow_html=True)
         
 def _update_slider():
     for i, column_name in enumerate(renamed_columns.values()):
@@ -220,7 +218,6 @@ def _update_slider():
         st.session_state[key] = 70    
     #st.experimental_rerun()   
 st.button("Reset",on_click=_update_slider)
-
 
 if st.button('Submit'):
     # Create a connection object.
@@ -246,9 +243,5 @@ if st.button('Submit'):
     dfall.insert(2, "Parliament", level, True)
     dfall.insert(3, "District", d_name, True)
     st.write(dfall)
-    # insert the dataframe into google sheet
+
     conn.execute(f"INSERT INTO {sheet_url} ({', '.join(dfall.columns)}) VALUES {tuple(dfall.values[0])}")
-    #conn.insert(dfall, sheet_url, 'A1')
-
-
-
