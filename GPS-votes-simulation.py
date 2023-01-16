@@ -251,9 +251,11 @@ def _update_slider():
 st.button("Reset",on_click=_update_slider)
 
 #retrieve data
-data = worksheet.get_all_values()
-df2 = pd.DataFrame(data[1:], columns=data[0])
-st.sidebar.dataframe(d2f)
+if chart_type == "Ethnic":
+    worksheet = sheet.get_worksheet(0)
+    data = worksheet.get_all_values()
+    df2 = pd.DataFrame(data[1:], columns=data[0])
+    st.sidebar.dataframe(d2f)
 
-df_latest = df2.query('`Description Save File` != "nan"').tail(1)
-st.sidebar.dataframe(df_latest)
+    df_latest = df2.query('`Description Save File` != "nan"').tail(1)
+    st.sidebar.dataframe(df_latest)
