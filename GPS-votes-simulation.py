@@ -37,25 +37,6 @@ credentials = ServiceAccountCredentials.from_json_keyfile_dict(st.secrets["gcp_s
 client = gspread.authorize(credentials)
 sheet = client.open_by_url(st.secrets["private_gsheets_url"])
 
-#Retrieve Last Data
-if chart_type == "Ethnic":
-    st.write("1")
-    worksheet = sheet.get_worksheet(0)
-    st.write(worksheet)
-    last_row = worksheet.row_count
-    st.write(last_row)
-    data = worksheet.row_values(last_row)
-    st.write(data)
-    last_non_null_cell = worksheet.find('')
-    last_row = last_non_null_cell.row
-    last_row_data = worksheet.row_values(last_row)
-    st.write(last_row_data)
-else:
-    worksheet = sheet.get_worksheet(1)
-    last_row = worksheet.row_count
-    data = worksheet.row_values(last_row)
-    st.write(data)
-
 #Number of Registered Voters
 def to_percentage(val):
     return '{:.2f}%'.format(val)
@@ -268,3 +249,11 @@ def _update_slider():
            st.session_state[key] = 70
         st.session_state[key] = 70  
 st.button("Reset",on_click=_update_slider)
+
+#retrieve data
+data = worksheet.get_all_values()
+df2 = pd.DataFrame(data[1:], columns=data[0])
+st.sidebar.dataframe(d2f)
+
+df_latest = df2.query('`Description Save File` != "nan"').tail(1)
+st.sidebar.dataframe(df_latest)
