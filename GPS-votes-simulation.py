@@ -24,18 +24,30 @@ chart_type = st.sidebar.radio('Select Category',('Ethnic', 'Age'))
 # Dropdown
 def filter_data(level):
     return df[df['P'] == level]
+def create_level_selectbox():
+    level_index = st.session_state.get("level_index", 0)
+    level = st.selectbox("Select Parliament:", df['P'].dropna().unique().tolist(), index=level_index)
+    st.session_state["level_index"] = df['P'].dropna().unique().tolist().index(level)
+    return level
+def create_dname_selectbox():
+    dname_index = st.session_state.get("dname_index", 0)
+    d_name = st.selectbox("Select Parliament:", df['P'].dropna().unique().tolist(), index=dname_index)
+    st.session_state["dname_index"] = filtered_df['D'].dropna().unique().tolist().index(d_name)
+    return level
 
 df['P'] = df.apply(lambda row: row['P_code'] + ' ' + row['P_name'], axis=1)
 df['D'] = df.apply(lambda row: row['D_code'] + ' ' + row['D_name'], axis=1)
-st.session_state['level_index'] = 0
-level_index = st.session_state['level_index']
-level = st.selectbox('Select Parliament:', df['P'].dropna().unique().tolist(), index=level_index)
+level = create_level_selectbox()
+#st.session_state['level_index'] = 0
+#level_index = st.session_state['level_index']
+#level = st.selectbox('Select Parliament:', df['P'].dropna().unique().tolist(), index=level_index)
 #level = st.selectbox('Select Parliament:', df['P'].dropna().unique().tolist())
 
 filtered_df = filter_data(level)
-st.session_state['dname_index'] = 0
-dname_index = st.session_state['dname_index']
-d_name = st.selectbox('Select District:', filtered_df['D'].dropna().unique().tolist(), index=dname_index)
+d_name = create_dname_selectbox()
+#st.session_state['dname_index'] = 0
+#dname_index = st.session_state['dname_index']
+#d_name = st.selectbox('Select District:', filtered_df['D'].dropna().unique().tolist(), index=dname_index)
 #d_name = st.selectbox('Select District:', filtered_df['D'].dropna().unique().tolist())
 
 #Gsheet db
@@ -277,17 +289,12 @@ st.button("Reset",on_click=_reset_slider)
 def _update_slider():
     selected_row = df2.loc[df2["Name Save Data"] == selected_name]
 
-    level2 = selected_row["Parliament"].values[0]
-    index = df['P'].dropna().unique().tolist().index(level2)
-    st.session_state['level_index'] = index
-    level.index = index
-    st.write(level)
-    filtered_df = filter_data(level2)
-    d_name2 = selected_row["District"].values[0]
-    index = filtered_df['D'].dropna().unique().tolist().index(d_name2)
-    st.session_state['dname_index'] = index
-    dname.index = index
-    st.write(dname)
+    st.session_state["level_index"] = df['P'].dropna().unique().tolist().index(selected_row["Parliament"].values[0])
+    level = create_level_selectbox()
+    filtered_df = filter_data(level)
+    
+    st.session_state["dname_index"] = df['P'].dropna().unique().tolist().index(selected_row["District"].values[0])
+    d_name = create_dname_selectbox()
 
     for i, column_name in enumerate(renamed_columns.values()):
         st.session_state[column_name] = int(selected_row[f"{column_name} | Pct Turnout Forecast"].values[0])
