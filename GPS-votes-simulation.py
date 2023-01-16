@@ -246,5 +246,11 @@ if st.button('Submit'):
     dfall.insert(3, "District", d_name, True)
     st.write(dfall)
 
-    worksheet = conn.open(sheet_url).worksheet("Sheet1")
-    worksheet.append_rows(dfall.iloc[0].tolist())
+    # create a client object
+    client = gspread.Client(auth=credentials)
+
+    # open the worksheet using the url key
+    worksheet = client.open_by_key(sheet_url).worksheet("Sheet1")
+
+    # insert the dataframe into google sheet
+    worksheet.append_rows(dfall.values.tolist(), start='A2')
