@@ -228,7 +228,7 @@ st.button("Reset",on_click=_update_slider)
 
 description = st.text_input("Enter a description for the save file:")
 
-if st.button(‘Submit’):
+if st.button("Submit"):
     scope = [‘https://spreadsheets.google.com/feeds’, ‘https://www.googleapis.com/auth/drive’]
     credentials = ServiceAccountCredentials.from_json_keyfile_dict(st.secrets[“gcp_service_account”], scope)
     client = gspread.authorize(credentials)
