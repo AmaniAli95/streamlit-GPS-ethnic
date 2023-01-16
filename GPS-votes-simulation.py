@@ -53,19 +53,12 @@ elif chart_type == "Age":
     
 #update btn
 if st.sidebar.button('Update Sliders'):
-    column = df2.columns[df2.columns.str.endswith("| Pct Turnout Forecast")]
-    st.sidebar.write(column)
-    selected_row = df2.loc[column  == selected_value]
-    st.sidebar.write(selected_row)
-    #for i, column_name in enumerate(renamed_columns.values()):
-    #    st.session_state[column_name] = selected_row1[column_name].values[0]
-        
-    #column2 = df2.columns[df2.columns.str.endswith("| Pct GPS Support Forecast")]
-    #selected_row2 = df2.loc[:, column2].loc[df2['column_name'] == selected_value]
-    #selected_row2 = df2.loc[column2  == selected_value]
-    #for i, column_name in enumerate(renamed_columns.values()):
-    #    st.session_state[column_name] = selected_row2[column_name].values[0]
-        #st.session_state[f"{column_name} | Pct Turnout Forecast"] = selected_row[column_name].values[0]
+    selected_row = df2.loc[df2["Name Save Data"] == selected_name]
+    for i, column_name in enumerate(renamed_columns.values()):
+        st.session_state[column_name] = selected_row[f"{column_name} | Pct Turnout Forecast"]
+    for i, column_name in enumerate(renamed_columns.values()):
+        key = f"slider_col3_{column_name}"
+        st.session_state[key] = selected_row[f"{column_name} | Pct GPS Support Forecast"]
 
 #Number of Registered Voters
 def to_percentage(val):
