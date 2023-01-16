@@ -271,11 +271,11 @@ if st.sidebar.button('Update Sliders'):
     selected_row = df2.loc[df2["Name Save Data"] == selected_name]
     for i, column_name in enumerate(renamed_columns.values()):
         #st.session_state[column_name] = selected_row[f"{column_name} | Pct Turnout Forecast"].values[0]
-        st.write(selected_row[f"{column_name} | Pct Turnout Forecast"].values[0])
+        st.write(int(selected_row[f"{column_name} | Pct Turnout Forecast"].values[0]))
         st.write(column_name)
-        slider_values1[column_name] = st.slider("", 0, 100, selected_row[f"{column_name} | Pct Turnout Forecast"].values[0], key=column_name, format='%d%%')
-    for i, column_name in enumerate(renamed_columns.values()):
-        key = f"slider_col3_{column_name}"
+        slider_values1[column_name] = st.slider("", 0, 100, int(selected_row[f"{column_name} | Pct Turnout Forecast"].values[0]), key=column_name, format='%d%%')
+    #for i, column_name in enumerate(renamed_columns.values()):
+    #    key = f"slider_col3_{column_name}"
         #st.session_state[key] = selected_row[f"{column_name} | Pct GPS Support Forecast"].values[0]
-        st.empty()
-        st.slider("", 0, 100, selected_row[f"{column_name} | Pct GPS Support Forecast"].values[0], key=key, format='%d%%')
+    #    st.empty()
+    #    st.slider("", 0, 100, selected_row[f"{column_name} | Pct GPS Support Forecast"].values[0], key=key, format='%d%%')
