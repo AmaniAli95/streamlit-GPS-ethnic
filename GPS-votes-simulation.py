@@ -276,6 +276,5 @@ if st.sidebar.button('Update Sliders'):
         st.write(column_name)
         slider_values1[column_name] = st.slider("", 0, 100, int(selected_row[f"{column_name} | Pct Turnout Forecast"].values[0]), key=key, format='%d%%')
     for i, column_name in enumerate(renamed_columns.values()):
-        key2 = f"slider_col3_{column_name}"
-        #st.session_state[key] = selected_row[f"{column_name} | Pct GPS Support Forecast"].values[0]
-        st.slider("", 0, 100, int(selected_row[f"{column_name} | Pct GPS Support Forecast"].values[0]), key=key2, format='%d%%')
+        key = f"slider_col3_{column_name}"
+        slider_values[column_name] = st.slider("", 0, 100, int(selected_row[f"{column_name} | Pct GPS Support Forecast"].values[0]), key=key, format='%d%%')
