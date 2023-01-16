@@ -41,9 +41,9 @@ sheet = client.open_by_url(st.secrets["private_gsheets_url"])
 if chart_type == "Ethnic":
     st.write("1")
     worksheet = sheet.get_worksheet(0)
-    st.write("2")
+    st.write(worksheet)
     last_row = worksheet.row_count
-    st.write("3")
+    st.write(last_row)
     data = worksheet.row_values(last_row)
     st.write(data)
 else:
