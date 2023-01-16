@@ -23,7 +23,7 @@ st.title("GPS Votes Simulation")
 #st.sidebar.title("Forecast Category")
 #chart_type = st.sidebar.button("", ["Ethnics", "Age"])
 chart_type = st.sidebar.radio('Select Category',('Ethnic', 'Age'))
-
+st.reset()
 
 # Dropdown
 def filter_data(level):
@@ -34,6 +34,7 @@ df['D'] = df.apply(lambda row: row['D_code'] + ' ' + row['D_name'], axis=1)
 level = st.selectbox('Select Parliament:', df['P'].dropna().unique().tolist())
 filtered_df = filter_data(level)
 d_name = st.selectbox('Select District:', filtered_df['D'].dropna().unique().tolist())
+st.reset()
 
 #Number of Registered Voters
 def to_percentage(val):
