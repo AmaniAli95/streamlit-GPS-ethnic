@@ -169,7 +169,6 @@ if chart_type == "Age":
 elif chart_type == "Ethnic":
     st.markdown("### Number of Registered Voters")
     selected_rows = df[df['D'] == d_name]
-    st.write(selected_rows)
     ethnic_columns = [col for col in df.columns if col.startswith('ethnic|')]
     renamed_columns = {col: col.replace('ethnic|', '').replace('_', ' ').title() for col in ethnic_columns}
     selected_rows.rename(columns=renamed_columns, inplace=True)
