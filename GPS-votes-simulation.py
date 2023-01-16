@@ -269,6 +269,8 @@ st.button("Reset",on_click=_reset_slider)
 #update btn
 def _update_slider():
     selected_row = df2.loc[df2["Name Save Data"] == selected_name]
+    st.write(selected_row["Parliament"])
+    st.write(selected_row["Parliament"].values[0])
     level = selected_row["Parliament"]
     d_name = selected_row["District"]
     for i, column_name in enumerate(renamed_columns.values()):
