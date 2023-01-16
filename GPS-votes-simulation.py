@@ -45,9 +45,9 @@ if chart_type == "Age":
     age_columns = [col for col in df.columns if col.startswith('age_group|')]
     renamed_columns = {col: col.replace('age_group|', '').replace('_', ' ').
                        replace('o90', 'Over 90 y/o').replace('b20', 'Below 20 y/o').
-                       replace('20s', '20 - y/o').replace('30s', '30 - 39 y/o').
-                       replace('40s', '40 - 49 y/o').replace('50s', '50 - y/o').
-                       replace('60s', '60 - 69 y/os').replace('70s', '70 - 79 y/o').
+                       replace('20s', '20 - 29 y/o').replace('30s', '30 - 39 y/o').
+                       replace('40s', '40 - 49 y/o').replace('50s', '50 - 50 y/o').
+                       replace('60s', '60 - 69 y/o').replace('70s', '70 - 79 y/o').
                        replace('80s', '80 - 89 y/o') for col in age_columns}
     selected_rows.rename(columns=renamed_columns, inplace=True)
     selected_rows[list(renamed_columns.values())] = selected_rows[list(renamed_columns.values())].apply(pd.to_numeric, errors='coerce')
