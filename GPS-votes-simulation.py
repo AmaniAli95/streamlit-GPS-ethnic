@@ -273,5 +273,5 @@ def _update_slider():
     for i, column_name in enumerate(renamed_columns.values()):
         key = f"slider_col3_{column_name}"
         st.session_state[key] = int(selected_row[f"{column_name} | Pct GPS Support Forecast"].values[0])   
-st.button("Load",on_click=_update_slider)
+st.sidebar.button("Load",on_click=_update_slider)
 
