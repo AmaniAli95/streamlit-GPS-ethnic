@@ -46,6 +46,10 @@ if chart_type == "Ethnic":
     st.write(last_row)
     data = worksheet.row_values(last_row)
     st.write(data)
+    last_non_null_cell = worksheet.find('')
+    last_row = last_non_null_cell.row
+    last_row_data = worksheet.row_values(last_row)
+    st.write(last_row_data)
 else:
     worksheet = sheet.get_worksheet(1)
     last_row = worksheet.row_count
