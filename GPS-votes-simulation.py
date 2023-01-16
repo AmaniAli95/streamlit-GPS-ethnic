@@ -9,17 +9,6 @@ from oauth2client.service_account import ServiceAccountCredentials
 import datetime
 st.set_page_config(layout="wide")
 
-def resetValue():
-    for i, column_name in enumerate(renamed_columns.values()):
-        if column_name not in st.session_state:
-           st.session_state[column_name] = 72
-        st.session_state[column_name] = 72
-    for i, column_name in enumerate(renamed_columns.values()):
-        key = f"slider_col3_{column_name}"
-        if key not in st.session_state:
-           st.session_state[key] = 70
-        st.session_state[key] = 70  
-
 url = "https://github.com/AmaniAli95/streamlit-GPS-ethnic/raw/main/demographic.csv"
 df = pd.read_csv(url)
 age_columns = [col for col in df.columns if col.startswith('age_group|')]
@@ -30,11 +19,7 @@ for col in age_columns:
 
 st.title("GPS Votes Simulation")
 
-# Create a sidebar
-#st.sidebar.title("Forecast Category")
-#chart_type = st.sidebar.button("", ["Ethnics", "Age"])
 chart_type = st.sidebar.radio('Select Category',('Ethnic', 'Age'))
-resetValue()
 
 # Dropdown
 def filter_data(level):
@@ -45,7 +30,6 @@ df['D'] = df.apply(lambda row: row['D_code'] + ' ' + row['D_name'], axis=1)
 level = st.selectbox('Select Parliament:', df['P'].dropna().unique().tolist())
 filtered_df = filter_data(level)
 d_name = st.selectbox('Select District:', filtered_df['D'].dropna().unique().tolist())
-resetValue()
 
 #Number of Registered Voters
 def to_percentage(val):
@@ -248,4 +232,14 @@ if st.button("Submit"):
         worksheet = sheet.get_worksheet(1)
         worksheet.append_rows(dfall.values.tolist())
 
+def resetValue():
+    for i, column_name in enumerate(renamed_columns.values()):
+        if column_name not in st.session_state:
+           st.session_state[column_name] = 72
+        st.session_state[column_name] = 72
+    for i, column_name in enumerate(renamed_columns.values()):
+        key = f"slider_col3_{column_name}"
+        if key not in st.session_state:
+           st.session_state[key] = 70
+        st.session_state[key] = 70  
 st.button("Reset",on_click=resetValue)
