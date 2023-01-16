@@ -43,13 +43,13 @@ if chart_type == "Ethnic":
     worksheet = sheet.get_worksheet(0)
     data = worksheet.get_all_values()
     df2 = pd.DataFrame(data[1:], columns=data[0])
-    st.sidebar.selectbox('Recent Save Data:', df2["Description Save File"].dropna().unique().tolist())
+    st.sidebar.selectbox('Recent Save Data:', df2["Description Save Data"].dropna().unique().tolist())
 #age
 elif chart_type == "Age":
     worksheet = sheet.get_worksheet(1)
     data = worksheet.get_all_values()
     df2 = pd.DataFrame(data[1:], columns=data[0])
-    st.sidebar.selectbox('Recent Save Data:', df2["Description Save File"].dropna().unique().tolist())
+    st.sidebar.selectbox('Recent Save Data:', df2["Description Save Data"].dropna().unique().tolist())
     
 #update btn
 if st.button('Update Sliders'):
