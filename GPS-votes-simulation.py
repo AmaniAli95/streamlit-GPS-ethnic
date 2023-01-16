@@ -50,6 +50,13 @@ elif chart_type == "Age":
     data = worksheet.get_all_values()
     df2 = pd.DataFrame(data[1:], columns=data[0])
     st.sidebar.selectbox('Recent Save Data:', df2["Description Save File"].dropna().unique().tolist())
+    
+#update btn
+if st.button('Update Sliders'):
+    selected_row = df2.loc[df2['column_name'] == selected_value]
+    for i, column_name in enumerate(renamed_columns.values()):
+        st.session_state[column_name] = selected_row[column_name].values[0]
+        st.session_state[f"{column_name} | Pct Turnout Forecast"] = selected_row[column_name].values[0]
 
 #Number of Registered Voters
 def to_percentage(val):
@@ -229,6 +236,7 @@ elif chart_type == "Ethnic":
     st.markdown(result, unsafe_allow_html=True)
     soup = BeautifulSoup(result, 'html.parser')
     text_result = soup.h2.text
+name = st.text_input("Enter a name for the save file:")
 description = st.text_input("Enter a description for the save file:")
 
 #submit btn
@@ -240,9 +248,10 @@ if st.button("Submit"):
     dfall["Simple Majority Votes"] = GPSwin
     dfall["Two Third Winning"] = GPSwin23
     dfall["Result"] = text_result
-    dfall.insert(0, "Description Save File", description)
-    dfall.insert(1, "Parliament", level, True)
-    dfall.insert(2, "District", d_name, True)
+    dfall.insert(0, "Description Save Data", description)
+    dfall.insert(1, "Name Save Data", name)
+    dfall.insert(2, "Parliament", level, True)
+    dfall.insert(3, "District", d_name, True)
     dfall["Datetime"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     if chart_type == "Ethnic":
         worksheet = sheet.get_worksheet(0)
