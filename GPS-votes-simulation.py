@@ -22,7 +22,7 @@ st.title("GPS Votes Simulation")
 # Create a sidebar
 #st.sidebar.title("Forecast Category")
 #chart_type = st.sidebar.button("", ["Ethnics", "Age"])
-chart_type = st.sidebar.radio('Select Category',('Ethnics', 'Age'))
+chart_type = st.sidebar.radio('Select Category',('Ethnic', 'Age'))
 
 
 # Dropdown
@@ -244,6 +244,9 @@ if st.button("Submit"):
     dfall.insert(2, "District", d_name, True)
     dfall["Datetime"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     sheet = client.open_by_url(st.secrets["private_gsheets_url"])
-    worksheet = sheet.get_worksheet(0)
-    worksheet.append_rows(dfall.values.tolist())
-
+    if sidebar == "Ethnic"
+        worksheet = sheet.get_worksheet(0)
+        worksheet.append_rows(dfall.values.tolist())
+    else:
+        worksheet = sheet.get_worksheet(1)
+        worksheet.append_rows(dfall.values.tolist())
