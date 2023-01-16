@@ -230,8 +230,6 @@ if st.button('Submit'):
     scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
     credentials = ServiceAccountCredentials.from_json_keyfile_dict(st.secrets["gcp_service_account"], scope)
     client = gspread.authorize(credentials)
-    conn = connect(credentials=credentials)
-    sheet_url = st.secrets["private_gsheets_url"]
     st.write("read url")
     dfall = pd.DataFrame(all_data, index=[0])
     dfall["Total Vote Count Forecast"] = GPSvote
@@ -244,12 +242,12 @@ if st.button('Submit'):
     dfall.insert(1, "Description", "")
     dfall.insert(2, "Parliament", level, True)
     dfall.insert(3, "District", d_name, True)
-    dfall["Datetime"] = datetime.datetime.now()
+    dfall["Datetime"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     st.write(dfall)
 
     sheet = client.open_by_url(st.secrets["private_gsheets_url"])
     worksheet = sheet.get_worksheet(0)
     empty_row = worksheet.find("").row
-    worksheet.insert_rows(empty_row, values=dfall.values.tolist())
+    worksheet.insert_rows(empty_row, dfall.values.tolist())
     #worksheet.insert_rows(dfall.values.tolist(), row=2)
 
