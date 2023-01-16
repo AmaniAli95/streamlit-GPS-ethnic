@@ -255,7 +255,7 @@ if chart_type == "Ethnic":
     worksheet = sheet.get_worksheet(0)
     data = worksheet.get_all_values()
     df2 = pd.DataFrame(data[1:], columns=data[0])
-    st.sidebar.dataframe(d2f)
+    st.sidebar.dataframe(df2)
 
     df_latest = df2.query('`Description Save File` != "nan"').tail(1)
     st.sidebar.dataframe(df_latest)
