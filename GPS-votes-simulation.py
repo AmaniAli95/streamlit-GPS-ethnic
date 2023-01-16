@@ -232,7 +232,7 @@ if st.button("Submit"):
         worksheet = sheet.get_worksheet(1)
         worksheet.append_rows(dfall.values.tolist())
 
-def resetValue():
+def _update_slider():
     for i, column_name in enumerate(renamed_columns.values()):
         if column_name not in st.session_state:
            st.session_state[column_name] = 72
@@ -242,4 +242,4 @@ def resetValue():
         if key not in st.session_state:
            st.session_state[key] = 70
         st.session_state[key] = 70  
-st.button("Reset",on_click=resetValue)
+st.button("Reset",on_click=_update_slider)
