@@ -254,7 +254,7 @@ if st.button("Submit"):
         worksheet.append_rows(dfall.values.tolist())
         
 #reset btn
-def _update_slider():
+def _reset_slider():
     for i, column_name in enumerate(renamed_columns.values()):
         if column_name not in st.session_state:
            st.session_state[column_name] = 72
@@ -264,19 +264,14 @@ def _update_slider():
         if key not in st.session_state:
            st.session_state[key] = 70
         st.session_state[key] = 70  
-st.button("Reset",on_click=_update_slider)
+st.button("Reset",on_click=_reset_slider)
 
 #update btn
-if st.sidebar.button('Update Sliders'):
-    selected_row = df2.loc[df2["Name Save Data"] == selected_name]
+def _update_slider():
     for i, column_name in enumerate(renamed_columns.values()):
-        st.write(int(selected_row[f"{column_name} | Pct Turnout Forecast"].values[0]))
-        st.write(column_name)
         st.session_state[column_name] = int(selected_row[f"{column_name} | Pct Turnout Forecast"].values[0])
-        #slider_values1[column_name] = st.slider("", 0, 100, int(selected_row[f"{column_name} | Pct Turnout Forecast"].values[0]), key=key1, format='%d%%')
     for i, column_name in enumerate(renamed_columns.values()):
         key = f"slider_col3_{column_name}"
-        st.write(int(selected_row[f"{column_name} | Pct GPS Support Forecast"].values[0]))
-        st.write(column_name)
-        st.session_state[key] = int(selected_row[f"{column_name} | Pct GPS Support Forecast"].values[0]) 
-        #slider_values[column_name] = st.slider("", 0, 100, int(selected_row[f"{column_name} | Pct GPS Support Forecast"].values[0]), key=key2, format='%d%%')
+        st.session_state[key] = int(selected_row[f"{column_name} | Pct GPS Support Forecast"].values[0])   
+st.button("Load",on_click=_update_slider)
+
