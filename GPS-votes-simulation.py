@@ -53,16 +53,17 @@ elif chart_type == "Age":
     
 #update btn
 if st.sidebar.button('Update Sliders'):
-    column1 = df2.columns[df2.columns.str.endswith("| Pct Turnout Forecast")]
-    selected_row1 = df2.loc[column1  == selected_value]
-    for i, column_name in enumerate(renamed_columns.values()):
-        st.session_state[column_name] = selected_row1[column_name].values[0]
+    column = df2.columns[df2.columns.str.endswith("| Pct Turnout Forecast")]
+    st.sidebar.write(column)
+    #selected_row1 = df2.loc[column1  == selected_value]
+    #for i, column_name in enumerate(renamed_columns.values()):
+    #    st.session_state[column_name] = selected_row1[column_name].values[0]
         
-    column2 = df2.columns[df2.columns.str.endswith("| Pct GPS Support Forecast")]
+    #column2 = df2.columns[df2.columns.str.endswith("| Pct GPS Support Forecast")]
     #selected_row2 = df2.loc[:, column2].loc[df2['column_name'] == selected_value]
-    selected_row2 = df2.loc[column2  == selected_value]
-    for i, column_name in enumerate(renamed_columns.values()):
-        st.session_state[column_name] = selected_row2[column_name].values[0]
+    #selected_row2 = df2.loc[column2  == selected_value]
+    #for i, column_name in enumerate(renamed_columns.values()):
+    #    st.session_state[column_name] = selected_row2[column_name].values[0]
         #st.session_state[f"{column_name} | Pct Turnout Forecast"] = selected_row[column_name].values[0]
 
 #Number of Registered Voters
