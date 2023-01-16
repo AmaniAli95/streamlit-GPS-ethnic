@@ -291,7 +291,7 @@ def _update_slider():
     
     st.session_state["level_index"] = df['P'].dropna().unique().tolist().index(selected_row["Parliament"].values[0])
     #level = create_level_selectbox()
-    filtered_df = filter_data(level)
+    filtered_df = filter_data(selected_row["Parliament"].values[0])
     
     st.session_state["dname_index"] = filtered_df['D'].dropna().unique().tolist().index(selected_row["District"].values[0])
     #d_name = create_dname_selectbox()
