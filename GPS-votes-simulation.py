@@ -213,6 +213,7 @@ elif chart_type == "Ethnics":
     text_result = soup.h2.text
         
 def _update_slider():
+    description
     for i, column_name in enumerate(renamed_columns.values()):
         if column_name not in st.session_state:
            st.session_state[column_name] = 72
@@ -221,7 +222,7 @@ def _update_slider():
         key = f"slider_col3_{column_name}"
         if key not in st.session_state:
            st.session_state[key] = 70
-        st.session_state[key] = 70    
+        st.session_state[key] = 70   
     #st.experimental_rerun()   
 st.button("Reset",on_click=_update_slider)
 
@@ -241,10 +242,8 @@ if st.button('Submit'):
     dfall.insert(1, "Parliament", level, True)
     dfall.insert(2, "District", d_name, True)
     dfall["Datetime"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    st.table(dfall)
     sheet = client.open_by_url(st.secrets["private_gsheets_url"])
     worksheet = sheet.get_worksheet(0)
-    empty_row = worksheet.row_count + 1
-    worksheet.insert_rows(dfall.values.tolist(), row=empty_row)
+    worksheet.append_rows(dfall.values.tolist())
     #worksheet.insert_rows(dfall.values.tolist(), row=2)
 
