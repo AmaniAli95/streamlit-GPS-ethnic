@@ -271,8 +271,8 @@ def _update_slider():
     selected_row = df2.loc[df2["Name Save Data"] == selected_name]
     st.write(selected_row["Parliament"])
     st.write(selected_row["Parliament"].values[0])
-    level = selected_row["Parliament"]
-    d_name = selected_row["District"]
+    level = selected_row["Parliament"].values[0]
+    d_name = selected_row["District"].values[0]
     for i, column_name in enumerate(renamed_columns.values()):
         st.session_state[column_name] = int(selected_row[f"{column_name} | Pct Turnout Forecast"].values[0])
     for i, column_name in enumerate(renamed_columns.values()):
