@@ -52,7 +52,7 @@ elif chart_type == "Age":
     st.sidebar.selectbox('Recent Save Data:', df2["Name Save Data"].dropna().unique().tolist())
     
 #update btn
-if st.button('Update Sliders'):
+if st.sidebar.button('Update Sliders'):
     selected_row = df2.loc[df2['column_name'] == selected_value]
     for i, column_name in enumerate(renamed_columns.values()):
         st.session_state[column_name] = selected_row[column_name].values[0]
