@@ -120,14 +120,14 @@ if chart_type == "Age":
     st.markdown(f"### In order for GPS to earn a simple majority, it needs {GPSwin} support")
     st.markdown(f"### Currently, it expected to garner {GPSvote} support")
     if GPSvote >= GPSwin23:
-        st.markdown("<h2 style='color: green; animation: pulse 3s infinite'>GPS is Winning. It forecast to win 2/3 votes</h2>",
-                    unsafe_allow_html=True)
+        result = "<h2 style='color: green; animation: pulse 3s infinite'>GPS is Winning. It forecast to win 2/3 votes</h2>"
     elif GPSvote > nonGPSvote:
-        st.markdown("<h2 style='color: green; animation: pulse 3s infinite'>GPS is Winning</h2>",
-                    unsafe_allow_html=True)
+        result = "<h2 style='color: green; animation: pulse 3s infinite'>GPS is Winning</h2>"
     else:
-        st.markdown("<h2 style='color: red; animation: pulse 3s infinite'>GPS is Losing - it needs {} support to win</h2>".format(remGPSvote),
-                    unsafe_allow_html=True)
+        result = "<h2 style='color: red; animation: pulse 3s infinite'>GPS is Losing - it needs {} support to win</h2>".format(remGPSvote)
+    st.markdown(result, unsafe_allow_html=True)
+    soup = BeautifulSoup(result, 'html.parser')
+    text_result = soup.h2.text
 
 elif chart_type == "Ethnics":
     st.markdown("### Number of Registered Voters")
