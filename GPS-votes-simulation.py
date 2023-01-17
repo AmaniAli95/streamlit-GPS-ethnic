@@ -319,8 +319,8 @@ loadBtn = st.sidebar.button("Load",on_click=_update_slider)
 if loadBtn:
     st.session_state["name"] = f"{selected_row["Name Save Data"].values[0]}"
     st.session_state["desc"] = f"{selected_row["Description Save Data"].values[0]}"
-    st.write(f"{selected_row["Name Save Data"].values[0]}"
-    st.write(selected_row[f"{selected_row["Description Save Data"].values[0]}")
+    st.write(f"{selected_row["Name Save Data"].values[0]}")
+    st.write(f"{selected_row["Description Save Data"].values[0]}")
     updateBtn = st.button("Update")
     if updateBtn:
         dfall = pd.DataFrame(all_data, index=[0])
