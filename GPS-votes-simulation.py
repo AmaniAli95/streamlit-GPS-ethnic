@@ -322,49 +322,33 @@ else:
 
 #submitBtn
 # Check if save data name already exists in the Google Sheet
-if not loadBtn:
-    if chart_type == "Ethnic":
-        worksheet = sheet.get_worksheet(0)
-        data = worksheet.get_all_values()
-        df2 = pd.DataFrame(data[1:], columns=data[0])
-        existing_names = df2["Name Save Data"].tolist()
-    else:
-        worksheet = sheet.get_worksheet(1)
-        data = worksheet.get_all_values()
-        df2 = pd.DataFrame(data[1:], columns=data[0])
-        existing_names = df2["Name Save Data"].tolist()
-    if name in existing_names:
-        st.warning("Name already exists. Please enter a new name for save data.")
-    else:
-        if st.button("Submit"):
-            dfall = pd.DataFrame(all_data, index=[0])
-            dfall["Total Vote Count Forecast"] = GPSvote
-            dfall["Not Vote GPS"] = nonGPSvote
-            dfall["Total Voter"] = total.values
-            dfall["Simple Majority Votes"] = GPSwin
-            dfall["Two Third Winning"] = GPSwin23
-            dfall["Result"] = text_result
-            dfall.insert(0, "Name Save Data", name)
-            dfall.insert(1, "Description Save Data", description)
-            dfall.insert(2, "Parliament", level, True)
-            dfall.insert(3, "District", d_name, True)
-            dfall["Datetime"] = datetime.datetime.now(tz).strftime("%Y-%m-%d %H:%M:%S")
-            worksheet.append_rows(dfall.values.tolist())
+if chart_type == "Ethnic":
+    worksheet = sheet.get_worksheet(0)
+    data = worksheet.get_all_values()
+    df2 = pd.DataFrame(data[1:], columns=data[0])
+    existing_names = df2["Name Save Data"].tolist()
+else:
+    worksheet = sheet.get_worksheet(1)
+    data = worksheet.get_all_values()
+    df2 = pd.DataFrame(data[1:], columns=data[0])
+    existing_names = df2["Name Save Data"].tolist()
+if name in existing_names:
+    st.warning("Name already exists. Please enter a new name for save data.")
 else:
     if st.button("Submit"):
-            dfall = pd.DataFrame(all_data, index=[0])
-            dfall["Total Vote Count Forecast"] = GPSvote
-            dfall["Not Vote GPS"] = nonGPSvote
-            dfall["Total Voter"] = total.values
-            dfall["Simple Majority Votes"] = GPSwin
-            dfall["Two Third Winning"] = GPSwin23
-            dfall["Result"] = text_result
-            dfall.insert(0, "Name Save Data", name)
-            dfall.insert(1, "Description Save Data", description)
-            dfall.insert(2, "Parliament", level, True)
-            dfall.insert(3, "District", d_name, True)
-            dfall["Datetime"] = datetime.datetime.now(tz).strftime("%Y-%m-%d %H:%M:%S")
-            worksheet.append_rows(dfall.values.tolist())
+        dfall = pd.DataFrame(all_data, index=[0])
+        dfall["Total Vote Count Forecast"] = GPSvote
+        dfall["Not Vote GPS"] = nonGPSvote
+        dfall["Total Voter"] = total.values
+        dfall["Simple Majority Votes"] = GPSwin
+        dfall["Two Third Winning"] = GPSwin23
+        dfall["Result"] = text_result
+        dfall.insert(0, "Name Save Data", name)
+        dfall.insert(1, "Description Save Data", description)
+        dfall.insert(2, "Parliament", level, True)
+        dfall.insert(3, "District", d_name, True)
+        dfall["Datetime"] = datetime.datetime.now(tz).strftime("%Y-%m-%d %H:%M:%S")
+        worksheet.append_rows(dfall.values.tolist())
 
 
     
