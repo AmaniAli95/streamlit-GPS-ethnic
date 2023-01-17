@@ -280,7 +280,7 @@ def _load_slider():
 
 #loadBtn
 loadBtn = st.sidebar.button("Load",on_click=_load_slider)
-if not loadBtn and not updateBtn:
+if loadBtn is None and 'updateBtn' not in globals():
     name = st.text_input("Enter a name for save data:",value = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}")
     description = st.text_input("Enter a description for save data:", value = "")
     resetBtn = st.button("Reset",on_click=_reset_slider)
