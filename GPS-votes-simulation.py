@@ -302,13 +302,10 @@ else:
         dfall.insert(2, "Parliament", level, True)
         dfall.insert(3, "District", d_name, True)
         dfall["Datetime"] = datetime.datetime.now(tz).strftime("%Y-%m-%d %H:%M:%S")
+        worksheet.update(dfall.to_dict(), value_input_option='RAW', 
+                query=f'Name Save Data = "{name}"')
         #worksheet.append_rows(dfall.values.tolist())
-        filtered_rows = df2.loc[df2["Name Save Data"] == name]
-        # Iterate through the rows in the filtered dataframe
-        for index, row in filtered_rows.iterrows():
-            # Use the row index to update the corresponding cells in the worksheet
-            for i, column_name in enumerate(dfall.columns):
-                worksheet.update_cell(index+2, i+1, dfall.iloc[0][column_name])
+
     if resetBtn:
         updateBtn.disable()
 
@@ -341,7 +338,3 @@ else:
         dfall.insert(3, "District", d_name, True)
         dfall["Datetime"] = datetime.datetime.now(tz).strftime("%Y-%m-%d %H:%M:%S")
         worksheet.append_rows(dfall.values.tolist())
-
-
-    
-
