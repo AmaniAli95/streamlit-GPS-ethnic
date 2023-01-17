@@ -283,14 +283,11 @@ loadBtn = st.sidebar.button("Load",on_click=_load_slider)
 if not loadBtn:
     name = st.text_input("Enter a name for save data:",value = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}")
     description = st.text_input("Enter a description for save data:", value = "")
-    st.write("sini")
     resetBtn = st.button("Reset",on_click=_reset_slider)
 else:
     name = st.text_input("Enter a name for save data:",value=st.session_state["name"])
     description = st.text_input("Enter a description for save data:",value=st.session_state["desc"])
-    st.write("sini")
     updateBtn = st.button("Update")
-    st.write("sini")
     resetBtn = st.button("Reset",on_click=_reset_slider)
     if updateBtn:
         dfall = pd.DataFrame(all_data, index=[0])
@@ -325,33 +322,50 @@ else:
 
 #submitBtn
 # Check if save data name already exists in the Google Sheet
-if chart_type == "Ethnic":
-    worksheet = sheet.get_worksheet(0)
-    data = worksheet.get_all_values()
-    df2 = pd.DataFrame(data[1:], columns=data[0])
-    existing_names = df2["Name Save Data"].tolist()
-else:
-    worksheet = sheet.get_worksheet(1)
-    data = worksheet.get_all_values()
-    df2 = pd.DataFrame(data[1:], columns=data[0])
-    existing_names = df2["Name Save Data"].tolist()
-
-if name in existing_names:
-    st.warning("Name already exists. Please enter a new name for save data.")
+if not loadBtn:
+    if chart_type == "Ethnic":
+        worksheet = sheet.get_worksheet(0)
+        data = worksheet.get_all_values()
+        df2 = pd.DataFrame(data[1:], columns=data[0])
+        existing_names = df2["Name Save Data"].tolist()
+    else:
+        worksheet = sheet.get_worksheet(1)
+        data = worksheet.get_all_values()
+        df2 = pd.DataFrame(data[1:], columns=data[0])
+        existing_names = df2["Name Save Data"].tolist()
+    if name in existing_names:
+        st.warning("Name already exists. Please enter a new name for save data.")
+    else:
+        if st.button("Submit"):
+            dfall = pd.DataFrame(all_data, index=[0])
+            dfall["Total Vote Count Forecast"] = GPSvote
+            dfall["Not Vote GPS"] = nonGPSvote
+            dfall["Total Voter"] = total.values
+            dfall["Simple Majority Votes"] = GPSwin
+            dfall["Two Third Winning"] = GPSwin23
+            dfall["Result"] = text_result
+            dfall.insert(0, "Name Save Data", name)
+            dfall.insert(1, "Description Save Data", description)
+            dfall.insert(2, "Parliament", level, True)
+            dfall.insert(3, "District", d_name, True)
+            dfall["Datetime"] = datetime.datetime.now(tz).strftime("%Y-%m-%d %H:%M:%S")
+            worksheet.append_rows(dfall.values.tolist())
 else:
     if st.button("Submit"):
-        dfall = pd.DataFrame(all_data, index=[0])
-        dfall["Total Vote Count Forecast"] = GPSvote
-        dfall["Not Vote GPS"] = nonGPSvote
-        dfall["Total Voter"] = total.values
-        dfall["Simple Majority Votes"] = GPSwin
-        dfall["Two Third Winning"] = GPSwin23
-        dfall["Result"] = text_result
-        dfall.insert(0, "Name Save Data", name)
-        dfall.insert(1, "Description Save Data", description)
-        dfall.insert(2, "Parliament", level, True)
-        dfall.insert(3, "District", d_name, True)
-        dfall["Datetime"] = datetime.datetime.now(tz).strftime("%Y-%m-%d %H:%M:%S")
-        worksheet.append_rows(dfall.values.tolist())
+            dfall = pd.DataFrame(all_data, index=[0])
+            dfall["Total Vote Count Forecast"] = GPSvote
+            dfall["Not Vote GPS"] = nonGPSvote
+            dfall["Total Voter"] = total.values
+            dfall["Simple Majority Votes"] = GPSwin
+            dfall["Two Third Winning"] = GPSwin23
+            dfall["Result"] = text_result
+            dfall.insert(0, "Name Save Data", name)
+            dfall.insert(1, "Description Save Data", description)
+            dfall.insert(2, "Parliament", level, True)
+            dfall.insert(3, "District", d_name, True)
+            dfall["Datetime"] = datetime.datetime.now(tz).strftime("%Y-%m-%d %H:%M:%S")
+            worksheet.append_rows(dfall.values.tolist())
+
+
     
 
