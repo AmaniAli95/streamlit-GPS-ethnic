@@ -304,7 +304,7 @@ def _update_slider():
         key = f"slider_col3_{column_name}"
         st.session_state[key] = int(selected_row[f"{column_name} | Pct GPS Support Forecast"].values[0])
     st.session_state["name"] = selected_row["Name Save Data"].values[0]
-    st.session_state["desc"] = selected_row["Description Save Data"].values[0])
+    st.session_state["desc"] = selected_row["Description Save Data"].values[0]
 
 loadBtn = st.sidebar.button("Load",on_click=_update_slider)
 if loadBtn:
