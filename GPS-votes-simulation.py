@@ -238,11 +238,12 @@ elif chart_type == "Ethnic":
         result = "<h2 style='color: red; animation: pulse 3s infinite'>GPS is Losing - it needs {} support to win</h2>".format(remGPSvote)
     st.markdown(result, unsafe_allow_html=True)
     soup = BeautifulSoup(result, 'html.parser')
-    text_result = soup.h2.text   
-st.session_state["name"] = f"{d_name}-{datetime.datetime.now().strftime('%Y%m%d')}-{datetime.datetime.now().strftime('%H%M')}"
-name = st.text_input("Enter a name for save data:",placeholder=st.session_state["name"])
+    text_result = soup.h2.text  
+dnamerevise = d_name.replace(" ","")
+st.session_state["name"] = f"{dnamerevise}-{datetime.datetime.now().strftime('%Y%m%d')}-{datetime.datetime.now().strftime('%H%M')}"
+name = st.text_input("Enter a name for save data:",value=st.session_state["name"])
 st.session_state["desc"] = " "
-description = st.text_input("Enter a description for save data:",placeholder=st.session_state["desc"])
+description = st.text_input("Enter a description for save data:",value=st.session_state["desc"])
 
 #submit btn
 if st.button("Submit"):
