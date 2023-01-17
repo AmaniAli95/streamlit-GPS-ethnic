@@ -308,7 +308,7 @@ def _update_slider():
     #description.set(selected_row["Description Save Data"].values[0])
 loadBtn = st.sidebar.button("Load",on_click=_update_slider)
 if loadBtn:
-    updateBtn = st.sidebar.button("Update")
+    updateBtn = st.button("Update")
     if resetBtn:
         updateBtn.disable()
 
