@@ -314,13 +314,17 @@ def _load_slider():
         key = f"slider_col3_{column_name}"
         st.session_state[key] = int(selected_row[f"{column_name} | Pct GPS Support Forecast"].values[0])
     st.session_state["name"] = selected_row["Name Save Data"].values[0]
-    name = st.text_input("Enter a name for save data:",value=st.session_state["name"])
     st.session_state["desc"] =  selected_row["Description Save Data"].values[0]
 
 #loadBtn
 loadBtn = st.sidebar.button("Load",on_click=_load_slider)
 if loadBtn:
     updateBtn = st.button("Update")
+    name = st.text_input("Enter a name for save data:",value=st.session_state["name"])
+    description = st.text_input("Enter a description for save data:",value=st.session_state["desc"])
+else:
+    name = st.text_input("Enter a name for save data:",value = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}")
+    description = st.text_input("Enter a description for save data:", value = "")
     if updateBtn:
         dfall = pd.DataFrame(all_data, index=[0])
         dfall["Total Vote Count Forecast"] = GPSvote
