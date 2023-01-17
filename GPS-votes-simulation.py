@@ -252,54 +252,10 @@ elif chart_type == "Ethnic":
     text_result = soup.h2.text  
     
 #naming save data
-st.session_state["name"] = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}"
-name = st.text_input("Enter a name for save data:",value=st.session_state["name"])
-st.session_state["desc"] = " "
-description = st.text_input("Enter a description for save data:",value=st.session_state["desc"])
-
-#submitBtn
-# Check if save data name already exists in the Google Sheet
-if chart_type == "Ethnic":
-    worksheet = sheet.get_worksheet(0)
-    data = worksheet.get_all_values()
-    df2 = pd.DataFrame(data[1:], columns=data[0])
-    existing_names = df2["Name Save Data"].tolist()
-else:
-    worksheet = sheet.get_worksheet(1)
-    data = worksheet.get_all_values()
-    df2 = pd.DataFrame(data[1:], columns=data[0])
-    existing_names = df2["Name Save Data"].tolist()
-
-if name in existing_names:
-    st.warning("Name already exists. Please enter a new name for save data.")
-else:
-    if st.button("Submit"):
-        dfall = pd.DataFrame(all_data, index=[0])
-        dfall["Total Vote Count Forecast"] = GPSvote
-        dfall["Not Vote GPS"] = nonGPSvote
-        dfall["Total Voter"] = total.values
-        dfall["Simple Majority Votes"] = GPSwin
-        dfall["Two Third Winning"] = GPSwin23
-        dfall["Result"] = text_result
-        dfall.insert(0, "Name Save Data", name)
-        dfall.insert(1, "Description Save Data", description)
-        dfall.insert(2, "Parliament", level, True)
-        dfall.insert(3, "District", d_name, True)
-        dfall["Datetime"] = datetime.datetime.now(tz).strftime("%Y-%m-%d %H:%M:%S")
-        worksheet.append_rows(dfall.values.tolist())
-    
-#reset btn
-def _reset_slider():
-    for i, column_name in enumerate(renamed_columns.values()):
-        if column_name not in st.session_state:
-           st.session_state[column_name] = 72
-        st.session_state[column_name] = 72
-    for i, column_name in enumerate(renamed_columns.values()):
-        key = f"slider_col3_{column_name}"
-        if key not in st.session_state:
-           st.session_state[key] = 70
-        st.session_state[key] = 70  
-resetBtn = st.button("Reset",on_click=_reset_slider)
+#st.session_state["name"] = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}"
+#name = st.text_input("Enter a name for save data:",value=st.session_state["name"])
+#st.session_state["desc"] = " "
+#description = st.text_input("Enter a description for save data:",value=st.session_state["desc"])
 
 #update btn
 def _load_slider():
@@ -355,4 +311,50 @@ else:
         worksheet.append_rows(dfall.values.tolist())
     if resetBtn:
         updateBtn.disable()
+
+#submitBtn
+# Check if save data name already exists in the Google Sheet
+if chart_type == "Ethnic":
+    worksheet = sheet.get_worksheet(0)
+    data = worksheet.get_all_values()
+    df2 = pd.DataFrame(data[1:], columns=data[0])
+    existing_names = df2["Name Save Data"].tolist()
+else:
+    worksheet = sheet.get_worksheet(1)
+    data = worksheet.get_all_values()
+    df2 = pd.DataFrame(data[1:], columns=data[0])
+    existing_names = df2["Name Save Data"].tolist()
+
+if name in existing_names:
+    st.warning("Name already exists. Please enter a new name for save data.")
+else:
+    if st.button("Submit"):
+        dfall = pd.DataFrame(all_data, index=[0])
+        dfall["Total Vote Count Forecast"] = GPSvote
+        dfall["Not Vote GPS"] = nonGPSvote
+        dfall["Total Voter"] = total.values
+        dfall["Simple Majority Votes"] = GPSwin
+        dfall["Two Third Winning"] = GPSwin23
+        dfall["Result"] = text_result
+        dfall.insert(0, "Name Save Data", name)
+        dfall.insert(1, "Description Save Data", description)
+        dfall.insert(2, "Parliament", level, True)
+        dfall.insert(3, "District", d_name, True)
+        dfall["Datetime"] = datetime.datetime.now(tz).strftime("%Y-%m-%d %H:%M:%S")
+        worksheet.append_rows(dfall.values.tolist())
+    
+#reset btn
+def _reset_slider():
+    for i, column_name in enumerate(renamed_columns.values()):
+        if column_name not in st.session_state:
+           st.session_state[column_name] = 72
+        st.session_state[column_name] = 72
+    for i, column_name in enumerate(renamed_columns.values()):
+        key = f"slider_col3_{column_name}"
+        if key not in st.session_state:
+           st.session_state[key] = 70
+        st.session_state[key] = 70  
+resetBtn = st.button("Reset",on_click=_reset_slider)
+
+
 
