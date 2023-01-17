@@ -290,21 +290,6 @@ else:
     updateBtn = st.button("Update")
     resetBtn = st.button("Reset",on_click=_reset_slider)
     if updateBtn:
-        st.write("hello")
-        dfall = pd.DataFrame(all_data, index=[0])
-        dfall["Total Vote Count Forecast"] = GPSvote
-        dfall["Not Vote GPS"] = nonGPSvote
-        dfall["Total Voter"] = total.values
-        dfall["Simple Majority Votes"] = GPSwin
-        dfall["Two Third Winning"] = GPSwin23
-        dfall["Result"] = text_result
-        dfall.insert(0, "Name Save Data", name)
-        dfall.insert(1, "Description Save Data", description)
-        dfall.insert(2, "Parliament", level, True)
-        dfall.insert(3, "District", d_name, True)
-        dfall["Datetime"] = datetime.datetime.now(tz).strftime("%Y-%m-%d %H:%M:%S")
-        worksheet.append_rows(dfall.values.tolist())
-    else:
         dfall = pd.DataFrame(all_data, index=[0])
         dfall["Total Vote Count Forecast"] = GPSvote
         dfall["Not Vote GPS"] = nonGPSvote
