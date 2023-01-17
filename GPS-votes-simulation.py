@@ -274,7 +274,6 @@ if name in existing_names:
 else:
     if st.button("Submit"):
         st.write("asda")
-        st.session_state["name"] = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}"
         dfall = pd.DataFrame(all_data, index=[0])
         dfall["Total Vote Count Forecast"] = GPSvote
         dfall["Not Vote GPS"] = nonGPSvote
