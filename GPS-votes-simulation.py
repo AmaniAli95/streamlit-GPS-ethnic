@@ -239,8 +239,8 @@ elif chart_type == "Ethnic":
     st.markdown(result, unsafe_allow_html=True)
     soup = BeautifulSoup(result, 'html.parser')
     text_result = soup.h2.text
-st.session_state["name"] = st.text_input("Enter a name for save data:")
-st.session_state["desc"] = st.text_input("Enter a description for save data:")
+name = st.text_input("Enter a name for save data:")
+description = st.text_input("Enter a description for save data:")
 
 #submit btn
 if st.button("Submit"):
@@ -251,8 +251,8 @@ if st.button("Submit"):
     dfall["Simple Majority Votes"] = GPSwin
     dfall["Two Third Winning"] = GPSwin23
     dfall["Result"] = text_result
-    dfall.insert(0, "Name Save Data", st.session_state["name"])
-    dfall.insert(1, "Description Save Data", st.session_state["desc"])
+    dfall.insert(0, "Name Save Data", name)
+    dfall.insert(1, "Description Save Data", description)
     dfall.insert(2, "Parliament", level, True)
     dfall.insert(3, "District", d_name, True)
     dfall["Datetime"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -289,7 +289,7 @@ def _update_slider():
         key = f"slider_col3_{column_name}"
         st.session_state[key] = int(selected_row[f"{column_name} | Pct GPS Support Forecast"].values[0])
         
-    st.session_state["name"] = selected_row["Name Save Data"].values[0]
-    st.session_state["desc"] = selected_row["Description Save Data"].values[0]
+    name.set(selected_row["Name Save Data"].values[0])
+    description.set(selected_row["Description Save Data"].values[0])
 st.sidebar.button("Load",on_click=_update_slider)
 
