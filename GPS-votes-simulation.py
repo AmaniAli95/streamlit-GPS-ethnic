@@ -58,7 +58,7 @@ def create_recent_save_data_selectbox(worksheet, d_name):
     if selectname_options:
         return st.sidebar.selectbox('Recent Save Data:', selectname_options)
     else:
-        return None
+        return st.sidebar.selectbox('Recent Save Data:')
 
 if chart_type == "Ethnic":
     worksheet = sheet.get_worksheet(0)
