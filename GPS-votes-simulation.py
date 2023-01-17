@@ -7,6 +7,8 @@ from bs4 import BeautifulSoup
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import datetime
+import pytz
+tz = pytz.timezone('Asia/Kuala_Lumpur')
 st.set_page_config(layout="wide")
 
 url = "https://github.com/AmaniAli95/streamlit-GPS-ethnic/raw/main/demographic.csv"
@@ -239,8 +241,8 @@ elif chart_type == "Ethnic":
     st.markdown(result, unsafe_allow_html=True)
     soup = BeautifulSoup(result, 'html.parser')
     text_result = soup.h2.text  
-dnamerevise = d_name.replace(" ","")
-st.session_state["name"] = f"{dnamerevise}-{datetime.datetime.now().strftime('%Y%m%d')}-{datetime.datetime.now().strftime('%H%M')}"
+    
+st.session_state["name"] = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}"
 name = st.text_input("Enter a name for save data:",value=st.session_state["name"])
 st.session_state["desc"] = " "
 description = st.text_input("Enter a description for save data:",value=st.session_state["desc"])
@@ -258,7 +260,7 @@ if st.button("Submit"):
     dfall.insert(1, "Description Save Data", description)
     dfall.insert(2, "Parliament", level, True)
     dfall.insert(3, "District", d_name, True)
-    dfall["Datetime"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    dfall["Datetime"] = datetime.datetime.now(tz).strftime("%Y-%m-%d %H:%M:%S")
     if chart_type == "Ethnic":
         worksheet = sheet.get_worksheet(0)
         worksheet.append_rows(dfall.values.tolist())
