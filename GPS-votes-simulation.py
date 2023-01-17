@@ -274,13 +274,13 @@ def _load_slider():
 
 #loadBtn
 loadBtn = st.sidebar.button("Load",on_click=_load_slider)
-if loadBtn:
+if not loadBtn:
+    name = st.text_input("Enter a name for save data:",value = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}")
+    description = st.text_input("Enter a description for save data:", value = "")
+else:
     updateBtn = st.button("Update")
     name = st.text_input("Enter a name for save data:",value=st.session_state["name"])
     description = st.text_input("Enter a description for save data:",value=st.session_state["desc"])
-else:
-    name = st.text_input("Enter a name for save data:",value = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}")
-    description = st.text_input("Enter a description for save data:", value = "")
     if updateBtn:
         dfall = pd.DataFrame(all_data, index=[0])
         dfall["Total Vote Count Forecast"] = GPSvote
@@ -355,6 +355,4 @@ def _reset_slider():
            st.session_state[key] = 70
         st.session_state[key] = 70  
 resetBtn = st.button("Reset",on_click=_reset_slider)
-
-
 
