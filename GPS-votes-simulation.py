@@ -56,11 +56,9 @@ def create_recent_save_data_selectbox(worksheet, d_name):
     filtered_df2 = df2.loc[df2["District"] == d_name]
     selectname_options = filtered_df2["Name Save Data"].dropna().unique().tolist()
     if selectname_options:
-        selectname = st.sidebar.selectbox('Recent Save Data:', selectname_options, disabled=False)
-        return selectname
+        return st.sidebar.selectbox('Recent Save Data:', selectname_options, disabled=False)
     else:
-        selectname = st.sidebar.selectbox('Recent Save Data:',[], disabled=True)
-        return selectname
+        return st.sidebar.selectbox('Recent Save Data:',[], disabled=True)
     
 if chart_type == "Ethnic":
     worksheet = sheet.get_worksheet(0)
@@ -290,7 +288,8 @@ st.button("Reset",on_click=_reset_slider)
 
 #update btn
 def _update_slider():
-    selected_row = df2.loc[df2["Name Save Data"] == selectname]
+    df2 = pd.DataFrame(data[1:], columns=data[0])
+    selected_row = df2.loc[df2["Name Save Data"] == selected_name]
     st.session_state["level_index"] = df['P'].dropna().unique().tolist().index(selected_row["Parliament"].values[0])
     filtered_df = filter_data(selected_row["Parliament"].values[0])
     st.session_state["dname_index"] = filtered_df['D'].dropna().unique().tolist().index(selected_row["District"].values[0])
