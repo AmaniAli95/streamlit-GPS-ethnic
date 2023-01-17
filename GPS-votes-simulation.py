@@ -288,7 +288,7 @@ def _reset_slider():
         if key not in st.session_state:
            st.session_state[key] = 70
         st.session_state[key] = 70  
-st.button("Reset",on_click=_reset_slider)
+resetBtn = st.button("Reset",on_click=_reset_slider)
 
 #update btn
 def _update_slider():
@@ -306,5 +306,11 @@ def _update_slider():
     #st.text_input("Enter a name for save data:").set(st.session_state["name"])   
     #name.set(selected_row["Name Save Data"].values[0])
     #description.set(selected_row["Description Save Data"].values[0])
-st.sidebar.button("Load",on_click=_update_slider)
+loadBtn = st.sidebar.button("Load",on_click=_update_slider)
+if loadBtn:
+    updateBtn = st.sidebar.button("Update")
+    if resetBtn:
+        updateBtn.disable()
+    else:
+        updateBtn.enable()
 
