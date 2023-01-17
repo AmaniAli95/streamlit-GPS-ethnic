@@ -257,7 +257,20 @@ elif chart_type == "Ethnic":
 #st.session_state["desc"] = " "
 #description = st.text_input("Enter a description for save data:",value=st.session_state["desc"])
 
-#update btn
+#reset btn
+def _reset_slider():
+    for i, column_name in enumerate(renamed_columns.values()):
+        if column_name not in st.session_state:
+           st.session_state[column_name] = 72
+        st.session_state[column_name] = 72
+    for i, column_name in enumerate(renamed_columns.values()):
+        key = f"slider_col3_{column_name}"
+        if key not in st.session_state:
+           st.session_state[key] = 70
+        st.session_state[key] = 70  
+resetBtn = st.button("Reset",on_click=_reset_slider)
+
+#load btn
 def _load_slider():
     selected_row = df2.loc[df2["Name Save Data"] == selected_name]
     st.session_state["level_index"] = df['P'].dropna().unique().tolist().index(selected_row["Parliament"].values[0])
@@ -343,16 +356,4 @@ else:
         dfall["Datetime"] = datetime.datetime.now(tz).strftime("%Y-%m-%d %H:%M:%S")
         worksheet.append_rows(dfall.values.tolist())
     
-#reset btn
-def _reset_slider():
-    for i, column_name in enumerate(renamed_columns.values()):
-        if column_name not in st.session_state:
-           st.session_state[column_name] = 72
-        st.session_state[column_name] = 72
-    for i, column_name in enumerate(renamed_columns.values()):
-        key = f"slider_col3_{column_name}"
-        if key not in st.session_state:
-           st.session_state[key] = 70
-        st.session_state[key] = 70  
-resetBtn = st.button("Reset",on_click=_reset_slider)
 
