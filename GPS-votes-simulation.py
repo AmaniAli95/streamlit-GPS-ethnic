@@ -250,12 +250,6 @@ elif chart_type == "Ethnic":
     st.markdown(result, unsafe_allow_html=True)
     soup = BeautifulSoup(result, 'html.parser')
     text_result = soup.h2.text  
-    
-#naming save data
-#st.session_state["name"] = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}"
-#name = st.text_input("Enter a name for save data:",value=st.session_state["name"])
-#st.session_state["desc"] = " "
-#description = st.text_input("Enter a description for save data:",value=st.session_state["desc"])
 
 #reset btn
 def _reset_slider():
@@ -289,11 +283,14 @@ loadBtn = st.sidebar.button("Load",on_click=_load_slider)
 if not loadBtn:
     name = st.text_input("Enter a name for save data:",value = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}")
     description = st.text_input("Enter a description for save data:", value = "")
+    st.write("sini")
     resetBtn = st.button("Reset",on_click=_reset_slider)
 else:
-    updateBtn = st.button("Update")
     name = st.text_input("Enter a name for save data:",value=st.session_state["name"])
     description = st.text_input("Enter a description for save data:",value=st.session_state["desc"])
+    st.write("sini")
+    updateBtn = st.button("Update")
+    st.write("sini")
     resetBtn = st.button("Reset",on_click=_reset_slider)
     if updateBtn:
         dfall = pd.DataFrame(all_data, index=[0])
