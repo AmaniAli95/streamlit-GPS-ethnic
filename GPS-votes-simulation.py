@@ -155,8 +155,8 @@ if chart_type == "Age":
     GPSwin = int((total.values)[0]/2 + 1)
     GPSwin23 = int((total.values)[0]/3 + GPSwin)
     remGPSvote = abs(GPSvote - GPSwin)
-    st.markdown(f"### In order for GPS to earn a simple majority, it needs {GPSwin} support while to earn 2/3 votes, it needs {GPSwin23}")
-    st.markdown(f"### Currently, it expected to garner {GPSvote} support")
+    st.markdown(f"#### In order for GPS to earn a simple majority, it needs {GPSwin} support while to earn 2/3 votes, it needs {GPSwin23}")
+    st.markdown(f"#### Currently, it expected to garner {GPSvote} support")
     if GPSvote >= GPSwin23:
         result = "<h2 style='color: green; animation: pulse 3s infinite'>GPS is Winning. It forecast to win 2/3 votes</h2>"
     elif GPSvote > nonGPSvote:
@@ -239,8 +239,8 @@ elif chart_type == "Ethnic":
     GPSwin = int((total.values)[0]/2 + 1)
     GPSwin23 = int((total.values)[0]/3 + GPSwin)
     remGPSvote = abs(GPSvote - GPSwin)
-    st.markdown(f"### In order for GPS to earn a simple majority, it needs {GPSwin} support while to earn 2/3 votes, it needs {GPSwin23}")
-    st.markdown(f"### Currently, it expected to garner {GPSvote} support")
+    st.markdown(f"#### In order for GPS to earn a simple majority, it needs {GPSwin} support while to earn 2/3 votes, it needs {GPSwin23}")
+    st.markdown(f"#### Currently, it expected to garner {GPSvote} support")
     if GPSvote >= GPSwin23:
         result = "<h2 style='color: green; animation: pulse 3s infinite'>GPS is Winning. It forecast to win 2/3 votes</h2>"
     elif GPSvote > nonGPSvote:
