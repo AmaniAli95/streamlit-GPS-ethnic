@@ -251,6 +251,7 @@ elif chart_type == "Ethnic":
     soup = BeautifulSoup(result, 'html.parser')
     text_result = soup.h2.text  
     
+#naming save data
 st.session_state["name"] = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}"
 name = st.text_input("Enter a name for save data:",value=st.session_state["name"])
 st.session_state["desc"] = " "
@@ -301,7 +302,7 @@ def _reset_slider():
 resetBtn = st.button("Reset",on_click=_reset_slider)
 
 #update btn
-def _update_slider():
+def _load_slider():
     selected_row = df2.loc[df2["Name Save Data"] == selected_name]
     st.session_state["level_index"] = df['P'].dropna().unique().tolist().index(selected_row["Parliament"].values[0])
     filtered_df = filter_data(selected_row["Parliament"].values[0])
@@ -312,16 +313,12 @@ def _update_slider():
     for i, column_name in enumerate(renamed_columns.values()):
         key = f"slider_col3_{column_name}"
         st.session_state[key] = int(selected_row[f"{column_name} | Pct GPS Support Forecast"].values[0])
-    naming = selected_row["Name Save Data"].values[0]
-    descr =  selected_row["Description Save Data"].values[0]
-    st.session_state["name"] = f"{naming}"
-    st.session_state["desc"] = f"{descr}"
-    st.write(naming)
-    st.write(st.session_state["name"])
-    st.write(descr)
-    st.write(st.session_state["desc"])
-    
-loadBtn = st.sidebar.button("Load",on_click=_update_slider)
+    st.session_state["name"] = selected_row["Name Save Data"].values[0]
+    name = st.text_input("Enter a name for save data:",value=st.session_state["name"])
+    st.session_state["desc"] =  selected_row["Description Save Data"].values[0]
+
+#loadBtn
+loadBtn = st.sidebar.button("Load",on_click=_load_slider)
 if loadBtn:
     updateBtn = st.button("Update")
     if updateBtn:
