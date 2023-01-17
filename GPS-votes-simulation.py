@@ -270,7 +270,7 @@ else:
     existing_names = df2["Name Save Data"].tolist()
 
 if name in existing_names:
-    st.warning("Save data name already exists. Please enter a new name.")
+    st.warning("Name already exists. Please enter a new name for save data.")
 else:
     if st.button("Submit"):
         st.write("asda")
