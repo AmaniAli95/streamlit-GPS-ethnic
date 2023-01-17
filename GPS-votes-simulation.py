@@ -155,7 +155,7 @@ if chart_type == "Age":
     GPSwin = int((total.values)[0]/2 + 1)
     GPSwin23 = int((total.values)[0]/3 + GPSwin)
     remGPSvote = abs(GPSvote - GPSwin)
-    st.markdown(f"#### In order for GPS to earn a simple majority, it needs {GPSwin} support while to earn 2/3 votes, it needs {GPSwin23}")
+    st.markdown(f"#### In order for GPS to earn a simple majority, it needs {GPSwin} support while to earn 2/3 votes, it needs {GPSwin23} support")
     st.markdown(f"#### Currently, it expected to garner {GPSvote} support")
     if GPSvote >= GPSwin23:
         result = "<h2 style='color: green; animation: pulse 3s infinite'>GPS is Winning. It forecast to win 2/3 votes</h2>"
@@ -239,7 +239,7 @@ elif chart_type == "Ethnic":
     GPSwin = int((total.values)[0]/2 + 1)
     GPSwin23 = int((total.values)[0]/3 + GPSwin)
     remGPSvote = abs(GPSvote - GPSwin)
-    st.markdown(f"#### In order for GPS to earn a simple majority, it needs {GPSwin} support while to earn 2/3 votes, it needs {GPSwin23}")
+    st.markdown(f"#### In order for GPS to earn a simple majority, it needs {GPSwin} support while to earn 2/3 votes, it needs {GPSwin23} support")
     st.markdown(f"#### Currently, it expected to garner {GPSvote} support")
     if GPSvote >= GPSwin23:
         result = "<h2 style='color: green; animation: pulse 3s infinite'>GPS is Winning. It forecast to win 2/3 votes</h2>"
@@ -256,28 +256,37 @@ name = st.text_input("Enter a name for save data:",value=st.session_state["name"
 st.session_state["desc"] = " "
 description = st.text_input("Enter a description for save data:",value=st.session_state["desc"])
 
-#submit btn
-if st.button("Submit"):
-    st.session_state["name"] = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}"
-    dfall = pd.DataFrame(all_data, index=[0])
-    dfall["Total Vote Count Forecast"] = GPSvote
-    dfall["Not Vote GPS"] = nonGPSvote
-    dfall["Total Voter"] = total.values
-    dfall["Simple Majority Votes"] = GPSwin
-    dfall["Two Third Winning"] = GPSwin23
-    dfall["Result"] = text_result
-    dfall.insert(0, "Name Save Data", name)
-    dfall.insert(1, "Description Save Data", description)
-    dfall.insert(2, "Parliament", level, True)
-    dfall.insert(3, "District", d_name, True)
-    dfall["Datetime"] = datetime.datetime.now(tz).strftime("%Y-%m-%d %H:%M:%S")
-    if chart_type == "Ethnic":
-        worksheet = sheet.get_worksheet(0)
+# Check if save data name already exists in the Google Sheet
+if chart_type == "Ethnic":
+    worksheet = sheet.get_worksheet(0)
+    data = worksheet.get_all_values()
+    df2 = pd.DataFrame(data[1:], columns=data[0])
+    existing_names = df2["Name Save Data"].tolist()
+else:
+    worksheet = sheet.get_worksheet(1)
+    data = worksheet.get_all_values()
+    df2 = pd.DataFrame(data[1:], columns=data[0])
+    existing_names = df2["Name Save Data"].tolist()
+    
+if name in existing_names:
+    st.warning("Save data name already exists. Please enter a new name.")
+else:
+    if st.button("Submit"):
+        st.session_state["name"] = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}"
+        dfall = pd.DataFrame(all_data, index=[0])
+        dfall["Total Vote Count Forecast"] = GPSvote
+        dfall["Not Vote GPS"] = nonGPSvote
+        dfall["Total Voter"] = total.values
+        dfall["Simple Majority Votes"] = GPSwin
+        dfall["Two Third Winning"] = GPSwin23
+        dfall["Result"] = text_result
+        dfall.insert(0, "Name Save Data", name)
+        dfall.insert(1, "Description Save Data", description)
+        dfall.insert(2, "Parliament", level, True)
+        dfall.insert(3, "District", d_name, True)
+        dfall["Datetime"] = datetime.datetime.now(tz).strftime("%Y-%m-%d %H:%M:%S")
         worksheet.append_rows(dfall.values.tolist())
-    else:
-        worksheet = sheet.get_worksheet(1)
-        worksheet.append_rows(dfall.values.tolist())
-        
+    
 #reset btn
 def _reset_slider():
     for i, column_name in enumerate(renamed_columns.values()):
