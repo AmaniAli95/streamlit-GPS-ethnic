@@ -239,8 +239,9 @@ elif chart_type == "Ethnic":
     st.markdown(result, unsafe_allow_html=True)
     soup = BeautifulSoup(result, 'html.parser')
     text_result = soup.h2.text
-st.session_state["name"] = f"{d_name}-{datetime.datetime.now().strftime("YYYYMMDD")}-{datetime.datetime.now().strftime("HHMM")}"
-name = st.text_input("Enter a name for save data:",type=st.session_state["name"])
+if "name" not in st.session_state:    
+    st.session_state["name"] = f"{d_name}-{datetime.datetime.now().strftime("YYYYMMDD")}-{datetime.datetime.now().strftime("HHMM")}"
+    name = st.text_input("Enter a name for save data:",type=st.session_state["name"])
 description = st.text_input("Enter a description for save data:")
 
 #submit btn
