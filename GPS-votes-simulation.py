@@ -312,16 +312,16 @@ def _update_slider():
     for i, column_name in enumerate(renamed_columns.values()):
         key = f"slider_col3_{column_name}"
         st.session_state[key] = int(selected_row[f"{column_name} | Pct GPS Support Forecast"].values[0])
-    naming = selected_row["Name Save Data"].values[0]
-    descr =  selected_row["Description Save Data"].values[0]
-    st.session_state["name"] = f"{naming}"
-    st.session_state["desc"] = f"{descr}"
+    
     #st.session_state["name"] = selected_row["Name Save Data"].values[0]
     #st.session_state["desc"] = selected_row["Description Save Data"].values[0]
 
 loadBtn = st.sidebar.button("Load",on_click=_update_slider)
 if loadBtn:
-    
+    naming = selected_row["Name Save Data"].values[0]
+    descr =  selected_row["Description Save Data"].values[0]
+    st.session_state["name"] = f"{naming}"
+    st.session_state["desc"] = f"{descr}"
     #st.session_state["name"] = f"{selected_row["Name Save Data"].values[0]}"
     #st.session_state["desc"] = f"{selected_row["Description Save Data"].values[0]}"
     #st.write(f"{selected_row["Name Save Data"].values[0]}")
