@@ -288,7 +288,7 @@ st.button("Reset",on_click=_reset_slider)
 
 #update btn
 def _update_slider():
-    selected_row = df2.loc[df2["Name Save Data"] == selected_name]
+    selected_row = df2.loc[df2["Name Save Data"] == selectname_options]
     st.session_state["level_index"] = df['P'].dropna().unique().tolist().index(selected_row["Parliament"].values[0])
     filtered_df = filter_data(selected_row["Parliament"].values[0])
     st.session_state["dname_index"] = filtered_df['D'].dropna().unique().tolist().index(selected_row["District"].values[0])
