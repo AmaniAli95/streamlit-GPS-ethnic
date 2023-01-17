@@ -50,30 +50,23 @@ client = gspread.authorize(credentials)
 sheet = client.open_by_url(st.secrets["private_gsheets_url"])
 
 #retrieve data
-#ethnic
+def create_recent_save_data_selectbox(worksheet, d_name):
+    data = worksheet.get_all_values()
+    df2 = pd.DataFrame(data[1:], columns=data[0])
+    filtered_df2 = df2.loc[df2["District"] == d_name]
+    selectname_options = filtered_df2["Name Save Data"].dropna().unique().tolist()
+    if selectname_options:
+        return st.sidebar.selectbox('Recent Save Data:', selectname_options)
+    else:
+        return None
+
 if chart_type == "Ethnic":
     worksheet = sheet.get_worksheet(0)
-    data = worksheet.get_all_values()
-    df2 = pd.DataFrame(data[1:], columns=data[0])
-    filtered_df2 = df2.loc[df2["District"] == d_name]
-    selectname_options = filtered_df2["Name Save Data"].dropna().unique().tolist()
-    if selectname_options:
-        selected_name = st.sidebar.selectbox('Recent Save Data:', selectname_options)
-    else:
-        selected_name = None
-    #selected_name = st.sidebar.selectbox('Recent Save Data:', df2["Name Save Data"].dropna().unique().tolist())
-#age
+    selected_name = create_recent_save_data_selectbox(worksheet, d_name)
+
 elif chart_type == "Age":
     worksheet = sheet.get_worksheet(1)
-    data = worksheet.get_all_values()
-    df2 = pd.DataFrame(data[1:], columns=data[0])
-    filtered_df2 = df2.loc[df2["District"] == d_name]
-    selectname_options = filtered_df2["Name Save Data"].dropna().unique().tolist()
-    if selectname_options:
-        selected_name = st.sidebar.selectbox('Recent Save Data:', selectname_options)
-    else:
-        selected_name = None
-    #selected_name = st.sidebar.selectbox('Recent Save Data:', df2["Name Save Data"].dropna().unique().tolist())
+    selected_name = create_recent_save_data_selectbox(worksheet, d_name)
 
 #Number of Registered Voters
 def to_percentage(val):
