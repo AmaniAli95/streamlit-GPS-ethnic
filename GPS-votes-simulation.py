@@ -290,6 +290,7 @@ else:
     updateBtn = st.button("Update")
     resetBtn = st.button("Reset",on_click=_reset_slider)
     if updateBtn:
+        st.write("hello")
         dfall = pd.DataFrame(all_data, index=[0])
         dfall["Total Vote Count Forecast"] = GPSvote
         dfall["Not Vote GPS"] = nonGPSvote
