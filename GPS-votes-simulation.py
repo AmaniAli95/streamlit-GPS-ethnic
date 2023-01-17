@@ -62,10 +62,14 @@ def create_recent_save_data_selectbox(worksheet, d_name):
     
 if chart_type == "Ethnic":
     worksheet = sheet.get_worksheet(0)
+    data = worksheet.get_all_values()
+    df2 = pd.DataFrame(data[1:], columns=data[0])
     selected_name = create_recent_save_data_selectbox(worksheet, d_name)
 
 elif chart_type == "Age":
     worksheet = sheet.get_worksheet(1)
+    data = worksheet.get_all_values()
+    df2 = pd.DataFrame(data[1:], columns=data[0])
     selected_name = create_recent_save_data_selectbox(worksheet, d_name)
 
 #Number of Registered Voters
@@ -288,7 +292,6 @@ st.button("Reset",on_click=_reset_slider)
 
 #update btn
 def _update_slider():
-    df2 = pd.DataFrame(data[1:], columns=data[0])
     selected_row = df2.loc[df2["Name Save Data"] == selected_name]
     st.session_state["level_index"] = df['P'].dropna().unique().tolist().index(selected_row["Parliament"].values[0])
     filtered_df = filter_data(selected_row["Parliament"].values[0])
