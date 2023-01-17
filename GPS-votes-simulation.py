@@ -313,15 +313,16 @@ def _update_slider():
         key = f"slider_col3_{column_name}"
         st.session_state[key] = int(selected_row[f"{column_name} | Pct GPS Support Forecast"].values[0])
     st.session_state["name"] = selected_row["Name Save Data"].values[0]
-    st.write(st.session_state["name"])
     st.session_state["desc"] = selected_row["Description Save Data"].values[0]
-    st.write(st.session_state["desc"])
 
 loadBtn = st.sidebar.button("Load",on_click=_update_slider)
 if loadBtn:
+    st.session_state["name"] = selected_row["Name Save Data"].values[0]
+    st.session_state["desc"] = selected_row["Description Save Data"].values[0]
+    st.write(selected_row["Name Save Data"].values[0])
+    st.write(selected_row["Description Save Data"].values[0])
     updateBtn = st.button("Update")
     if updateBtn:
-        st.session_state["name"] = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}"
         dfall = pd.DataFrame(all_data, index=[0])
         dfall["Total Vote Count Forecast"] = GPSvote
         dfall["Not Vote GPS"] = nonGPSvote
@@ -334,12 +335,21 @@ if loadBtn:
         dfall.insert(2, "Parliament", level, True)
         dfall.insert(3, "District", d_name, True)
         dfall["Datetime"] = datetime.datetime.now(tz).strftime("%Y-%m-%d %H:%M:%S")
-        if chart_type == "Ethnic":
-            worksheet = sheet.get_worksheet(0)
-            worksheet.append_rows(dfall.values.tolist())
-        else:
-            worksheet = sheet.get_worksheet(1)
-            worksheet.append_rows(dfall.values.tolist())
+        worksheet.append_rows(dfall.values.tolist())
+    else:
+        dfall = pd.DataFrame(all_data, index=[0])
+        dfall["Total Vote Count Forecast"] = GPSvote
+        dfall["Not Vote GPS"] = nonGPSvote
+        dfall["Total Voter"] = total.values
+        dfall["Simple Majority Votes"] = GPSwin
+        dfall["Two Third Winning"] = GPSwin23
+        dfall["Result"] = text_result
+        dfall.insert(0, "Name Save Data", name)
+        dfall.insert(1, "Description Save Data", description)
+        dfall.insert(2, "Parliament", level, True)
+        dfall.insert(3, "District", d_name, True)
+        dfall["Datetime"] = datetime.datetime.now(tz).strftime("%Y-%m-%d %H:%M:%S")
+        worksheet.append_rows(dfall.values.tolist())
     if resetBtn:
         updateBtn.disable()
 
