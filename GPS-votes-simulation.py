@@ -56,9 +56,9 @@ def create_recent_save_data_selectbox(worksheet, d_name):
     filtered_df2 = df2.loc[df2["District"] == d_name]
     selectname_options = filtered_df2["Name Save Data"].dropna().unique().tolist()
     if selectname_options:
-        return st.sidebar.selectbox('Recent Save Data:', selectname_options)
+        return st.sidebar.selectbox('Recent Save Data:', selectname_options, disabled=True)
     else:
-        return st.sidebar.selectbox('Recent Save Data:')
+        return st.sidebar.selectbox('Recent Save Data:',[], disabled=True)
 
 if chart_type == "Ethnic":
     worksheet = sheet.get_worksheet(0)
