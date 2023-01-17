@@ -258,6 +258,7 @@ description = st.text_input("Enter a description for save data:",value=st.sessio
 
 #submit btn
 if st.button("Submit"):
+    st.session_state["name"] = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}"
     dfall = pd.DataFrame(all_data, index=[0])
     dfall["Total Vote Count Forecast"] = GPSvote
     dfall["Not Vote GPS"] = nonGPSvote
@@ -302,13 +303,31 @@ def _update_slider():
     for i, column_name in enumerate(renamed_columns.values()):
         key = f"slider_col3_{column_name}"
         st.session_state[key] = int(selected_row[f"{column_name} | Pct GPS Support Forecast"].values[0])
-        
-    #st.text_input("Enter a name for save data:").set(st.session_state["name"])   
-    #name.set(selected_row["Name Save Data"].values[0])
-    #description.set(selected_row["Description Save Data"].values[0])
+    st.session_state["name"] = selected_row["Name Save Data"].values[0]
+    st.session_state["desc"] = selected_row["Description Save Data"].values[0])
+
 loadBtn = st.sidebar.button("Load",on_click=_update_slider)
 if loadBtn:
     updateBtn = st.button("Update")
+    st.session_state["name"] = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}"
+    dfall = pd.DataFrame(all_data, index=[0])
+    dfall["Total Vote Count Forecast"] = GPSvote
+    dfall["Not Vote GPS"] = nonGPSvote
+    dfall["Total Voter"] = total.values
+    dfall["Simple Majority Votes"] = GPSwin
+    dfall["Two Third Winning"] = GPSwin23
+    dfall["Result"] = text_result
+    dfall.insert(0, "Name Save Data", name)
+    dfall.insert(1, "Description Save Data", description)
+    dfall.insert(2, "Parliament", level, True)
+    dfall.insert(3, "District", d_name, True)
+    dfall["Datetime"] = datetime.datetime.now(tz).strftime("%Y-%m-%d %H:%M:%S")
+    if chart_type == "Ethnic":
+        worksheet = sheet.get_worksheet(0)
+        worksheet.append_rows(dfall.values.tolist())
+    else:
+        worksheet = sheet.get_worksheet(1)
+        worksheet.append_rows(dfall.values.tolist())
     if resetBtn:
         updateBtn.disable()
 
