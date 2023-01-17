@@ -311,6 +311,4 @@ if loadBtn:
     updateBtn = st.sidebar.button("Update")
     if resetBtn:
         updateBtn.disable()
-    else:
-        updateBtn.enable()
 
