@@ -286,15 +286,14 @@ def _load_slider():
 loadBtn = st.sidebar.button("Load",on_click=_load_slider)        
 
 #check loadBtn
-if not loadBtn and loadBtn_pressed == True :
+if not loadBtn:
     st.write("1")
     name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
     description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
     updateBtn = st.button("Update", disabled=True)
     resetBtn = st.button("Reset",on_click=_reset_slider)
 else:
-    st.write(st.session_state["name"])
-    st.write(st.session_state["desc"])
+    st.write("2")
     name = st.text_input("Enter a name for save data:",value=st.session_state["name"])
     description = st.text_input("Enter a description for save data:",value=st.session_state["desc"])
     updateBtn = st.button("Update", disabled=False)
