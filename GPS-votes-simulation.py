@@ -283,16 +283,16 @@ loadBtn = st.sidebar.button("Load",on_click=_load_slider)
 #text_input
 st.session_state["name"] = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}"
 st.session_state["desc"] =  " "
-name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
-description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
+#name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
+#description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
 updateBtn = st.button("Update", disabled=True)
 resetBtn = st.button("Reset",on_click=_reset_slider)
 
 #check loadBtn
 if not loadBtn and selected_name != st.session_state["name"]:
     st.write("1")
-    st.session_state["name"] = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}"
-    st.session_state["desc"] =  " "
+    #st.session_state["name"] = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}"
+    #st.session_state["desc"] =  " "
     name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
     description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
     updateBtn = st.button("Update", disabled=True)
