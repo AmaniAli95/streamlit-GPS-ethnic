@@ -280,7 +280,7 @@ def _load_slider():
     return st.session_state["name"], st.session_state["desc"]
 
 loadBtn = st.sidebar.button("Load",on_click=_load_slider)
-if loadBtn is None and 'updateBtn' not in globals():
+if 'updateBtn' not in globals():
     st.session_state["name"] = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}"
     st.session_state["desc"] =  " "
     name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
