@@ -283,7 +283,7 @@ dateCheck = datetime.datetime.now(tz).strftime("%H%M")
 st.write(dateCheck)
 
 #check loadBtn
-if not loadBtn and not st.session_state["name"]:
+if not loadBtn and st.session_state["name"] is None:
     st.write("1")
     st.session_state["name"] = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}"
     st.session_state["desc"] =  " "
