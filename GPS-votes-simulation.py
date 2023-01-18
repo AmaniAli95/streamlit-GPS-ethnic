@@ -295,7 +295,8 @@ else:
     description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
     updateBtn_disabled = False
     updateBtn = st.button("Update", disabled=updateBtn_disabled)
-    resetBtn = st.button("Reset",on_click=_reset_slider)
+    #resetBtn = st.button("Reset",on_click=_reset_slider)
+    resetBtn = st.button("Reset",on_click=lambda: _reset_slider(updateBtn_disabled))
     #updateBtn
     if updateBtn:
         dfall = pd.DataFrame(all_data, index=[0])
