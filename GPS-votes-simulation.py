@@ -43,10 +43,6 @@ level = create_level_selectbox()
 filtered_df = filter_data(level)
 d_name = create_dname_selectbox()
 
-#text_input
-st.session_state["name"] = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}"
-st.session_state["desc"] =  " "
-
 #Gsheet db
 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
 credentials = ServiceAccountCredentials.from_json_keyfile_dict(st.secrets["gcp_service_account"], scope)
@@ -288,6 +284,8 @@ loadBtn = st.sidebar.button("Load",on_click=_load_slider)
 #check loadBtn
 if not loadBtn:
     st.write("1")
+    st.session_state["name"] = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}"
+    st.session_state["desc"] =  " "
     name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
     description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
     updateBtn = st.button("Update", disabled=True)
