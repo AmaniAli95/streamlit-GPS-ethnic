@@ -286,7 +286,7 @@ if 'updateBtn' not in globals():
     name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
     description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
     resetBtn = st.button("Reset",on_click=_reset_slider)
-elif loadBtn:
+else if loadBtn:
     name = st.text_input("Enter a name for save data:",value=st.session_state["name"])
     description = st.text_input("Enter a description for save data:",value=st.session_state["desc"])
     updateBtn = st.button("Update")
