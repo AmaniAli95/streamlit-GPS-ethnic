@@ -312,12 +312,12 @@ else:
             worksheet = sheet.get_worksheet(0)
             name_data = dfall["Name Save Data"].values[0]
             results = worksheet.find(name_data)
+            st.write(results)
             if results:
-                # Get the row number of the matching row
                 row_number = results.row
-                # Get the data in that row
+                st.write(row_number)
                 row_data = worksheet.row_values(row_number)
-                # Update the data in the row
+                st.write(row_data)
                 for i in range(len(dfall.columns)):
                     worksheet.update_cell(row_number, i+1, dfall.iloc[0,i])
         else:
