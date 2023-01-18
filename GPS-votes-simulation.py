@@ -280,7 +280,7 @@ def _load_slider():
     return st.session_state["name"], st.session_state["desc"]
 
 loadBtn = st.sidebar.button("Load",on_click=_load_slider)
-if not loadBtn and "updateBtn" not in locals() or "updateBtn" not in globals():
+if not loadBtn and "updateBtn" not in locals():
     st.write("1")
     st.session_state["name"] = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}"
     st.session_state["desc"] =  " "
