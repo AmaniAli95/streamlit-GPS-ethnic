@@ -307,17 +307,13 @@ else:
         dfall.insert(2, "Parliament", level, True)
         dfall.insert(3, "District", d_name, True)
         dfall["Datetime"] = datetime.datetime.now(tz).strftime("%Y-%m-%d %H:%M:%S")
-        st.table(dfall)
         if chart_type == "Ethnic":
             worksheet = sheet.get_worksheet(0)
             name_data = dfall["Name Save Data"].values[0]
             results = worksheet.find(name_data)
-            st.write(results)
             if results:
                 row_number = results.row
-                st.write(row_number)
                 row_data = worksheet.row_values(row_number)
-                st.write(row_data)
                 for i in range(len(dfall.columns)):
                     worksheet.update_cell(row_number, i+1, str(dfall.iloc[0,i]))
         else:
@@ -325,12 +321,9 @@ else:
             data = worksheet.get_all_values()
             name_data = dfall["Name Save Data"].values[0]
             results = worksheet.find(name_data)
-            st.write(results)
             if results:
                 row_number = results.row
-                st.write(row_number)
                 row_data = worksheet.row_values(row_number)
-                st.write(row_data)
                 for i in range(len(dfall.columns)):
                     worksheet.update_cell(row_number, i+1, str(dfall.iloc[0,i]))
     if resetBtn:
