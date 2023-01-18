@@ -281,16 +281,7 @@ def _load_slider():
 
 loadBtn = st.sidebar.button("Load",on_click=_load_slider)
 updateBtn_exists = False
-#if updateBtn not in globals() and not loadBtn:
-if updateBtn_exists == False and not loadBtn:
-    st.write("1")
-    st.session_state["name"] = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}"
-    st.session_state["desc"] =  " "
-    name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
-    description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
-    resetBtn = st.button("Reset",on_click=_reset_slider)
-else:
-    updateBtn_exists = True
+if updateBtn_exists == True and loadBtn:
     st.write("2")
     name = st.text_input("Enter a name for save data:",value=st.session_state["name"])
     description = st.text_input("Enter a description for save data:",value=st.session_state["desc"])
@@ -314,6 +305,16 @@ else:
         #worksheet.append_rows(dfall.values.tolist())
     if resetBtn:
         updateBtn.disable()
+else:
+    st.write("1")
+    st.session_state["name"] = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}"
+    st.session_state["desc"] =  " "
+    name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
+    description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
+    resetBtn = st.button("Reset",on_click=_reset_slider)
+    updateBtn_exists = True
+
+    
 
 #submitBtn
 # Check if save data name already exists in the Google Sheet
