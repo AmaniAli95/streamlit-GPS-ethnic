@@ -316,7 +316,7 @@ else:
                 # Get the row number of the matching row
                 row_number = results.row
                 # Get the data in that row
-                row_data = sheet.row_values(row_number)
+                row_data = worksheet.row_values(row_number)
                 # Update the data in the row
                 for i in range(len(dfall.columns)):
                     worksheet.update_cell(row_number, i+1, dfall.iloc[0,i])
@@ -329,7 +329,7 @@ else:
                 # Get the row number of the matching row
                 row_number = results.row
                 # Get the data in that row
-                row_data = sheet.row_values(row_number)
+                row_data = worksheet.row_values(row_number)
                 # Update the data in the row
                 for i in range(len(dfall.columns)):
                     worksheet.update_cell(row_number, i+1, dfall.iloc[0,i])
