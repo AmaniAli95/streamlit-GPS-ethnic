@@ -320,7 +320,7 @@ else:
                 st.write(row_data)
                 for i in range(len(dfall.columns)):
                     #worksheet.update_cell(row_number, i+1, dfall.iloc[0,i])
-                    worksheet.update_cell(row_number, i+1, dfall.iloc[0,i].to_json())
+                    worksheet.update_cell(row_number, i+1, str(dfall.iloc[0,i]))
         else:
             worksheet = sheet.get_worksheet(1)
             data = worksheet.get_all_values()
