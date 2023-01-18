@@ -280,7 +280,7 @@ def _load_slider():
     return st.session_state["name"], st.session_state["desc"]
 
 loadBtn = st.sidebar.button("Load",on_click=_load_slider)
-if not loadBtn and "updateBtn" not in locals():
+if not loadBtn and "updateBtn" not in locals() and "updateBtn" not in globals():
     st.write("1")
     st.session_state["name"] = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}"
     st.session_state["desc"] =  " "
@@ -312,7 +312,6 @@ else:
         #worksheet.append_rows(dfall.values.tolist())
     if resetBtn:
         updateBtn.disable()
-
 
 #submitBtn
 # Check if save data name already exists in the Google Sheet
