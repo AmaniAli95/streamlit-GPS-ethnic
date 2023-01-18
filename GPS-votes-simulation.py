@@ -262,8 +262,8 @@ def _reset_slider():
         if key not in st.session_state:
            st.session_state[key] = 70
         st.session_state[key] = 70  
-     st.session_state["name"] = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}"
-     st.session_state["desc"] = " "
+    st.session_state["name"] = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}"
+    st.session_state["desc"] = " "
 
 def _load_slider():
     selected_row = df2.loc[df2["Name Save Data"] == selected_name]
