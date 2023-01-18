@@ -287,7 +287,7 @@ if not loadBtn and selected_name != st.session_state["name"]:
     st.session_state["desc"] =  " "
     name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
     description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
-    updateBtn = st.button("Update")
+    updateBtn = st.button("Update", disabled=True)
     resetBtn = st.button("Reset",on_click=_reset_slider)
 else:
     st.write("2")
@@ -310,7 +310,6 @@ else:
         dfall.insert(3, "District", d_name, True)
         dfall["Datetime"] = datetime.datetime.now(tz).strftime("%Y-%m-%d %H:%M:%S")
         worksheet.update(dfall.to_dict("records"), 'Name Save Data = "{}"'.format(name))
-        #worksheet.append_rows(dfall.values.tolist())
     if resetBtn:
         updateBtn.disable()
 
