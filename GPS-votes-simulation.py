@@ -278,13 +278,8 @@ def _load_slider():
     return st.session_state["name"], st.session_state["desc"]
 loadBtn = st.sidebar.button("Load",on_click=_load_slider)  
 
-#checking
-dateCheck = datetime.datetime.now(tz).strftime("%H%M")
-st.write(dateCheck)
-
 #check loadBtn
 if not loadBtn and "name" not in st.session_state:
-    st.write("1")
     st.session_state["name"] = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}"
     st.session_state["desc"] =  " "
     name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
@@ -292,9 +287,6 @@ if not loadBtn and "name" not in st.session_state:
     updateBtn = st.button("Update", disabled=True)
     resetBtn = st.button("Reset",on_click=_reset_slider)
 else:
-    st.write("2")
-    st.write(st.session_state["name"])
-    st.write(st.session_state["desc"])
     name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
     description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
     updateBtn = st.button("Update", disabled=False)
@@ -313,8 +305,16 @@ else:
         dfall.insert(2, "Parliament", level, True)
         dfall.insert(3, "District", d_name, True)
         dfall["Datetime"] = datetime.datetime.now(tz).strftime("%Y-%m-%d %H:%M:%S")
-        st.write("dada")
-        worksheet.update(dfall.to_dict("records"), 'Name Save Data = "{}"'.format(name))
+        st.table(dfall)
+        #worksheet.update(dfall.to_dict("records"), 'Name Save Data = "{}"'.format(name))
+        #selected_row["Parliament"] = dfall["Parliament"]
+        #selected_row["District"] = dfall["District"]
+        #selected_row["Datetime"] = dfall["Datetime"]
+        # repeat for other columns you want to update
+
+        # update the dataframe with new data
+        #df2.update(selected_row)
+       # worksheet.update(df2.to_dict("records"))
 if resetBtn:
     updateBtn.disable() 
  
@@ -346,14 +346,4 @@ else:
         dfall.insert(2, "Parliament", level, True)
         dfall.insert(3, "District", d_name, True)
         dfall["Datetime"] = datetime.datetime.now(tz).strftime("%Y-%m-%d %H:%M:%S")
-        
-        # Update the values in selected_row
-        #selected_row["Parliament"] = dfall["Parliament"]
-        #selected_row["District"] = dfall["District"]
-        #selected_row["Datetime"] = dfall["Datetime"]
-        # repeat for other columns you want to update
-
-        # update the dataframe with new data
-        #df2.update(selected_row)
-       # worksheet.update(df2.to_dict("records"))
-       # worksheet.append_rows(dfall.values.tolist())
+        worksheet.append_rows(dfall.values.tolist())
