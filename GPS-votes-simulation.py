@@ -279,9 +279,8 @@ def _load_slider():
     st.session_state["name"] = selected_row["Name Save Data"].values[0]
     st.session_state["desc"] =  selected_row["Description Save Data"].values[0]
     return st.session_state["name"], st.session_state["desc"]
-loadBtn = st.sidebar.button("Load",on_click=_load_slider)        
-st.session_state["name"] = st.session_state["name"]
-st.session_state["desc"] =  st.session_state["desc"]
+#loadBtn = st.sidebar.button("Load",on_click=_load_slider)  
+loadBtn = st.cache(st.button("Load",on_click=_load_slider))
 
 #check loadBtn
 if not loadBtn:
