@@ -43,6 +43,10 @@ level = create_level_selectbox()
 filtered_df = filter_data(level)
 d_name = create_dname_selectbox()
 
+#text_input
+st.session_state["name"] = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}"
+st.session_state["desc"] =  " "
+
 #Gsheet db
 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
 credentials = ServiceAccountCredentials.from_json_keyfile_dict(st.secrets["gcp_service_account"], scope)
@@ -277,14 +281,12 @@ def _load_slider():
         st.session_state[key] = int(selected_row[f"{column_name} | Pct GPS Support Forecast"].values[0])
     st.session_state["name"] = selected_row["Name Save Data"].values[0]
     st.session_state["desc"] =  selected_row["Description Save Data"].values[0]
-    return st.session_state["name"], st.session_state["desc"]
+    return st.session_state["name"], st.session_state["desc"],selected_row
 loadBtn = st.sidebar.button("Load",on_click=_load_slider)
 
 #check loadBtn
 if not loadBtn:
     st.write("1")
-    st.session_state["name"] = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}"
-    st.session_state["desc"] =  " "
     name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
     description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
     updateBtn = st.button("Update", disabled=True)
@@ -341,4 +343,14 @@ else:
         dfall.insert(2, "Parliament", level, True)
         dfall.insert(3, "District", d_name, True)
         dfall["Datetime"] = datetime.datetime.now(tz).strftime("%Y-%m-%d %H:%M:%S")
-        worksheet.append_rows(dfall.values.tolist())
+        
+        # Update the values in selected_row
+        #selected_row["Parliament"] = dfall["Parliament"]
+        #selected_row["District"] = dfall["District"]
+        #selected_row["Datetime"] = dfall["Datetime"]
+        # repeat for other columns you want to update
+
+        # update the dataframe with new data
+        #df2.update(selected_row)
+       # worksheet.update(df2.to_dict("records"))
+       # worksheet.append_rows(dfall.values.tolist())
