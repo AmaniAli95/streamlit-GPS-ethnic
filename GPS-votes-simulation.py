@@ -280,21 +280,15 @@ loadBtn = st.sidebar.button("Load",on_click=_load_slider)
 
 #check loadBtn
 if not loadBtn:
-    if 'naming' not in locals() or 'naming' not in globals():
-        st.write("1")
-        st.session_state["name"] = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}"
-        st.session_state["desc"] =  " "
-        name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
-        description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
-        updateBtn = st.button("Update", disabled=True)
-        resetBtn = st.button("Reset",on_click=_reset_slider)
-    else:
-        st.write("KKKK")
+    st.write("1")
+    st.session_state["name"] = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}"
+    st.session_state["desc"] =  " "
+    name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
+    description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
+    updateBtn = st.button("Update", disabled=True)
+    resetBtn = st.button("Reset",on_click=_reset_slider)
 else:
     st.write("2")
-    selectrow = selected_row
-    naming = st.session_state["name"]
-    descr = st.session_state["desc"]
     name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
     description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
     updateBtn = st.button("Update", disabled=False)
