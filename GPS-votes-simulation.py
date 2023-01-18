@@ -308,15 +308,32 @@ else:
         dfall.insert(3, "District", d_name, True)
         dfall["Datetime"] = datetime.datetime.now(tz).strftime("%Y-%m-%d %H:%M:%S")
         st.table(dfall)
-        #worksheet.update(dfall.to_dict("records"), 'Name Save Data = "{}"'.format(name))
-        #selected_row["Parliament"] = dfall["Parliament"]
-        #selected_row["District"] = dfall["District"]
-        #selected_row["Datetime"] = dfall["Datetime"]
-        # repeat for other columns you want to update
+        if chart_type == "Ethnic":
+            worksheet = sheet.get_worksheet(0)
+            name_data = dfall["Name Save Data"].values[0]
+            results = worksheet.find(name_data)
+            if results:
+                # Get the row number of the matching row
+                row_number = results.row
+                # Get the data in that row
+                row_data = sheet.row_values(row_number)
+                # Update the data in the row
+                for i in range(len(dfall.columns)):
+                    worksheet.update_cell(row_number, i+1, dfall.iloc[0,i])
+        else:
+            worksheet = sheet.get_worksheet(1)
+            data = worksheet.get_all_values()
+            name_data = dfall["Name Save Data"].values[0]
+            results = worksheet.find(name_data)
+            if results:
+                # Get the row number of the matching row
+                row_number = results.row
+                # Get the data in that row
+                row_data = sheet.row_values(row_number)
+                # Update the data in the row
+                for i in range(len(dfall.columns)):
+                    worksheet.update_cell(row_number, i+1, dfall.iloc[0,i])
 
-        # update the dataframe with new data
-        #df2.update(selected_row)
-       # worksheet.update(df2.to_dict("records"))
     if resetBtn:
         updateBtn = False
  
