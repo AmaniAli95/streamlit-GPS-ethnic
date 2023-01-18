@@ -287,7 +287,8 @@ if not loadBtn and "name" not in st.session_state:
     st.session_state["desc"] =  " "
     name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
     description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
-    #updateBtn = st.button("Update", disabled=True)
+    updateBtn_disabled = True
+    updateBtn = st.button("Update", disabled=updateBtn_disabled)
     resetBtn = st.button("Reset",on_click=_reset_slider)
 else:
     name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
