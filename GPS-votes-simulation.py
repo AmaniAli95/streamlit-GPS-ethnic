@@ -277,16 +277,18 @@ def _load_slider():
         st.session_state[key] = int(selected_row[f"{column_name} | Pct GPS Support Forecast"].values[0])
     st.session_state["name"] = selected_row["Name Save Data"].values[0]
     st.session_state["desc"] =  selected_row["Description Save Data"].values[0]
-    return st.session_state["name"], st.session_state["desc"]
-
+    sliderValue = selected_row["Name Save Data"].values[0]
+    return st.session_state["name"], st.session_state["desc"],sliderValue
 loadBtn = st.sidebar.button("Load",on_click=_load_slider)
-if not loadBtn and "updateBtn" not in locals() and "updateBtn" not in globals():
+ 
+#check loadBtn
+if not loadBtn and slidervalue != st.session_state["name"]
     st.write("1")
     st.session_state["name"] = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}"
     st.session_state["desc"] =  " "
     name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
     description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
-    updateBtn = st.button("Update", disabled=True)
+    updateBtn = st.button("Update")
     resetBtn = st.button("Reset",on_click=_reset_slider)
 else:
     st.write("2")
