@@ -305,8 +305,7 @@ else:
         dfall.insert(2, "Parliament", level, True)
         dfall.insert(3, "District", d_name, True)
         dfall["Datetime"] = datetime.datetime.now(tz).strftime("%Y-%m-%d %H:%M:%S")
-        worksheet.update(dfall.to_dict(), value_input_option='RAW', 
-                query=f'Name Save Data = "{name}"')
+        worksheet.update(dfall.to_dict("records"), 'Name Save Data = "{}"'.format(name))
         #worksheet.append_rows(dfall.values.tolist())
     if resetBtn:
         updateBtn.disable()
