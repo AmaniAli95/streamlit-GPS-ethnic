@@ -280,18 +280,19 @@ def _load_slider():
     return st.session_state["name"], st.session_state["desc"]
 
 loadBtn = st.sidebar.button("Load",on_click=_load_slider)
-if not loadBtn:
+if not loadBtn and "updateBtn" in locals() or "updateBtn" in globals():
     st.write("1")
     st.session_state["name"] = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}"
     st.session_state["desc"] =  " "
     name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
     description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
+    #updateBtn = st.button("Update", disabled=True)
     resetBtn = st.button("Reset",on_click=_reset_slider)
 else:
     st.write("2")
     name = st.text_input("Enter a name for save data:",value=st.session_state["name"])
     description = st.text_input("Enter a description for save data:",value=st.session_state["desc"])
-    updateBtn = st.button("Update")
+    updateBtn = st.button("Update", disabled=False)
     resetBtn = st.button("Reset",on_click=_reset_slider)
     #updateBtn
     if updateBtn:
