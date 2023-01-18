@@ -283,7 +283,7 @@ dateCheck = datetime.datetime.now(tz).strftime("%H%M")
 st.write(dateCheck)
 
 #check loadBtn
-if not loadBtn and not st.session_state["name"]
+if not loadBtn and not st.session_state["name"]:
     st.write("1")
     st.session_state["name"] = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}"
     st.session_state["desc"] =  " "
@@ -295,7 +295,6 @@ else:
     st.write("2")
     st.write(st.session_state["name"])
     st.write(st.session_state["desc"])
-    st.write(st.session_state["dname_index"])
     name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
     description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
     updateBtn = st.button("Update", disabled=False)
