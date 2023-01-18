@@ -286,7 +286,7 @@ if not loadBtn and "updateBtn" in locals() or "updateBtn" in globals():
     st.session_state["desc"] =  " "
     name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
     description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
-    #updateBtn = st.button("Update", disabled=True)
+    updateBtn = st.button("Update", disabled=True)
     resetBtn = st.button("Reset",on_click=_reset_slider)
 else:
     st.write("2")
