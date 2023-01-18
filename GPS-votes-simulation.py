@@ -266,6 +266,7 @@ def _reset_slider():
     st.session_state["desc"] = " "
 
 def _load_slider():
+    updateBtn_disabled = True
     selected_row = df2.loc[df2["Name Save Data"] == selected_name]
     st.session_state["level_index"] = df['P'].dropna().unique().tolist().index(selected_row["Parliament"].values[0])
     filtered_df = filter_data(selected_row["Parliament"].values[0])
@@ -288,12 +289,11 @@ if not loadBtn and "name" not in st.session_state:
     description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
     #updateBtn = st.button("Update", disabled=True)
     resetBtn = st.button("Reset",on_click=_reset_slider)
-    if resetBtn:
-        updateBtn.disable()
 else:
     name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
     description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
-    updateBtn = st.button("Update")
+    updateBtn_disabled = False
+    updateBtn = st.button("Update", disabled=updateBtn_disabled)
     resetBtn = st.button("Reset",on_click=_reset_slider)
     #updateBtn
     if updateBtn:
@@ -328,8 +328,8 @@ else:
                 row_data = worksheet.row_values(row_number)
                 for i in range(len(dfall.columns)):
                     worksheet.update_cell(row_number, i+1, str(dfall.iloc[0,i]))
-        if resetBtn:
-            updateBtn.disable()
+        #if resetBtn:
+         #   updateBtn.disable()
  
 #submitBtn
 # Check if save data name already exists in the Google Sheet
