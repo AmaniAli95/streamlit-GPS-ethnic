@@ -328,8 +328,8 @@ else:
                 row_data = worksheet.row_values(row_number)
                 for i in range(len(dfall.columns)):
                     worksheet.update_cell(row_number, i+1, str(dfall.iloc[0,i]))
-    if resetBtn:
-        updateBtn.disable()
+        if resetBtn:
+            updateBtn.disable()
  
 #submitBtn
 # Check if save data name already exists in the Google Sheet
