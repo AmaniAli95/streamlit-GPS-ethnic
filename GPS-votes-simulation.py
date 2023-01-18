@@ -283,7 +283,7 @@ dateCheck = datetime.datetime.now(tz).strftime("%H%M")
 st.write(dateCheck)
 
 #check loadBtn
-if not loadBtn and st.session_state["name"] is None:
+if not loadBtn and "name" not in st.session_state::
     st.write("1")
     st.session_state["name"] = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}"
     st.session_state["desc"] =  " "
@@ -315,8 +315,8 @@ else:
         dfall["Datetime"] = datetime.datetime.now(tz).strftime("%Y-%m-%d %H:%M:%S")
         st.write("dada")
         worksheet.update(dfall.to_dict("records"), 'Name Save Data = "{}"'.format(name))
-    if resetBtn:
-        updateBtn.disable() 
+if resetBtn:
+    updateBtn.disable() 
  
 #submitBtn
 # Check if save data name already exists in the Google Sheet
