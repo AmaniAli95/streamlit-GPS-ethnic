@@ -293,6 +293,8 @@ if not loadBtn:
     resetBtn = st.button("Reset",on_click=_reset_slider)
 else:
     st.write("2")
+    st.write(st.session_state["name"])
+    st.write(st.session_state["desc"])
     name = st.text_input("Enter a name for save data:",value=st.session_state["name"])
     description = st.text_input("Enter a description for save data:",value=st.session_state["desc"])
     updateBtn = st.button("Update", disabled=False)
