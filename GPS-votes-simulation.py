@@ -263,7 +263,9 @@ def _reset_slider():
            st.session_state[key] = 70
         st.session_state[key] = 70  
 
-def _load_slider():
+#def _load_slider():
+loadBtn = st.sidebar.button("Load")
+if loadBtn:
     selected_row = df2.loc[df2["Name Save Data"] == selected_name]
     st.session_state["level_index"] = df['P'].dropna().unique().tolist().index(selected_row["Parliament"].values[0])
     filtered_df = filter_data(selected_row["Parliament"].values[0])
@@ -275,8 +277,8 @@ def _load_slider():
         st.session_state[key] = int(selected_row[f"{column_name} | Pct GPS Support Forecast"].values[0])
     st.session_state["name"] = selected_row["Name Save Data"].values[0]
     st.session_state["desc"] =  selected_row["Description Save Data"].values[0]
-    return st.session_state["name"], st.session_state["desc"],selected_row
-loadBtn = st.sidebar.button("Load",on_click=_load_slider)  
+    #return st.session_state["name"], st.session_state["desc"],selected_row
+#loadBtn = st.sidebar.button("Load",on_click=_load_slider)  
 
 #check loadBtn
 if not loadBtn:
