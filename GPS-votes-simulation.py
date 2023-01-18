@@ -287,27 +287,27 @@ if not loadBtn:
     description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
     updateBtn = st.button("Update", disabled=False)
     resetBtn = st.button("Reset",on_click=_reset_slider)
-    else:
-        st.write("2")
-        name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
-        description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
-        updateBtn = st.button("Update", disabled=True)
-        resetBtn = st.button("Reset",on_click=_reset_slider)
-        if updateBtn:
-            dfall = pd.DataFrame(all_data, index=[0])
-            dfall["Total Vote Count Forecast"] = GPSvote
-            dfall["Not Vote GPS"] = nonGPSvote
-            dfall["Total Voter"] = total.values
-            dfall["Simple Majority Votes"] = GPSwin
-            dfall["Two Third Winning"] = GPSwin23
-            dfall["Result"] = text_result
-            dfall.insert(0, "Name Save Data", name)
-            dfall.insert(1, "Description Save Data", description)
-            dfall.insert(2, "Parliament", level, True)
-            dfall.insert(3, "District", d_name, True)
-            dfall["Datetime"] = datetime.datetime.now(tz).strftime("%Y-%m-%d %H:%M:%S")
-            st.write("haha")
-            worksheet.update(dfall.to_dict("records"), 'Name Save Data = "{}"'.format(name))
+else:
+    st.write("2")
+    name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
+    description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
+    updateBtn = st.button("Update", disabled=True)
+    resetBtn = st.button("Reset",on_click=_reset_slider)
+    if updateBtn:
+        dfall = pd.DataFrame(all_data, index=[0])
+        dfall["Total Vote Count Forecast"] = GPSvote
+        dfall["Not Vote GPS"] = nonGPSvote
+        dfall["Total Voter"] = total.values
+        dfall["Simple Majority Votes"] = GPSwin
+        dfall["Two Third Winning"] = GPSwin23
+        dfall["Result"] = text_result
+        dfall.insert(0, "Name Save Data", name)
+        dfall.insert(1, "Description Save Data", description)
+        dfall.insert(2, "Parliament", level, True)
+        dfall.insert(3, "District", d_name, True)
+        dfall["Datetime"] = datetime.datetime.now(tz).strftime("%Y-%m-%d %H:%M:%S")
+        st.write("haha")
+        worksheet.update(dfall.to_dict("records"), 'Name Save Data = "{}"'.format(name))
     if resetBtn:
         updateBtn.disable()
         
