@@ -280,13 +280,44 @@ def _load_slider():
     return st.session_state["name"], st.session_state["desc"]
 
 loadBtn = st.sidebar.button("Load",on_click=_load_slider)
-updateBtn_exists = False
-if updateBtn_exists == True and loadBtn:
+if updateBtn not in globals():
+    if 'updateBtn' not in globals() and not loadBtn:
+        st.write("1")
+        st.session_state["name"] = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}"
+        st.session_state["desc"] =  " "
+        name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
+        description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
+        resetBtn = st.button("Reset",on_click=_reset_slider)
+    else:
+        st.write("2")
+        name = st.text_input("Enter a name for save data:",value=st.session_state["name"])
+        description = st.text_input("Enter a description for save data:",value=st.session_state["desc"])
+        updateBtn = st.button("Update")
+        resetBtn = st.button("Reset",on_click=_reset_slider)
+        #updateBtn
+        if updateBtn:
+            dfall = pd.DataFrame(all_data, index=[0])
+            dfall["Total Vote Count Forecast"] = GPSvote
+            dfall["Not Vote GPS"] = nonGPSvote
+            dfall["Total Voter"] = total.values
+            dfall["Simple Majority Votes"] = GPSwin
+            dfall["Two Third Winning"] = GPSwin23
+            dfall["Result"] = text_result
+            dfall.insert(0, "Name Save Data", name)
+            dfall.insert(1, "Description Save Data", description)
+            dfall.insert(2, "Parliament", level, True)
+            dfall.insert(3, "District", d_name, True)
+            dfall["Datetime"] = datetime.datetime.now(tz).strftime("%Y-%m-%d %H:%M:%S")
+            worksheet.update(dfall.to_dict("records"), 'Name Save Data = "{}"'.format(name))
+            #worksheet.append_rows(dfall.values.tolist())
+        if resetBtn:
+            updateBtn.disable()
+else:
     st.write("2")
     name = st.text_input("Enter a name for save data:",value=st.session_state["name"])
     description = st.text_input("Enter a description for save data:",value=st.session_state["desc"])
-    updateBtn = st.button("Update")
-    resetBtn = st.button("Reset",on_click=_reset_slider)
+    #updateBtn = st.button("Update")
+    #resetBtn = st.button("Reset",on_click=_reset_slider)
     #updateBtn
     if updateBtn:
         dfall = pd.DataFrame(all_data, index=[0])
@@ -305,16 +336,7 @@ if updateBtn_exists == True and loadBtn:
         #worksheet.append_rows(dfall.values.tolist())
     if resetBtn:
         updateBtn.disable()
-else:
-    st.write("1")
-    st.session_state["name"] = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}"
-    st.session_state["desc"] =  " "
-    name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
-    description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
-    resetBtn = st.button("Reset",on_click=_reset_slider)
-    updateBtn_exists = True
 
-    
 
 #submitBtn
 # Check if save data name already exists in the Google Sheet
