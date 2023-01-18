@@ -252,8 +252,7 @@ elif chart_type == "Ethnic":
     text_result = soup.h2.text  
 
 #reset btn
-updateBtn_disabled = False
-def _reset_slider():
+def _reset_slider(updateBtn_disabled):
     updateBtn_disabled = True
     for i, column_name in enumerate(renamed_columns.values()):
         if column_name not in st.session_state:
@@ -289,10 +288,12 @@ if not loadBtn and "name" not in st.session_state:
     name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
     description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
     updateBtn = st.button("Update", disabled=updateBtn_disabled)
-    resetBtn = st.button("Reset",on_click=_reset_slider)
+    #resetBtn = st.button("Reset",on_click=_reset_slider)
+    resetBtn = st.button("Reset",on_click=lambda: _reset_slider(updateBtn_disabled))
 else:
     name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
     description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
+    updateBtn_disabled = False
     updateBtn = st.button("Update", disabled=updateBtn_disabled)
     resetBtn = st.button("Reset",on_click=_reset_slider)
     #updateBtn
