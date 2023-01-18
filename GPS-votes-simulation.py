@@ -280,7 +280,7 @@ loadBtn = st.sidebar.button("Load",on_click=_load_slider)
 
 #check loadBtn
 if not loadBtn:
-    if 'naming' in locals() or 'naming' in globals():
+    if 'naming' not in locals() or 'naming' not in globals():
         st.write("1")
         st.session_state["name"] = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}"
         st.session_state["desc"] =  " "
