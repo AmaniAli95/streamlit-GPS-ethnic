@@ -253,6 +253,7 @@ elif chart_type == "Ethnic":
 
 #reset btn
 def _reset_slider():
+    updateBtn_disabled = True
     for i, column_name in enumerate(renamed_columns.values()):
         if column_name not in st.session_state:
            st.session_state[column_name] = 72
@@ -266,7 +267,6 @@ def _reset_slider():
     st.session_state["desc"] = " "
 
 def _load_slider():
-    updateBtn_disabled = True
     selected_row = df2.loc[df2["Name Save Data"] == selected_name]
     st.session_state["level_index"] = df['P'].dropna().unique().tolist().index(selected_row["Parliament"].values[0])
     filtered_df = filter_data(selected_row["Parliament"].values[0])
