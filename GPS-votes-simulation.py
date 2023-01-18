@@ -316,7 +316,7 @@ else:
         #df2.update(selected_row)
        # worksheet.update(df2.to_dict("records"))
 if resetBtn:
-    updateBtn.disable() 
+    updateBtn = st.button("Update", disabled=True)
  
 #submitBtn
 # Check if save data name already exists in the Google Sheet
