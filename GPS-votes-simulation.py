@@ -275,7 +275,7 @@ def _load_slider():
         st.session_state[key] = int(selected_row[f"{column_name} | Pct GPS Support Forecast"].values[0])
     st.session_state["name"] = selected_row["Name Save Data"].values[0]
     st.session_state["desc"] =  selected_row["Description Save Data"].values[0]
-    return st.session_state["name"], st.session_state["desc"], selected_row
+    return st.session_state["name"], st.session_state["desc"], st.session_state["dname_index"]
 loadBtn = st.sidebar.button("Load",on_click=_load_slider)  
 
 #check loadBtn
@@ -291,7 +291,7 @@ else:
     st.write("2")
     st.write(st.session_state["name"])
     st.write(st.session_state["desc"])
-    st.write(selected_row)
+    st.write(st.session_state["dname_index"])
     name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
     description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
     updateBtn = st.button("Update", disabled=False)
