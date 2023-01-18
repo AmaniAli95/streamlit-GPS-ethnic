@@ -263,7 +263,7 @@ def _reset_slider():
            st.session_state[key] = 70
         st.session_state[key] = 70  
 
-#load btn
+#loadBtn
 def _load_slider():
     selected_row = df2.loc[df2["Name Save Data"] == selected_name]
     st.session_state["level_index"] = df['P'].dropna().unique().tolist().index(selected_row["Parliament"].values[0])
@@ -279,17 +279,19 @@ def _load_slider():
     st.session_state["desc"] =  selected_row["Description Save Data"].values[0]
     return st.session_state["name"], st.session_state["desc"]
 
-#loadBtn
 loadBtn = st.sidebar.button("Load",on_click=_load_slider)
 if loadBtn is None and 'updateBtn' not in globals():
-    name = st.text_input("Enter a name for save data:",value = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}")
-    description = st.text_input("Enter a description for save data:", value = "")
+    st.session_state["name"] = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}"
+    st.session_state["desc"] =  " "
+    name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
+    description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
     resetBtn = st.button("Reset",on_click=_reset_slider)
 else:
     name = st.text_input("Enter a name for save data:",value=st.session_state["name"])
     description = st.text_input("Enter a description for save data:",value=st.session_state["desc"])
     updateBtn = st.button("Update")
     resetBtn = st.button("Reset",on_click=_reset_slider)
+    #updateBtn
     if updateBtn:
         dfall = pd.DataFrame(all_data, index=[0])
         dfall["Total Vote Count Forecast"] = GPSvote
