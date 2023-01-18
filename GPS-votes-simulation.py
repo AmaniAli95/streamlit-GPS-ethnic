@@ -287,6 +287,7 @@ if loadBtn is None and 'updateBtn' not in globals():
     description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
     resetBtn = st.button("Reset",on_click=_reset_slider)
 else:
+    st.write("sds")
     name = st.text_input("Enter a name for save data:",value=st.session_state["name"])
     description = st.text_input("Enter a description for save data:",value=st.session_state["desc"])
     updateBtn = st.button("Update")
@@ -308,7 +309,6 @@ else:
         worksheet.update(dfall.to_dict(), value_input_option='RAW', 
                 query=f'Name Save Data = "{name}"')
         #worksheet.append_rows(dfall.values.tolist())
-
     if resetBtn:
         updateBtn.disable()
 
