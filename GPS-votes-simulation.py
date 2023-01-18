@@ -264,9 +264,6 @@ def _reset_slider():
         st.session_state[key] = 70  
     st.session_state["name"] = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}"
     st.session_state["desc"] = " "
-    if 'updateBtn' in globals():
-        updateBtn.disable()
-
 
 def _load_slider():
     selected_row = df2.loc[df2["Name Save Data"] == selected_name]
@@ -291,6 +288,8 @@ if not loadBtn and "name" not in st.session_state:
     description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
     #updateBtn = st.button("Update", disabled=True)
     resetBtn = st.button("Reset",on_click=_reset_slider)
+    if resetBtn:
+        updateBtn.disable()
 else:
     name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
     description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
@@ -329,6 +328,8 @@ else:
                 row_data = worksheet.row_values(row_number)
                 for i in range(len(dfall.columns)):
                     worksheet.update_cell(row_number, i+1, str(dfall.iloc[0,i]))
+    if resetBtn:
+        updateBtn.disable()
  
 #submitBtn
 # Check if save data name already exists in the Google Sheet
