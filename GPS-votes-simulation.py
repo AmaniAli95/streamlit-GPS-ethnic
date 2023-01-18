@@ -291,8 +291,7 @@ if not loadBtn and "name" not in st.session_state:
 else:
     name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
     description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
-    updateBtnDis = False
-    updateBtn = st.button("Update", disabled = updateBtnDis)
+    updateBtn = st.button("Update")
     resetBtn = st.button("Reset",on_click=_reset_slider)
     #updateBtn
     if updateBtn:
@@ -327,8 +326,8 @@ else:
                 row_data = worksheet.row_values(row_number)
                 for i in range(len(dfall.columns)):
                     worksheet.update_cell(row_number, i+1, str(dfall.iloc[0,i]))
-if resetBtn:
-    updateBtnDis = True
+        if resetBtn:
+            updateBtn.disable()
  
 #submitBtn
 # Check if save data name already exists in the Google Sheet
