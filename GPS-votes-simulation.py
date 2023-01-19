@@ -252,7 +252,10 @@ elif chart_type == "Ethnic":
     text_result = soup.h2.text  
 
 #reset btn
+updateBtn_disabled = True
 def _reset_slider():
+    global updateBtn_disabled
+    updateBtn_disabled = True
     for i, column_name in enumerate(renamed_columns.values()):
         if column_name not in st.session_state:
            st.session_state[column_name] = 72
@@ -264,9 +267,10 @@ def _reset_slider():
         st.session_state[key] = 70  
     st.session_state["name"] = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}"
     st.session_state["desc"] = " "
-    updateBtn_disabled = True
 
 def _load_slider():
+    global updateBtn_disabled
+    updateBtn_disabled = False
     selected_row = df2.loc[df2["Name Save Data"] == selected_name]
     st.session_state["level_index"] = df['P'].dropna().unique().tolist().index(selected_row["Parliament"].values[0])
     filtered_df = filter_data(selected_row["Parliament"].values[0])
@@ -278,21 +282,21 @@ def _load_slider():
         st.session_state[key] = int(selected_row[f"{column_name} | Pct GPS Support Forecast"].values[0])
     st.session_state["name"] = selected_row["Name Save Data"].values[0]
     st.session_state["desc"] =  selected_row["Description Save Data"].values[0]
-    updateBtn_disabled = False
     return st.session_state["name"], st.session_state["desc"]
 loadBtn = st.sidebar.button("Load",on_click=_load_slider)  
 
 updateBtn_disabled = True
 #check loadBtn
 if not loadBtn and "name" not in st.session_state:
+    st.write("!")
     st.session_state["name"] = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}"
     st.session_state["desc"] =  " "
     name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
     description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
     #updateBtn = st.button("Update", disabled=True)
-    updateBtn_disabled = True
     updateBtn = st.button("Update", disabled=updateBtn_disabled)
 else:
+    st.write("?")
     name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
     description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
     #updateBtn = st.button("Update", disabled=False)
