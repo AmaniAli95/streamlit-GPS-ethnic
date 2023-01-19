@@ -252,6 +252,7 @@ elif chart_type == "Ethnic":
     text_result = soup.h2.text  
 
 #reset btn
+updateBtn_disabled = True
 def _reset_slider(updateBtn_disabled):
     updateBtn_disabled = True
     for i, column_name in enumerate(renamed_columns.values()):
