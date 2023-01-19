@@ -252,8 +252,7 @@ elif chart_type == "Ethnic":
     text_result = soup.h2.text  
 
 #reset btn
-def _reset_slider(updateBtn_disabled):
-    updateBtn_disabled = True
+def _reset_slider():
     for i, column_name in enumerate(renamed_columns.values()):
         if column_name not in st.session_state:
            st.session_state[column_name] = 72
@@ -287,14 +286,12 @@ if not loadBtn and "name" not in st.session_state:
     st.session_state["desc"] =  " "
     name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
     description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
-    #updateBtn = st.button("Update", disabled=updateBtn_disabled)
-    #resetBtn = st.button("Reset",on_click=_reset_slider)
-    resetBtn = st.button("Reset",on_click=lambda: _reset_slider(updateBtn_disabled))
+    updateBtn = st.button("Update", disabled=True)
+    resetBtn = st.button("Reset",on_click=_reset_slider)
 else:
     name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
     description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
-    updateBtn_disabled = False
-    updateBtn = st.button("Update", disabled=updateBtn_disabled)
+    updateBtn = st.button("Update", disabled=False)
     #resetBtn = st.button("Reset",on_click=_reset_slider)
     resetBtn = st.button("Reset",on_click=lambda: _reset_slider(updateBtn_disabled))
     #updateBtn
@@ -330,8 +327,8 @@ else:
                 row_data = worksheet.row_values(row_number)
                 for i in range(len(dfall.columns)):
                     worksheet.update_cell(row_number, i+1, str(dfall.iloc[0,i]))
-        #if resetBtn:
-         #   updateBtn.disable()
+        if resetBtn:
+            updateBtn.disable()
  
 #submitBtn
 # Check if save data name already exists in the Google Sheet
