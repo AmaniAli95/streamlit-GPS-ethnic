@@ -295,7 +295,7 @@ if not loadBtn and "name" not in st.session_state:
     description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
     #updateBtn = st.button("Update", disabled=True)
     updateBtn = st.button("Update", disabled=updateBtn_disabled)
-elif loadBtn:
+elif loadBtn and "name" in st.session_state:
     st.write("?")
     updateBtn_disabled = False
     name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
