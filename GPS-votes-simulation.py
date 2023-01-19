@@ -280,6 +280,7 @@ def _load_slider():
     return st.session_state["name"], st.session_state["desc"]
 loadBtn = st.sidebar.button("Load",on_click=_load_slider)  
 
+updateBtn_disabled = True
 #check loadBtn
 if not loadBtn and "name" not in st.session_state:
     #updateBtn_disabled = True
@@ -287,14 +288,14 @@ if not loadBtn and "name" not in st.session_state:
     st.session_state["desc"] =  " "
     name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
     description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
-    updateBtn = st.button("Update", disabled=True)
-    #updateBtn = st.button("Update", disabled=updateBtn_disabled)
+    #updateBtn = st.button("Update", disabled=True)
+    updateBtn = st.button("Update", disabled=updateBtn_disabled)
 else:
-    #updateBtn_disabled = False
     name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
     description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
-    updateBtn = st.button("Update", disabled=False)
-    #updateBtn = st.button("Update", disabled=updateBtn_disabled)
+    #updateBtn = st.button("Update", disabled=False)
+    updateBtn_disabled = False
+    updateBtn = st.button("Update", disabled=updateBtn_disabled)
     #updateBtn
     if updateBtn:
         dfall = pd.DataFrame(all_data, index=[0])
