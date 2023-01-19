@@ -302,7 +302,7 @@ elif loadBtn and "name" in st.session_state:
     description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
     #updateBtn = st.button("Update", disabled=False)
     updateBtn = st.button("Update", disabled=updateBtn_disabled)
-else not loadBtn and "name" in st.session_state:
+elif not loadBtn and "name" in st.session_state:
     st.write("4")
     updateBtn_disabled = False
     name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
