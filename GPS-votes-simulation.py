@@ -252,10 +252,7 @@ elif chart_type == "Ethnic":
     text_result = soup.h2.text  
 
 #reset btn
-updateBtn_disabled = True
 def _reset_slider():
-    global updateBtn_disabled
-    updateBtn_disabled = True
     for i, column_name in enumerate(renamed_columns.values()):
         if column_name not in st.session_state:
            st.session_state[column_name] = 72
@@ -267,7 +264,6 @@ def _reset_slider():
         st.session_state[key] = 70  
     st.session_state["name"] = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}"
     st.session_state["desc"] = " "
-    return updateBtn_disabled
 
 def _load_slider():
     selected_row = df2.loc[df2["Name Save Data"] == selected_name]
@@ -330,6 +326,8 @@ else:
                 for i in range(len(dfall.columns)):
                     worksheet.update_cell(row_number, i+1, str(dfall.iloc[0,i]))
 resetBtn = st.button("Reset",on_click=_reset_slider)
+if resetBtn:
+    updateBtn_disabled = True
 
 #submitBtn
 # Check if save data name already exists in the Google Sheet
