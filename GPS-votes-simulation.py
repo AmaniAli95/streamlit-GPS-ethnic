@@ -316,39 +316,39 @@ else:
     #updateBtn = st.button("Update", disabled=False)
     updateBtn = st.button("Update", disabled=updateBtn_disabled)
     
-    #updateBtn
-    if updateBtn:
-        dfall = pd.DataFrame(all_data, index=[0])
-        dfall["Total Vote Count Forecast"] = GPSvote
-        dfall["Not Vote GPS"] = nonGPSvote
-        dfall["Total Voter"] = total.values
-        dfall["Simple Majority Votes"] = GPSwin
-        dfall["Two Third Winning"] = GPSwin23
-        dfall["Result"] = text_result
-        dfall.insert(0, "Name Save Data", name)
-        dfall.insert(1, "Description Save Data", description)
-        dfall.insert(2, "Parliament", level, True)
-        dfall.insert(3, "District", d_name, True)
-        dfall["Datetime"] = datetime.datetime.now(tz).strftime("%Y-%m-%d %H:%M:%S")
-        if chart_type == "Ethnic":
-            worksheet = sheet.get_worksheet(0)
-            name_data = dfall["Name Save Data"].values[0]
-            results = worksheet.find(name_data)
-            if results:
-                row_number = results.row
-                row_data = worksheet.row_values(row_number)
-                for i in range(len(dfall.columns)):
-                    worksheet.update_cell(row_number, i+1, str(dfall.iloc[0,i]))
-        else:
-            worksheet = sheet.get_worksheet(1)
-            data = worksheet.get_all_values()
-            name_data = dfall["Name Save Data"].values[0]
-            results = worksheet.find(name_data)
-            if results:
-                row_number = results.row
-                row_data = worksheet.row_values(row_number)
-                for i in range(len(dfall.columns)):
-                    worksheet.update_cell(row_number, i+1, str(dfall.iloc[0,i]))
+#updateBtn
+if updateBtn:
+    dfall = pd.DataFrame(all_data, index=[0])
+    dfall["Total Vote Count Forecast"] = GPSvote
+    dfall["Not Vote GPS"] = nonGPSvote
+    dfall["Total Voter"] = total.values
+    dfall["Simple Majority Votes"] = GPSwin
+    dfall["Two Third Winning"] = GPSwin23
+    dfall["Result"] = text_result
+    dfall.insert(0, "Name Save Data", name)
+    dfall.insert(1, "Description Save Data", description)
+    dfall.insert(2, "Parliament", level, True)
+    dfall.insert(3, "District", d_name, True)
+    dfall["Datetime"] = datetime.datetime.now(tz).strftime("%Y-%m-%d %H:%M:%S")
+    if chart_type == "Ethnic":
+        worksheet = sheet.get_worksheet(0)
+        name_data = dfall["Name Save Data"].values[0]
+        results = worksheet.find(name_data)
+        if results:
+            row_number = results.row
+            row_data = worksheet.row_values(row_number)
+            for i in range(len(dfall.columns)):
+                worksheet.update_cell(row_number, i+1, str(dfall.iloc[0,i]))
+    else:
+        worksheet = sheet.get_worksheet(1)
+        data = worksheet.get_all_values()
+        name_data = dfall["Name Save Data"].values[0]
+        results = worksheet.find(name_data)
+        if results:
+            row_number = results.row
+            row_data = worksheet.row_values(row_number)
+            for i in range(len(dfall.columns)):
+                worksheet.update_cell(row_number, i+1, str(dfall.iloc[0,i]))
                     
 #resetBtn = st.button("Reset",on_click=_reset_slider)
 resetBtn = st.button("Reset",on_click=lambda: _reset_slider())
