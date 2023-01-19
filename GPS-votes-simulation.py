@@ -254,7 +254,6 @@ elif chart_type == "Ethnic":
 #reset btn
 updateBtn_disabled = True
 def _reset_slider(updateBtn_disabled):
-    global updateBtn_disabled
     updateBtn_disabled = True
     for i, column_name in enumerate(renamed_columns.values()):
         if column_name not in st.session_state:
