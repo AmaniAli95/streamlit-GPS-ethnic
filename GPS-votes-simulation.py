@@ -330,9 +330,6 @@ else:
                 for i in range(len(dfall.columns)):
                     worksheet.update_cell(row_number, i+1, str(dfall.iloc[0,i]))
 resetBtn = st.button("Reset",on_click=_reset_slider)
-if resetBtn:
-    #updateBtn_disabled = True
-    updateBtn.disable()
 
 #submitBtn
 # Check if save data name already exists in the Google Sheet
