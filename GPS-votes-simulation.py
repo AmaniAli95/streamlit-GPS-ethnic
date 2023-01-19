@@ -295,14 +295,20 @@ if not loadBtn and "name" not in st.session_state:
     description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
     #updateBtn = st.button("Update", disabled=True)
     updateBtn = st.button("Update", disabled=updateBtn_disabled)
-else:
+elif loadBtn:
     st.write("?")
+    updateBtn_disabled = False
     name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
     description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
     #updateBtn = st.button("Update", disabled=False)
     updateBtn = st.button("Update", disabled=updateBtn_disabled)
-    if loadBtn:
-        updateBtn_disabled = False
+else:
+    st.write("4")
+    name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
+    description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
+    #updateBtn = st.button("Update", disabled=False)
+    updateBtn = st.button("Update", disabled=updateBtn_disabled)
+    
     #updateBtn
     if updateBtn:
         dfall = pd.DataFrame(all_data, index=[0])
