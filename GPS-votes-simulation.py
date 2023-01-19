@@ -282,17 +282,19 @@ loadBtn = st.sidebar.button("Load",on_click=_load_slider)
 
 #check loadBtn
 if not loadBtn and "name" not in st.session_state:
-    updateBtn_disabled = True
+    #updateBtn_disabled = True
     st.session_state["name"] = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}"
     st.session_state["desc"] =  " "
     name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
     description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
-    updateBtn = st.button("Update", disabled=updateBtn_disabled)
+    updateBtn = st.button("Update", disabled=True)
+    #updateBtn = st.button("Update", disabled=updateBtn_disabled)
 else:
-    updateBtn_disabled = False
+    #updateBtn_disabled = False
     name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
     description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
-    updateBtn = st.button("Update", disabled=updateBtn_disabled)
+    updateBtn = st.button("Update", disabled=False)
+    #updateBtn = st.button("Update", disabled=updateBtn_disabled)
     #updateBtn
     if updateBtn:
         dfall = pd.DataFrame(all_data, index=[0])
@@ -328,7 +330,8 @@ else:
                     worksheet.update_cell(row_number, i+1, str(dfall.iloc[0,i]))
 resetBtn = st.button("Reset",on_click=_reset_slider)
 if resetBtn:
-    updateBtn_disabled = True
+    #updateBtn_disabled = True
+    updateBtn.disable()
 
 #submitBtn
 # Check if save data name already exists in the Google Sheet
