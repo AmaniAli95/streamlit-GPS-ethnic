@@ -298,8 +298,6 @@ else:
     #updateBtn = st.button("Update", disabled=False)
     updateBtn_disabled = False
     updateBtn = st.button("Update", disabled=updateBtn_disabled)
-    if resetBtn:
-        updateBtn.disabled = True
     #updateBtn
     if updateBtn:
         dfall = pd.DataFrame(all_data, index=[0])
