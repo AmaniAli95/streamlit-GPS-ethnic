@@ -288,12 +288,11 @@ if not loadBtn and "name" not in st.session_state:
     name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
     description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
     updateBtn = st.button("Update", disabled=updateBtn_disabled)
-    resetBtn = st.button("Reset",on_click=_reset_slider)
 else:
+    updateBtn_disabled = False
     name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
     description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
     updateBtn = st.button("Update", disabled=updateBtn_disabled)
-    resetBtn = st.button("Reset",on_click=_reset_slider)
     #updateBtn
     if updateBtn:
         dfall = pd.DataFrame(all_data, index=[0])
@@ -327,9 +326,8 @@ else:
                 row_data = worksheet.row_values(row_number)
                 for i in range(len(dfall.columns)):
                     worksheet.update_cell(row_number, i+1, str(dfall.iloc[0,i]))
-        #if resetBtn:
-        #    updateBtn.disable()
- 
+resetBtn = st.button("Reset",on_click=_reset_slider)
+
 #submitBtn
 # Check if save data name already exists in the Google Sheet
 if chart_type == "Ethnic":
