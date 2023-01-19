@@ -264,6 +264,7 @@ def _reset_slider():
         st.session_state[key] = 70  
     st.session_state["name"] = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}"
     st.session_state["desc"] = " "
+    updateBtn.disabled = True
 
 def _load_slider():
     selected_row = df2.loc[df2["Name Save Data"] == selected_name]
@@ -277,18 +278,19 @@ def _load_slider():
         st.session_state[key] = int(selected_row[f"{column_name} | Pct GPS Support Forecast"].values[0])
     st.session_state["name"] = selected_row["Name Save Data"].values[0]
     st.session_state["desc"] =  selected_row["Description Save Data"].values[0]
+    updateBtn_disabled = False
     return st.session_state["name"], st.session_state["desc"]
 loadBtn = st.sidebar.button("Load",on_click=_load_slider)  
 
 updateBtn_disabled = True
 #check loadBtn
 if not loadBtn and "name" not in st.session_state:
-    #updateBtn_disabled = True
     st.session_state["name"] = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}"
     st.session_state["desc"] =  " "
     name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
     description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
     #updateBtn = st.button("Update", disabled=True)
+    updateBtn_disabled = True
     updateBtn = st.button("Update", disabled=updateBtn_disabled)
 else:
     name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
@@ -296,6 +298,8 @@ else:
     #updateBtn = st.button("Update", disabled=False)
     updateBtn_disabled = False
     updateBtn = st.button("Update", disabled=updateBtn_disabled)
+    if resetBtn:
+        updateBtn.disabled = True
     #updateBtn
     if updateBtn:
         dfall = pd.DataFrame(all_data, index=[0])
@@ -329,7 +333,9 @@ else:
                 row_data = worksheet.row_values(row_number)
                 for i in range(len(dfall.columns)):
                     worksheet.update_cell(row_number, i+1, str(dfall.iloc[0,i]))
-resetBtn = st.button("Reset",on_click=_reset_slider)
+                    
+#resetBtn = st.button("Reset",on_click=_reset_slider)
+resetBtn = st.button("Reset",on_click=lambda: _reset_slider(updateBtn_disabled))
 
 #submitBtn
 # Check if save data name already exists in the Google Sheet
