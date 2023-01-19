@@ -333,7 +333,7 @@ else:
                     worksheet.update_cell(row_number, i+1, str(dfall.iloc[0,i]))
                     
 #resetBtn = st.button("Reset",on_click=_reset_slider)
-resetBtn = st.button("Reset",on_click=lambda: _reset_slider(updateBtn_disabled))
+resetBtn = st.button("Reset",on_click=lambda: _reset_slider())
 
 #submitBtn
 # Check if save data name already exists in the Google Sheet
