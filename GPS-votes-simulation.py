@@ -288,32 +288,24 @@ loadBtn = st.sidebar.button("Load",on_click=_load_slider)
 updateBtn_disabled = True
 #check loadBtn
 if not loadBtn and "name" not in st.session_state:
-    st.write("!")
     st.session_state["name"] = f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}"
     st.session_state["desc"] =  " "
     name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
     description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
-    #updateBtn = st.button("Update", disabled=True)
     updateBtn = st.button("Update", disabled=updateBtn_disabled)
 elif loadBtn and "name" in st.session_state:
-    st.write("?")
     updateBtn_disabled = False
     name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
     description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
-    #updateBtn = st.button("Update", disabled=False)
     updateBtn = st.button("Update", disabled=updateBtn_disabled)
 elif not loadBtn and st.session_state["name"] != f"{d_name}-{datetime.datetime.now(tz).strftime('%Y%m%d')}-{datetime.datetime.now(tz).strftime('%H%M')}":
-    st.write("4")
     updateBtn_disabled = False
     name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
     description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
-    #updateBtn = st.button("Update", disabled=False)
     updateBtn = st.button("Update", disabled=updateBtn_disabled)
 else:
-    st.write("3")
     name = st.text_input("Enter a name for save data:",value = st.session_state["name"])
     description = st.text_input("Enter a description for save data:", value = st.session_state["desc"])
-    #updateBtn = st.button("Update", disabled=False)
     updateBtn = st.button("Update", disabled=updateBtn_disabled)
     
 #updateBtn
