@@ -89,7 +89,7 @@ if chart_type == "Age":
                        replace('80s', '80 - 89 y/o') for col in age_columns}
     selected_rows.rename(columns=renamed_columns, inplace=True)
     selected_rows[list(renamed_columns.values())] = selected_rows[list(renamed_columns.values())].apply(pd.to_numeric, errors='coerce')
-    selected_rows[list(renamed_columns.values())] = selected_rows[list(renamed_columns.values())].fillna(0, inplace=True).astype(int)
+    selected_rows[list(renamed_columns.values())] = selected_rows[list(renamed_columns.values())].astype(int).fillna(0, inplace=True)
     total = selected_rows[list(renamed_columns.values())].astype(int).sum(axis=1)
     total_df = pd.DataFrame({'Total': total})
     dfnew = (pd.concat([selected_rows[list(renamed_columns.values())], total_df], axis=1))
