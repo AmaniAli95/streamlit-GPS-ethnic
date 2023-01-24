@@ -90,7 +90,7 @@ if chart_type == "Age":
     selected_rows.rename(columns=renamed_columns, inplace=True)
     selected_rows[list(renamed_columns.values())] = selected_rows[list(renamed_columns.values())].apply(pd.to_numeric, errors='coerce')
     selected_rows[list(renamed_columns.values())] = selected_rows[list(renamed_columns.values())].fillna(0, inplace=True)
-    st.write(selected_rows[list(renamed_columns.values())])
+    selected_rows[list(renamed_columns.values())] = selected_rows[list(renamed_columns.values())].astype(int)
     total = selected_rows[list(renamed_columns.values())].astype(int).sum(axis=1)
     total_df = pd.DataFrame({'Total': total})
     dfnew = (pd.concat([selected_rows[list(renamed_columns.values())], total_df], axis=1))
@@ -177,7 +177,7 @@ elif chart_type == "Ethnic":
     ethnic_columns = [col for col in df.columns if col.startswith('ethnic|')]
     renamed_columns = {col: col.replace('ethnic|', '').replace('_', ' ').title() for col in ethnic_columns}
     selected_rows.rename(columns=renamed_columns, inplace=True)
-    st.write(selected_rows[list(renamed_columns.values())])
+    selected_rows[list(renamed_columns.values())] = selected_rows[list(renamed_columns.values())].astype(int)
     total = selected_rows[list(renamed_columns.values())].sum(axis=1)
     total_df = pd.DataFrame({'Total': total})
     dfnew = (pd.concat([selected_rows[list(renamed_columns.values())], total_df], axis=1))
