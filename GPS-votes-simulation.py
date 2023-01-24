@@ -95,7 +95,7 @@ if chart_type == "Age":
     dfnew = (pd.concat([selected_rows[list(renamed_columns.values())], total_df], axis=1))
     percentages = dfnew[list(renamed_columns.values())].div(total, axis=0).mul(100)
     #dfnew = dfnew.append(percentages.applymap(to_percentage), ignore_index=True)
-    dfnew = dfnew.append(percentages), ignore_index=True)
+    dfnew = dfnew.append(percentages, ignore_index=True)
     dfnew.insert(0, 'Age Group', ['Voters','Percentage (%)'])
     dfnew.at[1, dfnew.columns[10]] = 100
     dfnew['Total'] = dfnew['Total'].astype(int)
@@ -180,7 +180,7 @@ elif chart_type == "Ethnic":
     dfnew = (pd.concat([selected_rows[list(renamed_columns.values())], total_df], axis=1))
     percentages = dfnew[list(renamed_columns.values())].div(total, axis=0).mul(100)
     #dfnew = dfnew.append(percentages.applymap(to_percentage), ignore_index=True)
-    dfnew = dfnew.append(percentages), ignore_index=True)
+    dfnew = dfnew.append(percentages, ignore_index=True)
     dfnew.insert(0, 'Ethnic', ['Voters','Percentage (%)'])
     dfnew.at[1, dfnew.columns[7]] = 100
     dfnew['Total'] = dfnew['Total'].astype(int)
