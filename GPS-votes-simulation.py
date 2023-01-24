@@ -100,7 +100,7 @@ if chart_type == "Age":
     dfnew.iloc[0,:] = dfnew.iloc[0,:].apply(lambda x: "{:.0f}%".format(x))
     dfnew.insert(0, 'Age Group', ['Voters','Percentage (%)'])
     dfnew.at[1, dfnew.columns[10]] = 100
-    dfnew['Total'] = dfnew['Total'].astype(int)
+    #dfnew['Total'] = dfnew['Total'].astype(int)
     html = (
         dfnew
         .style.set_properties(**{'text-align': 'center'})
