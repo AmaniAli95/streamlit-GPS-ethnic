@@ -11,6 +11,9 @@ import pytz
 tz = pytz.timezone('Asia/Kuala_Lumpur')
 st.set_page_config(layout="wide")
 
+import collections
+print(collections.__file__)
+
 url = "https://github.com/AmaniAli95/streamlit-GPS-ethnic/raw/main/demographic.csv"
 df = pd.read_csv(url)
 age_columns = [col for col in df.columns if col.startswith('age_group|')]
