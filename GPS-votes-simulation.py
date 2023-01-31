@@ -10,9 +10,11 @@ import datetime
 import pytz
 
 try:
+    import collections.abc
     from collections.abc import Iterable
     st.write(collections.abc)
 except ImportError:
+    import collections
     from collections import Iterable
     st.write(collections)
 st.write(Iterable)
