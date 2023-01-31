@@ -12,9 +12,9 @@ tz = pytz.timezone('Asia/Kuala_Lumpur')
 st.set_page_config(layout="wide")
 
 import collections
-print("1")
-print(collections.__file__)
-print("2")
+st.write("1")
+st.write(collections.__file__)
+st.write("2")
 
 url = "https://github.com/AmaniAli95/streamlit-GPS-ethnic/raw/main/demographic.csv"
 df = pd.read_csv(url)
