@@ -42,9 +42,6 @@ def check_password():
         return True
 
 if check_password():
-    st.write("Here goes your normal Streamlit app...")
-    st.button("Click me")
-
     folder_path = "https://api.github.com/repos/AmaniAli95/streamlit-GPS-ethnic/contents/scoresheets-ge15-pdf"
     response = requests.get(folder_path)
 
