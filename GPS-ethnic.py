@@ -57,7 +57,7 @@ if check_password():
 
         st.markdown(pdf_display, unsafe_allow_html=True)
 
-    pdf_url = [pdf_file["download_url"] for pdf_file in pdf_files if pdf_file["name"] == filename][0]
+    pdf_url = [pdf_file["download_url"] for pdf_file in pdf_files if pdf_file["name"] == filename + ".pdf"][0]
     st.write("Content of the PDF file:")
     response = requests.get(pdf_url)
     with open("temp.pdf", "wb") as f:
