@@ -15,7 +15,18 @@ filename = st.sidebar.radio("Select a file:", [pdf_file["name"] for pdf_file in 
 st.write(f"You selected: {filename}")
 
 pdf_url = [pdf_file["download_url"] for pdf_file in pdf_files if pdf_file["name"] == filename][0]
-pdf_content = requests.get(pdf_url).content
+st.write(f"URL: {pdf_url}")
+
+if filename:
+    st.write("Content of the PDF file:")
+    st.write("```", unsafe_allow_html=True)
+    st.write(f'<iframe src="{pdf_url}" width="1000" height="500"></iframe>', unsafe_allow_html=True)
+    st.write("```", unsafe_allow_html=True)
+
+
+
+
+
 with open("temp.pdf", "wb") as f:
     f.write(pdf_content)
 pdf_file = PyPDF2.PdfReader(open("temp.pdf", "rb"))
