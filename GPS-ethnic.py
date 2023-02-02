@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import requests
+import PyPDF2
 st.set_page_config(layout="wide")
 st.title("Scoresheet GE15")
 
@@ -15,5 +16,10 @@ st.write(f"You selected: {filename}")
 pdf_url = [pdf_file["download_url"] for pdf_file in pdf_files if pdf_file["name"] == filename][0]
 pdf_content = requests.get(pdf_url).content
 
+with open("temp.pdf", "wb") as f:
+    f.write(pdf_content)
+
+pdf_file = PyPDF2.PdfFileReader(open("temp.pdf", "rb"))
 st.write("Content of the PDF file:")
-st.write(pdf_content)
+for page in range(pdf_file.getNumPages()):
+    st.write(pdf_file.getPage(page).extractText())
