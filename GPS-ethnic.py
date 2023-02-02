@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import requests
 import PyPDF2
-from PyPDF2 import PdfFileReader
+from PyPDF2 import PdfReader
 st.set_page_config(layout="wide")
 st.title("Scoresheet GE15")
 
