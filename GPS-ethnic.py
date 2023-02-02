@@ -19,7 +19,7 @@ def show_pdf(file_path):
     with open(file_path,"rb") as f:
         base64_pdf = base64.b64encode(f.read()).decode('utf-8')
     #pdf_display = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="800" height="800" type="application/pdf"></iframe>'
-    pdf_display = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="800" height="800" type="application/pdf" allowfullscreen="true"></iframe>'
+    pdf_display = f'<div style="position:relative; height:800px; width:800px;"><iframe src="data:application/pdf;base64,{base64_pdf}" style="position:absolute; height:100%; width:100%; border:none;"></iframe></div>'
 
     st.markdown(pdf_display, unsafe_allow_html=True)
 
