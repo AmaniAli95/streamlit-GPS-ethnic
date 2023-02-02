@@ -21,4 +21,4 @@ with open("temp.pdf", "wb") as f:
 pdf_file = PyPDF2.PdfReader(open("temp.pdf", "rb"))
 st.write("Content of the PDF file:")
 for page in pdf_file.pages:
-    st.write(page.extract_text()))
+    st.write(page.extract_text())
