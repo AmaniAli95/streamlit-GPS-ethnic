@@ -10,4 +10,10 @@ pdf_files = [f for f in response.json() if f["name"].endswith(".pdf")]
 
 st.sidebar.header("File List")
 filename = st.sidebar.radio("Select a file:", [pdf_file["name"] for pdf_file in pdf_files])
-st.sidebar.write(f"You selected: {filename}")
+st.write(f"You selected: {filename}")
+
+pdf_url = [pdf_file["download_url"] for pdf_file in pdf_files if pdf_file["name"] == filename][0]
+pdf_content = requests.get(pdf_url).content
+
+st.write("Content of the PDF file:")
+st.write(pdf_content)
