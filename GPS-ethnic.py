@@ -17,12 +17,10 @@ filename = st.sidebar.radio("Select a file:", [pdf_file["name"] for pdf_file in 
 st.write(f"You selected: {filename}")
 
 def show_pdf(file_path):
-    pdf_display = f'<a href="{file_path}" target="_blank">Open PDF in new tab</a>'
+    with open(file_path,"rb") as f:
+        base64_pdf = base64.b64encode(f.read()).decode('utf-8')
+    pdf_display = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="800" height="800" type="application/pdf"></iframe>'
     st.markdown(pdf_display, unsafe_allow_html=True)
-    #with open(file_path,"rb") as f:
-    #    base64_pdf = base64.b64encode(f.read()).decode('utf-8')
-    #pdf_display = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="800" height="800" type="application/pdf"></iframe>'
-    #st.markdown(pdf_display, unsafe_allow_html=True)
 
 pdf_url = [pdf_file["download_url"] for pdf_file in pdf_files if pdf_file["name"] == filename][0]
 st.write("Content of the PDF file:")
