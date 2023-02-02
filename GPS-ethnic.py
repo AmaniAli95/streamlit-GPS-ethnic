@@ -10,4 +10,4 @@ pdf_files = [f for f in response.json() if f["name"].endswith(".pdf")]
 
 st.header("File List")
 for filename in filenames:
-    st.sidebar.button(filename)
+    st.sidebar.radio(filename)
