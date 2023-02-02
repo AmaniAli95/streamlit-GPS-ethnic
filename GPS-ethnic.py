@@ -29,14 +29,3 @@ with open("temp.pdf", "wb") as f:
     f.write(response.content)
 show_pdf("temp.pdf")
 
-
-
-
-
-
-with open("temp.pdf", "wb") as f:
-    f.write(pdf_content)
-pdf_file = PyPDF2.PdfReader(open("temp.pdf", "rb"))
-st.write("Content of the PDF file:")
-for page in pdf_file.pages:
-    st.write(page.extract_text())
