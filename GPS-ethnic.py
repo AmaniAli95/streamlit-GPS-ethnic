@@ -47,7 +47,7 @@ if check_password():
 
     pdf_files = [f for f in response.json() if f["name"].endswith(".pdf")]
     st.sidebar.header("File List")
-    filename = st.sidebar.radio("Select a file:", [pdf_file["name"] for pdf_file in pdf_files])
+    filename = st.sidebar.radio("Select a file:", [pdf_file["name"].rstrip(".pdf") for pdf_file in pdf_files])
 
     def show_pdf(file_path):
         with open(file_path,"rb") as f:
