@@ -3,6 +3,8 @@ import pandas as pd
 import requests
 import PyPDF2
 from PyPDF2 import PdfReader
+import base64
+
 st.set_page_config(layout="wide")
 st.title("Scoresheet GE15")
 
