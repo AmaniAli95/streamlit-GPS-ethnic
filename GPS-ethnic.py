@@ -11,10 +11,10 @@ filenames = [f for f in response.json() if f["name"].endswith(".pdf")]
 st.sidebar.header("File List")
 
 if response.status_code != 200:
-    print(f"Error: Response status code is {response.status_code}")
+    st.write(f"Error: Response status code is {response.status_code}")
     exit()
 
-print(response.content)
+st.write(response.content)
 
 for filename in filenames:
     st.sidebar.radio(filename)
