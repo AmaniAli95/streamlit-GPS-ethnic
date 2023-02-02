@@ -20,10 +20,8 @@ def show_pdf(file_path):
     pdf_display = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="800" height="800" type="application/pdf"></iframe>'
     st.markdown(pdf_display, unsafe_allow_html=True)
 
-pdf_url = [pdf_file["download_url"] for pdf_file in pdf_files if pdf_file["name"] == filename][0]
-if filename:
-    st.write("Content of the PDF file:")
-    show_pdf(pdf_url)
+st.write("Content of the PDF file:")
+show_pdf(filename)
 
 
 
