@@ -21,6 +21,7 @@ def show_pdf(file_path):
     st.markdown(pdf_display, unsafe_allow_html=True)
 
 pdf_url = [pdf_file["download_url"] for pdf_file in pdf_files if pdf_file["name"] == filename][0]
+pdf_url = pdf_url.replace("%", " ")
 st.write("Content of the PDF file:")
 st.write(pdf_url)
 show_pdf(pdf_url)
