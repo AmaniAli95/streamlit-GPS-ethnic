@@ -8,6 +8,7 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import datetime
 import pytz
+import plotly.express as px
 tz = pytz.timezone('Asia/Kuala_Lumpur')
 st.set_page_config(layout="wide")
 
