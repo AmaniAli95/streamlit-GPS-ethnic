@@ -111,8 +111,7 @@ if chart_type == "Age":
     ##barchart
     x = list(renamed_columns.values())
     y = selected_rows[list(renamed_columns.values())].iloc[0, :]
-    fig = px.bar(x=x, y=y, color=y, height=400,
-             hover_data={'x': False, 'y': True, 'color': True})
+    fig = px.bar(x=x, y=y, color=y, height=400)
     fig.add_scatter(x=x, y=y, mode='lines', name='Curve')
 
     st.plotly_chart(fig)
