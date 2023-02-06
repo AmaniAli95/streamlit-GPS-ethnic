@@ -108,8 +108,8 @@ if chart_type == "Age":
     st.write(html, unsafe_allow_html=True)
     
     ##barchart
-    header = df.columns
-    headers = df.rows
+    header = dfnew.columns
+    headers = dfnew.rows
     st.write(header)
     st.write(headers)
     #fig = px.bar(dfnew, x='ethnic', y='y1', color='y1', height=400)
