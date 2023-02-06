@@ -11,3 +11,4 @@ oauth2client
 pytz
 PyPDF2
 shillelagh==1.1.5
+plotly
