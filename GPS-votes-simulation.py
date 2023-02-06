@@ -109,8 +109,8 @@ if chart_type == "Age":
     st.write(html, unsafe_allow_html=True)
     
     ##barchart
-    x = selected_rows[list(renamed_columns.values())]
-    y = total
+    x = list(renamed_columns.values())
+    y = selected_rows[list(renamed_columns.values())][1]
     st.write(x)
     st.write(y)
     fig = px.bar(dfnew, x=x, y=y, color=y, height=400)
