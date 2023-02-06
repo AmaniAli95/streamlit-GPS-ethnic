@@ -114,9 +114,8 @@ if chart_type == "Age":
     fig = px.bar(x=x, y=y, color=y, height=400)
     fig.add_scatter(x=x, y=y, mode='lines', name='Curve')
     fig.update_layout(
-    title="Number of Registered Voters by Ethnics",
     xaxis_title="Age Group",
-    yaxis_title="Number of Registered Voters",
+    yaxis_title="Registered Voters",
     font=dict(
         family="Courier New, monospace",
         size=18,
@@ -214,6 +213,15 @@ elif chart_type == "Ethnic":
     y = selected_rows[list(renamed_columns.values())].iloc[0, :]
     fig = px.bar(x=x, y=y, color=y, height=400)
     fig.add_scatter(x=x, y=y, mode='lines', name='Curve')
+    fig.update_layout(
+    xaxis_title="Ethnics",
+    yaxis_title="Registered Voters",
+    font=dict(
+        family="Courier New, monospace",
+        size=18,
+        color="RebeccaPurple"
+        )
+    )
     st.plotly_chart(fig)
 
     #Slider values
