@@ -11,11 +11,6 @@ import pytz
 tz = pytz.timezone('Asia/Kuala_Lumpur')
 st.set_page_config(layout="wide")
 
-import collections
-st.write("1")
-st.write(collections.__file__)
-st.write("2")
-
 url = "https://github.com/AmaniAli95/streamlit-GPS-ethnic/raw/main/demographic.csv"
 df = pd.read_csv(url)
 age_columns = [col for col in df.columns if col.startswith('age_group|')]
@@ -111,7 +106,17 @@ if chart_type == "Age":
         .render()
     )
     st.write(html, unsafe_allow_html=True)
+    
+    ##barchart
+    header = df.columns
+    headers = df.rows
+    st.write(header)
+    st.write(headers)
+    #fig = px.bar(dfnew, x='ethnic', y='y1', color='y1', height=400)
+    #fig.add_scatter(x=df['x'], y=df['y2'], mode='lines', name='Curve')
 
+    #st.plotly_chart(fig)
+    
     #Slider values
     st.markdown('### ')
     col1, col2, col3, col4 = st.columns([1, 2, 2, 1])
