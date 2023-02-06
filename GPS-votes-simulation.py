@@ -113,7 +113,7 @@ if chart_type == "Age":
     y = selected_rows[list(renamed_columns.values())].iloc[0, :]
     st.write(x)
     st.write(y)
-    fig = px.bar(dfnew, x=x, y=y, color=y, height=400)
+    fig = px.bar(x=x, y=y, color=y, height=400)
     fig.add_scatter(x=x, y=y, mode='lines', name='Curve')
 
     st.plotly_chart(fig)
