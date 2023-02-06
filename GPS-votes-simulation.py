@@ -12,6 +12,17 @@ import plotly.express as px
 tz = pytz.timezone('Asia/Kuala_Lumpur')
 st.set_page_config(layout="wide")
 
+#----------------------Hide Streamlit footer----------------------------
+hide_st_style = “”"
+
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+header {visibility: hidden;}
+
+“”"
+st.markdown(hide_st_style, unsafe_allow_html=True)
+#--------------------------------------------------------------------
+
 url = "https://github.com/AmaniAli95/streamlit-GPS-ethnic/raw/main/demographic.csv"
 df = pd.read_csv(url)
 age_columns = [col for col in df.columns if col.startswith('age_group|')]
