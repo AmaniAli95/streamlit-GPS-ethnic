@@ -108,12 +108,12 @@ if chart_type == "Age":
     st.write(html, unsafe_allow_html=True)
     
     ##barchart
-    header = dfnew.columns
-    st.write(header)
-    #fig = px.bar(dfnew, x='ethnic', y='y1', color='y1', height=400)
-    #fig.add_scatter(x=df['x'], y=df['y2'], mode='lines', name='Curve')
+    x = dfnew.iloc[0, :].values
+    y = dfnew.iloc[1, :].values
+    fig = px.bar(dfnew, x=x, y=y, color=y, height=400)
+    fig.add_scatter(x=x, y=y, mode='lines', name='Curve')
 
-    #st.plotly_chart(fig)
+    st.plotly_chart(fig)
     
     #Slider values
     st.markdown('### ')
