@@ -111,6 +111,8 @@ if chart_type == "Age":
     ##barchart
     x = dfnew.iloc[0, :].values
     y = dfnew.iloc[1, :].values
+    st.write(x)
+    st.write(y)
     fig = px.bar(dfnew, x=x, y=y, color=y, height=400)
     fig.add_scatter(x=x, y=y, mode='lines', name='Curve')
 
