@@ -72,6 +72,7 @@ if check_password():
     with open("temp.pdf", "wb") as f:
         f.write(response.content)
     show_pdf("temp.pdf")
+    images = Image.open("temp.pdf")
 
     show_pdf_as_image(pdf_url)
 
