@@ -61,8 +61,10 @@ if check_password():
     
     def show_pdf_as_image(pdf_url):
         response = requests.get(pdf_url)
-        pdf_file = BytesIO(response.content)
-        images = convert_from_path(pdf_file)
+        with open("temp.pdf", "wb") as f:
+            f.write(response.content)
+
+        images = convert_from_path("temp.pdf")
         for image in images:
             st.image(image)
 
