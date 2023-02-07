@@ -4,7 +4,8 @@ import requests
 import PyPDF2
 from PyPDF2 import PdfReader
 import base64
-from PIL import Image
+from io import BytesIO
+from pdf2image import convert_from_path
 
 st.set_page_config(layout="wide")
 st.title("Scoresheet GE15")
@@ -60,9 +61,8 @@ if check_password():
     
     def show_pdf_as_image(pdf_url):
         response = requests.get(pdf_url)
-        with open("temp.pdf", "wb") as f:
-            f.write(response.content)
-        images = convert_from_path("temp.pdf")
+        pdf_file = BytesIO(response.content)
+        images = convert_from_path(pdf_file)
         for image in images:
             st.image(image)
 
@@ -72,7 +72,5 @@ if check_password():
     with open("temp.pdf", "wb") as f:
         f.write(response.content)
     show_pdf("temp.pdf")
-    images = Image.open("temp.pdf")
-
     show_pdf_as_image(pdf_url)
 
