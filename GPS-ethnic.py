@@ -4,6 +4,7 @@ import requests
 import PyPDF2
 from PyPDF2 import PdfReader
 import base64
+from IPython.display import IFrame
 
 st.set_page_config(layout="wide")
 st.title("Scoresheet GE15")
@@ -63,4 +64,7 @@ if check_password():
     with open("temp.pdf", "wb") as f:
         f.write(response.content)
     show_pdf("temp.pdf")
+
+    pdf_file = 'temp.pdf'
+    IFrame(pdf_file, width=800, height=600, align='center')
 
