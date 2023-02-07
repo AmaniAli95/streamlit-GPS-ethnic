@@ -57,6 +57,14 @@ if check_password():
         pdf_display = f'<div style="position:relative; height:800px; width:800px;"><iframe src="data:application/pdf;base64,{base64_pdf}" style="position:absolute; height:100%; width:100%; border:none;"></iframe></div>'
 
         st.markdown(pdf_display, unsafe_allow_html=True)
+    
+    def show_pdf_as_image(pdf_url):
+        response = requests.get(pdf_url)
+        with open("temp.pdf", "wb") as f:
+            f.write(response.content)
+        images = convert_from_path("temp.pdf")
+        for image in images:
+            st.image(image)
 
     pdf_url = [pdf_file["download_url"] for pdf_file in pdf_files if pdf_file["name"] == filename + ".pdf"][0]
     st.write("Content of the PDF file:")
@@ -64,10 +72,6 @@ if check_password():
     with open("temp.pdf", "wb") as f:
         f.write(response.content)
     show_pdf("temp.pdf")
-    
-    def show_pdf_as_image(file_path):
-        pdf = Image.open(file_path)
-        png_image = pdf.convert("RGBA")
-        st.image(png_image, width=800, caption=file_path)
-    show_pdf_as_image("temp.pdf")
+
+    show_pdf_as_image(pdf_url)
 
