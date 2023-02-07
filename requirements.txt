@@ -12,4 +12,6 @@ pytz
 PyPDF2
 shillelagh==1.1.5
 plotly
-ipython==7.19.0
+Pillow
+img2pdf
+
