@@ -64,7 +64,7 @@ if check_password():
     with open("temp.pdf", "wb") as f:
         f.write(response.content)
     show_pdf("temp.pdf")
-
+    st.write("kk")
     pdf_file = 'temp.pdf'
     IFrame(pdf_file, width=800, height=600, align='center')
 
