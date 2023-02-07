@@ -13,5 +13,5 @@ PyPDF2
 shillelagh==1.1.5
 plotly
 Pillow
-img2pdf
+pdf2image
 
