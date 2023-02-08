@@ -58,16 +58,21 @@ if check_password():
 #        f.write(response.content)
 #    show_pdf("temp.pdf")
 
-    def show_pdf_js(file_path, pdf_js_url):
-        with open(file_path, "rb") as f:
-            base64_pdf = base64.b64encode(f.read()).decode("utf-8")
-        pdf_display = f'<iframe src="{pdf_js_url}/web/viewer.html?file=data:application/pdf;base64,{base64_pdf}" width="800" height="800" type="text/html" frameborder=0></iframe>'
+    def show_pdf(file_path):
+        try:
+            with open(file_path,"rb") as f:
+                base64_pdf = base64.b64encode(f.read()).decode('utf-8')
+            pdf_display = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="800" height="800" type="application/pdf"></iframe>'
 
-        st.markdown(pdf_display, unsafe_allow_html=True)
+            st.markdown(pdf_display, unsafe_allow_html=True)
+        except FileNotFoundError:
+            st.write("The PDF file could not be found")
+        except IOError:
+            st.write("An error occurred while reading the PDF file")
 
     pdf_url = [pdf_file["download_url"] for pdf_file in pdf_files if pdf_file["name"] == filename + ".pdf"][0]
     response = requests.get(pdf_url)
     with open("temp.pdf", "wb") as f:
         f.write(response.content)
-    pdf_js_url = "https://mozilla.github.io/pdf.js"
-    show_pdf_js("temp.pdf", pdf_js_url)
+    show_pdf("temp.pdf")
+
