@@ -4,8 +4,6 @@ import requests
 import PyPDF2
 from PyPDF2 import PdfReader
 import base64
-import tempfile
-import subprocess
 
 st.set_page_config(layout="wide")
 st.title("Scoresheet GE15")
