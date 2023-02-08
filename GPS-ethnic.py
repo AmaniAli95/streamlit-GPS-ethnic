@@ -61,9 +61,9 @@ if check_password():
 #    show_pdf("temp.pdf")
 
     def pdf_to_image(pdf_file, page_number=0, dpi=200):
-    with tempfile.NamedTemporaryFile(suffix=".png") as img:
-        subprocess.run(["convert", "-density", str(dpi), f"{pdf_file}[{page_number}]", img.name])
-        return img.name
+        with tempfile.NamedTemporaryFile(suffix=".png") as img:
+            subprocess.run(["convert", "-density", str(dpi), f"{pdf_file}[{page_number}]", img.name])
+            return img.name
     
     pdf_url = [pdf_file["download_url"] for pdf_file in pdf_files if pdf_file["name"] == filename + ".pdf"][0]
     response = requests.get(pdf_url)
