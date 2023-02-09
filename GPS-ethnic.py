@@ -48,30 +48,14 @@ if check_password():
     st.sidebar.header("File List")
     filename = st.sidebar.radio("Select a file:", [pdf_file["name"].rstrip(".pdf") for pdf_file in pdf_files])
 
-#    def show_pdf(file_path):
-#        with open(file_path,"rb") as f:
-#            base64_pdf = base64.b64encode(f.read()).decode('utf-8')
-#        pdf_display = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="800" height="800" type="application/pdf"></iframe>'
-#        st.markdown(pdf_display, unsafe_allow_html=True)
+    def show_pdf(file_path):
+        with open(file_path,"rb") as f:
+            base64_pdf = base64.b64encode(f.read()).decode('utf-8')
+        pdf_display = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="800" height="800" type="application/pdf"></iframe>'
+        st.markdown(pdf_display, unsafe_allow_html=True)
 
-#    pdf_url = [pdf_file["download_url"] for pdf_file in pdf_files if pdf_file["name"] == filename + ".pdf"][0]
-#    response = requests.get(pdf_url)
-#    with open("temp.pdf", "wb") as f:
-#        f.write(response.content)
-#    show_pdf("temp.pdf")
-
-    def pdf_to_image(pdf_file, page_number=0, dpi=200):
-        with tempfile.NamedTemporaryFile(suffix=".png") as img:
-            subprocess.run(["convert", "-density", str(dpi), f"{pdf_file}[{page_number}]", img.name])
-            return img.name
-    
     pdf_url = [pdf_file["download_url"] for pdf_file in pdf_files if pdf_file["name"] == filename + ".pdf"][0]
     response = requests.get(pdf_url)
     with open("temp.pdf", "wb") as f:
         f.write(response.content)
-        
-    # convert the first page of the PDF file to image
-    image_file = pdf_to_image("temp.pdf")
-
-    # display the image
-    st.image(image_file, width=600)
+    show_pdf("temp.pdf")
